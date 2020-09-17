@@ -1,3 +1,29 @@
 * {
    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+.grid {
+   margin: 3em;
+   border: red 1px solid;
+   background-color: aquamarine;
+   display: grid;
+   grid-template-columns: 20% 20% 20% 20% 20%;
+   grid-template-rows: 20% 20% 20% 20% 20%;
+}
+#item1 {
+   grid-column: 1/2;
+   grid-row: 1/2;
+}
+#item2 {
+   grid-column: 2/3;
+   grid-row: 2/3;
+}
+#item3 {
+   grid-column: 3/4;
+   grid-row: 3/4;
+}
+#item4 {
+   grid-column: 4/5;
+   grid-row: 4/5;
 }
