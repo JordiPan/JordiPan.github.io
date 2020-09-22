@@ -5,21 +5,23 @@
 }
 h1 {
    text-align: center;
+   font-style: italic;
 }
 .container { 
    display: flex;
    flex-flow: wrap;
-   margin: 5em;
+   width: 45em;
+   height: 30em;
+   margin-left: 27%;
    border: black 2px solid;
    background-color: rgb(87, 87, 255);
 }
 .items {
-   flex: 1 0 11%;
-   margin: 1em;
-   padding: 2em;
+   flex: 1 0 12%;
+   margin: 10px;
    border-radius: 100%;
    border: black 0.1em solid;
-   text-align:center;
+   text-align: center;
    background-color: white;
 }
 #item1 {
