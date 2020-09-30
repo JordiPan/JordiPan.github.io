@@ -29,7 +29,7 @@ h1 {
    text-align: center;
    background-color: white;
 }
-#stopButton {
+#resetButton {
    color: white;
    float: right;
    padding: 0.5em;
