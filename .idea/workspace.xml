@@ -45,7 +45,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/index.html" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -55,6 +55,11 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JavascriptDebugType" engineId="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" uri="http://localhost:63342/JordiPan.github.io/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -69,6 +74,7 @@
       <workItem from="1600850431202" duration="6715000" />
       <workItem from="1600940668238" duration="10322000" />
       <workItem from="1601448330287" duration="6535000" />
+      <workItem from="1601542869061" duration="5836000" />
     </task>
     <servers />
   </component>
@@ -88,9 +94,13 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600850428705">
+    <state x="828" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601555504703">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600850428705" />
+    <state x="828" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601555504703" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1601555491456">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601555491456" />
   </component>
 </project>

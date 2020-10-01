@@ -11,6 +11,11 @@
 h1 {
    text-align: center;
 }
+body {
+   background-image: url("https://i2.wp.com/phoenixheliparts.com/wp-content/uploads/2014/06/good-background.jpg?fit=848%2C1024");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
 .container {
    display: flex;
    flex-flow: wrap;

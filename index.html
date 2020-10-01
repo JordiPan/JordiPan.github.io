@@ -15,20 +15,20 @@
     <form>
         <h3>Typ hier de namen in!</h3>
         <label for="pName1" class="pName1">Player 1:</label>
-        <input type="text" name="pName1" id="pName1" placeholder="speler1">
+        <input type="text" id="pName1" required placeholder="speler1">
         <br>
         <label for="pName2" class="pName2">Player 2:</label>
-        <input type="text" name="pName2" id="pName2" placeholder="speler2">
+        <input type="text" id="pName2" required placeholder="speler2">
         <br>
-        <button id="startButton">Start</button>
+        <button id="startButton" >Start</button>
     </form>
 
     <div class="statistics">
-        <h2>speler1</h2>
+        <h2 id="speler1"></h2>
         <br>
         <h2>Winsten: 0</h2>
         <br>
-        <h2>speler2</h2>
+        <h2 id="speler2"></h2>
         <br>
         <h2>Winsten: 0</h2>
     </div>

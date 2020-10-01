@@ -18,13 +18,9 @@ for(var i = 0; i < 42; i++){
     backside.className = 'items';
     container.appendChild(backside);
 }
-let rezero = document.querySelector("#resetButton")
 let el = document.querySelector(".container");
 let message = document.querySelector("#messageWindow");
 
-rezero.addEventListener('click', stop => {
-    Aaa();
-})
 // Het gaat naar function handleClick als er geklikt wordt in de container.
 el.addEventListener('click' , event => {
     handleClick(event);
@@ -81,22 +77,33 @@ function toonModel()
     })
 }
 
-function Aaa() {
+let reset = document.querySelector("#resetButton")
+reset.addEventListener('click', () => {
+    restart();
+})
 
+function restart() {
     const vakjesHTML=document.querySelectorAll('.container > div');
     vakjesHTML.forEach(element=>{
         element.style.backgroundColor = "white";
+        message.innerHTML = "reset...";
     })
 
-    for (let rij = 0; rij >= 5; rij++) {
-        for (let kolom = 0; kolom >= 6; kolom++) {
+    for(let rij=0;rij<6;rij++) {
+        for(let kolom=0;kolom<7;kolom++) {
             vakjes[rij][kolom] = "leeg";
-            console.log("rij:" + rij +' '+ "kolom:" + kolom + " status:"+vakjes[rij][kolom] + teller)
         }
     }
 }
-
-
+    document.getElementById("startButton").addEventListener('click',enterNames);
+function enterNames() {
+   let player1 = document.getElementById("pName1").value;
+   let player2 = document.getElementById("pName2").value;
+   let scoreName1 = document.getElementById("speler1");
+   let scoreName2 = document.getElementById("speler2");
+   scoreName1.innerHTML = player1;
+   scoreName2.innerHTML = player2;
+}
 /*function test() {
 
     id = 0;
