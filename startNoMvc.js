@@ -51,7 +51,17 @@ function plaatsFiche(kolom)
     {
         if(vakjes[rij][kolom]==="leeg")
         {
-            vakjes[rij][kolom]="vol";
+            if(beurtNum === 0) {
+                vakjes[rij][kolom]="blauw";
+                actueelBeurt();
+                beurtViewUpdate(beurtNum);
+            }
+            else {
+                vakjes[rij][kolom]="rood";
+                actueelBeurt();
+                beurtViewUpdate(beurtNum);
+            }
+            
             return;
         }
     }
@@ -76,18 +86,12 @@ function toonModel()
     vakjesHTML.forEach(element => {
         let rij=Math.floor(teller/7);
         let kolom=teller%7;
-        if(vakjes[rij][kolom]=="vol"){
-            if (beurtNum == 0 && vakjes[rij][kolom] != "leeg") {
+        if(vakjes[rij][kolom]==="blauw"){
                 element.style.backgroundColor = "blue";
-                console.log("blauw1");
-            }
-            else if (beurtNum == 1 && vakjes[rij][kolom] != "leeg") {
+        }
+            else if (vakjes[rij][kolom] === "rood") {
                 element.style.backgroundColor = "red";
-                console.log("red2");
-              
             }
-        } 
-          actueelBeurt()
         teller++;
     })
 }
@@ -155,8 +159,22 @@ function beurtView(player1, player2) {
             }
     }
 
+    function beurtViewUpdate(beurtNum) {
+        let player1 = document.getElementById("pName1").value;
+        let player2 = document.getElementById("pName2").value;
+        let beurt = document.getElementById("beurt");
+        
+            if(beurtNum == 0) {
+                beurt.innerHTML = "Beurt: " + player1;
+                beurt.style.color = "blue";
+            }
+            else {
+                beurt.innerHTML = "Beurt: " + player2;
+                beurt.style.color = "red";
+            }
+    }
 function actueelBeurt() {
-    console.log(a);
+    console.log(beurtNum);
     if(a) {
         beurtNum = Math.floor(Math.random() * 2);
         a = false;
