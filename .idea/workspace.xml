@@ -56,6 +56,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\302624262\WebstormProjects\JordiPan.github.io\controller" />
+      <recent name="C:\Users\302624262\WebstormProjects\JordiPan.github.io\model" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JavascriptDebugType" engineId="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" uri="http://localhost:63342/JordiPan.github.io/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -75,6 +81,8 @@
       <workItem from="1600940668238" duration="10322000" />
       <workItem from="1601448330287" duration="6535000" />
       <workItem from="1601542869061" duration="5836000" />
+      <workItem from="1602053019083" duration="2374000" />
+      <workItem from="1602058650285" duration="7089000" />
     </task>
     <servers />
   </component>
@@ -98,9 +106,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="828" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601555504703" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1601555491456">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1602060643361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601555491456" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602060643361" />
   </component>
 </project>

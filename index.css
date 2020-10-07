@@ -10,11 +10,16 @@
 }
 h1 {
    text-align: center;
+   font-size: 3em;
 }
 body {
    background-image: url("https://i2.wp.com/phoenixheliparts.com/wp-content/uploads/2014/06/good-background.jpg?fit=848%2C1024");
    background-repeat: no-repeat;
    background-size: cover;
+}
+#bordContainer {
+   display: flex;
+   justify-content: center;
 }
 .container {
    display: flex;
@@ -22,28 +27,26 @@ body {
    justify-content: center;
    width: 40em;
    height: 30em;
-   margin-left: 28em;
    border: black 4px solid;
    background-color: rgb(0, 68, 253);
 }
 .items {
    width: 4.5em;
-   margin: 10px;
+   margin: 0.4em;
    border-radius: 100%;
    border: black 0.1em solid;
    text-align: center;
    background-color: white;
+   position: relative;
 }
 #resetButton {
    color: white;
-   float: right;
    padding: 0.5em;
    padding-left: 1.8em;
    padding-right: 1.8em;
    background-color: rgb(141, 0, 0);
    outline:none;
    border: none;
-   margin-right: 20%;
 }
 form {
    text-align: center;
@@ -79,6 +82,7 @@ form {
 .statistics {
    float: left;
    margin-left: 10%;
+   font-size: 1.5em;
 }
 #messageWindow {
    text-align: center;
