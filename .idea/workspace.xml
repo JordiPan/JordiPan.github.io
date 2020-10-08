@@ -13,7 +13,6 @@
     <list default="true" id="8cbff785-aaeb-4786-8fe6-fa523cfb8d5b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/startNoMvc.js" beforeDir="false" afterPath="$PROJECT_DIR$/startNoMvc.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,6 +82,7 @@
       <workItem from="1601542869061" duration="5836000" />
       <workItem from="1602053019083" duration="2374000" />
       <workItem from="1602058650285" duration="7089000" />
+      <workItem from="1602143234482" duration="15279000" />
     </task>
     <servers />
   </component>
@@ -106,9 +106,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="828" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601555504703" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602157118754">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602157118754" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1602060643361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602060643361" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1602152267500">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1602152267500" />
   </component>
 </project>
