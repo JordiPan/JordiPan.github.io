@@ -5,6 +5,8 @@ export class ViewBord {
         this.controllerBord = c;
         this.modelBord = m;
 
+        this.form = document.getElementById("form");
+
         this.message = document.querySelector("#messageWindow");
 
         const startBtn = document.getElementById("startButton");
@@ -74,14 +76,14 @@ export class ViewBord {
     beurtViewUpdate(beurtNum) {
         let player1 = document.getElementById("pName1").value;
         let player2 = document.getElementById("pName2").value;
-        let beurt = document.getElementById("beurt");
+        this.beurt = document.getElementById("beurt");
 
         if (beurtNum === 0) {
-            beurt.innerHTML = "Beurt: " + player1;
-            beurt.style.color = "blue";
+            this.beurt.innerHTML = "Beurt: " + player1;
+            this.beurt.style.color = "blue";
         } else {
-            beurt.innerHTML = "Beurt: " + player2;
-            beurt.style.color = "red";
+            this.beurt.innerHTML = "Beurt: " + player2;
+            this.beurt.style.color = "red";
         }
     }
 
@@ -99,15 +101,14 @@ export class ViewBord {
             }
         }
 
-        let form = document.getElementById("form");
-        form.classList.remove("hidden");
+        this.form.classList.remove("hidden");
 
         let scoreName1 = document.getElementById("speler1");
         let scoreName2 = document.getElementById("speler2");
         scoreName1.innerHTML = "Speler1";
         scoreName2.innerHTML = "Speler2";
 
-        this.beurt.innerHTML = "Beurt: geen idee";
+        this.beurt.innerHTML = "Beurt: ???";
         this.beurt.style.color = "black";
     }
 

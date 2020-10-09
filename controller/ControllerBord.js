@@ -26,12 +26,12 @@ export class ControllerBord {
                     else {
                         this.modelBord.vakjes[rij][kolom]="rood";
                     }
+                    this.viewBord.actueelBeurt();
+                    this.viewBord.beurtViewUpdate(this.beurtNum);
+
                     return;
                 }
             }
-            console.log("werk ")
-            this.viewBord.actueelBeurt();
-            this.viewBord.beurtViewUpdate(this.beurtNum);
         }
         else {
             alert("typ eerst de namen in!")
@@ -59,5 +59,9 @@ export class ControllerBord {
             }
             teller++;
         })
+    }
+
+    checkWinnaar() {
+
     }
 }
