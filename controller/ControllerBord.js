@@ -21,16 +21,14 @@ export class ControllerBord {
                 if(this.modelBord.vakjes[rij][kolom]==="leeg")
                 {
                     if(this.beurtNum === 0) {
-                        this.checkWinnaar(kolom, this.beurtNum);
                         this.modelBord.vakjes[rij][kolom]="blauw";
                     }
                     else {
-                        this.checkWinnaar(kolom, this.beurtNum);
-                        this.modelBord.vakjes[rij][kolom]="rood";
+                        this.modelBord.vakjes[rij][kolom]="rood"; 
                     }
                     this.viewBord.actueelBeurt();
                     this.viewBord.beurtViewUpdate(this.beurtNum);
-
+                    this.checkWinnaar(kolom, this.beurtNum, rij);
                     return;
                 }
             }
@@ -63,7 +61,14 @@ export class ControllerBord {
         })
     }
 
-    checkWinnaar(kolom, beurtNum) {
-        console.log(kolom +'' + beurtNum);
+    checkWinnaar(kolom, beurtNum, rij) {
+        //verticaal onder check 
+        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum );
+        console.log(this.modelBord.vakjes[rij][kolom]);
+    }
+
+
+    gameEnd(){
+        console.log("game end dude");
     }
 }
