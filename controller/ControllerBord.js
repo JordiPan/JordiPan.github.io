@@ -21,9 +21,11 @@ export class ControllerBord {
                 if(this.modelBord.vakjes[rij][kolom]==="leeg")
                 {
                     if(this.beurtNum === 0) {
+                        this.checkWinnaar(kolom, this.beurtNum);
                         this.modelBord.vakjes[rij][kolom]="blauw";
                     }
                     else {
+                        this.checkWinnaar(kolom, this.beurtNum);
                         this.modelBord.vakjes[rij][kolom]="rood";
                     }
                     this.viewBord.actueelBeurt();
@@ -61,7 +63,7 @@ export class ControllerBord {
         })
     }
 
-    checkWinnaar() {
-
+    checkWinnaar(kolom, beurtNum) {
+        console.log(kolom +'' + beurtNum);
     }
 }
