@@ -71,93 +71,88 @@ export class ControllerBord {
     //verticaal onder check 
         if(rij <= 2) {
             if(this.vakjes[rij + 1][kolom] === this.kleur && this.vakjes[rij + 2][kolom] === this.kleur && this.vakjes[rij + 3][kolom] === this.kleur) {
-            this.gameEnd();
+            this.viewBord.gameEnd(this.beurtNum);
             return;
             }
         }
     //horizontaal check (geplaatst op [0]000)
-            if(this.vakjes[rij][kolom - 1] === this.kleur && this.vakjes[rij][kolom - 2] === this.kleur && this.vakjes[rij][kolom - 3] === this.kleur) {
-            this.gameEnd();
+        if(this.vakjes[rij][kolom - 1] === this.kleur && this.vakjes[rij][kolom - 2] === this.kleur && this.vakjes[rij][kolom - 3] === this.kleur) {
+            this.viewBord.gameEnd(this.beurtNum);
             console.log(this.vakjes[rij][kolom - 1]);
             return;
-            }
+        }
     //horizontaal check (geplaatst op 0[0]00)
-            else if(this.vakjes[rij][kolom - 1] === this.kleur && this.vakjes[rij][kolom + 1] === this.kleur && this.vakjes[rij][kolom + 2] === this.kleur) {
-            this.gameEnd();
+        else if(this.vakjes[rij][kolom - 1] === this.kleur && this.vakjes[rij][kolom + 1] === this.kleur && this.vakjes[rij][kolom + 2] === this.kleur) {
+            this.viewBord.gameEnd(this.beurtNum);
             return;
         }
     //horizontaal check (geplaatst op 00[0]0)
-            else if(this.vakjes[rij][kolom + 1] === this.kleur && this.vakjes[rij][kolom - 1] === this.kleur && this.vakjes[rij][kolom - 2] === this.kleur) {
-            this.gameEnd();
+        else if(this.vakjes[rij][kolom + 1] === this.kleur && this.vakjes[rij][kolom - 1] === this.kleur && this.vakjes[rij][kolom - 2] === this.kleur) {
+            this.viewBord.gameEnd(this.beurtNum);
             return;
         }
     //horizontaal check (geplaatst op 000[0])
-            else if(this.vakjes[rij][kolom + 1] === this.kleur && this.vakjes[rij][kolom + 2] === this.kleur && this.vakjes[rij][kolom + 3] === this.kleur) {
-            this.gameEnd();
+        else if(this.vakjes[rij][kolom + 1] === this.kleur && this.vakjes[rij][kolom + 2] === this.kleur && this.vakjes[rij][kolom + 3] === this.kleur) {
+            this.viewBord.gameEnd(this.beurtNum);
             return;
         }
 
 
     //diagonaal check (links 1/4 boven naar beneden)
-    if(rij <= 2) {
-        if(this.vakjes[rij + 1][kolom + 1] === this.kleur && this.vakjes[rij + 2][kolom + 2] === this.kleur && this.vakjes[rij + 3][kolom + 3] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij <= 2) {
+            if(this.vakjes[rij + 1][kolom + 1] === this.kleur && this.vakjes[rij + 2][kolom + 2] === this.kleur && this.vakjes[rij + 3][kolom + 3] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
-    }
+        }
     //diagonaal check (links 2/4 boven naar beneden)
-    if(rij <= 3 && rij > 0) {
-        if(this.vakjes[rij - 1][kolom - 1] === this.kleur && this.vakjes[rij + 1][kolom + 1] === this.kleur && this.vakjes[rij + 2][kolom + 2] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij <= 3 && rij > 0) {
+            if(this.vakjes[rij - 1][kolom - 1] === this.kleur && this.vakjes[rij + 1][kolom + 1] === this.kleur && this.vakjes[rij + 2][kolom + 2] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
-    }
+        }
     //diagonaal check (links 3/4 boven naar beneden)
-    if(rij <= 4 && rij > 1) {
-        if(this.vakjes[rij - 1][kolom - 1] === this.kleur && this.vakjes[rij - 2][kolom - 2] === this.kleur && this.vakjes[rij + 1][kolom + 1] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij <= 4 && rij > 1) {
+            if(this.vakjes[rij - 1][kolom - 1] === this.kleur && this.vakjes[rij - 2][kolom - 2] === this.kleur && this.vakjes[rij + 1][kolom + 1] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
-    }
+        }
     //diagonaal check (links 4/4 boven naar beneden)
-    if(rij >= 3) {
-        if(this.vakjes[rij - 1][kolom - 1] === this.kleur && this.vakjes[rij - 2][kolom - 2] === this.kleur && this.vakjes[rij - 3][kolom - 3] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij >= 3) {
+            if(this.vakjes[rij - 1][kolom - 1] === this.kleur && this.vakjes[rij - 2][kolom - 2] === this.kleur && this.vakjes[rij - 3][kolom - 3] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
-    }
+        }
     //diagonaal check (rechts 1/4 boven naar beneden)
-    if(rij <= 2) {
-        if(this.vakjes[rij + 1][kolom - 1] === this.kleur && this.vakjes[rij + 2][kolom - 2] === this.kleur && this.vakjes[rij + 3][kolom - 3] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij <= 2) {
+            if(this.vakjes[rij + 1][kolom - 1] === this.kleur && this.vakjes[rij + 2][kolom - 2] === this.kleur && this.vakjes[rij + 3][kolom - 3] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
         }
     //diagonaal check (rechts 2/4 boven naar beneden)
-    if(rij <= 3 && rij > 0) {
-        if(this.vakjes[rij - 1][kolom + 1] === this.kleur && this.vakjes[rij + 1][kolom - 1] === this.kleur && this.vakjes[rij + 2][kolom - 2] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij <= 3 && rij > 0) {
+            if(this.vakjes[rij - 1][kolom + 1] === this.kleur && this.vakjes[rij + 1][kolom - 1] === this.kleur && this.vakjes[rij + 2][kolom - 2] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
-    }
+        }
     //diagonaal check (rechts 3/4 boven naar beneden)
-    if(rij <= 4 && rij > 1) {
-        if(this.vakjes[rij - 1][kolom + 1] === this.kleur && this.vakjes[rij + 1][kolom - 1] === this.kleur && this.vakjes[rij + 2][kolom - 2] === this.kleur) {
-            this.gameEnd();
-            return;
+        if(rij <= 4 && rij > 1) {
+            if(this.vakjes[rij + 1][kolom - 1] === this.kleur && this.vakjes[rij - 1][kolom + 1] === this.kleur && this.vakjes[rij - 2][kolom + 2] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
             }
-    }
-    }
-    
-
-    gameEnd(){
-        console.log("gameEnd denkt: " + this.beurtNum);
-        if(this.beurtNum === 0) {
-            console.log("game end blauw wint");
         }
-        else {
-            console.log("game end rood wint");
+    //diagonaal check (rechts 4/4 boven naar beneden)
+        if(rij >= 3) {
+            if(this.vakjes[rij - 1][kolom + 1] === this.kleur && this.vakjes[rij - 2][kolom + 2] === this.kleur && this.vakjes[rij - 3][kolom + 3] === this.kleur) {
+                this.viewBord.gameEnd(this.beurtNum);
+                return;
+            }
         }
-        this.active = false;
     }
-}
+}   

@@ -17,27 +17,25 @@
             <label for="pName2" class="pName2">Player 2:</label>
             <input type="text" id="pName2" placeholder="speler2" maxlength="9">
             <br>
-            <div id="startButton">Start</div>
-            
+            <div id="startButton">Start spel!</div>
         </form>
-    
+        <div id="messageWindow" class="hidden">
+            <div id="speelWeer"> Nog een keer!</div>
+        </div>
         <div class="statistics">
             <h2 id="speler1">Speler1</h2>
             <br>
-            <h2>Winsten: 0</h2>
+            <h2 id="winst1">Winsten: 0</h2>
             <br>
             <h2 id="speler2">Speler2</h2>
             <br>
-            <h2>Winsten: 0</h2>
+            <h2 id="winst2">Winsten: 0</h2>
         </div>
         <div id="bordContainer">
             <div class="container"id="cont">
             </div>
         </div>
     
-        <div id="messageWindow">
-            [Voorbeeld]
-        </div>
     <script type="module" src="start.js"></script>
 </body>
 </html>
