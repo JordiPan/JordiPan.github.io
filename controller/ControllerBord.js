@@ -22,11 +22,11 @@ export class ControllerBord {
                 {
                     if(this.beurtNum === 0) {
                         this.modelBord.vakjes[rij][kolom]="blauw";
-                        this.checkWinnaar(kolom, this.beurtNum, rij);
+                        this.checkWinnaar(kolom, rij);
                     }
                     else {
                         this.modelBord.vakjes[rij][kolom]="rood"; 
-                        this.checkWinnaar(kolom, this.beurtNum, rij);
+                        this.checkWinnaar(kolom, rij);
                     }
                     this.viewBord.actueelBeurt();
                     this.viewBord.beurtViewUpdate(this.beurtNum);
@@ -59,8 +59,7 @@ export class ControllerBord {
         })
     }
 
-    checkWinnaar(kolom, beurtNum, rij) {
-        //verticaal onder check 
+    checkWinnaar(kolom, rij) {
         console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum);
         if(beurtNum === 0) {
             this.kleur = "blauw";
@@ -69,13 +68,37 @@ export class ControllerBord {
             this.kleur = "rood";
         }
         
-            if(rij <= 2) {
-                if(this.modelBord.vakjes[rij + 1][kolom] === this.kleur && this.modelBord.vakjes[rij + 2][kolom] === this.kleur && this.modelBord.vakjes[rij + 3][kolom] === this.kleur) {
-                this.gameEnd();
+    //verticaal onder check 
+        if(rij <= 2) {
+            if(this.modelBord.vakjes[rij + 1][kolom] === this.kleur && this.modelBord.vakjes[rij + 2][kolom] === this.kleur && this.modelBord.vakjes[rij + 3][kolom] === this.kleur) {
+            this.gameEnd();
+            }
+        }
+    //horizontaal check (geplaatst op [0]000)
+        if(kolom >= 3) {
+            if(this.modelBord.vakjes[rij][kolom - 1] === this.kleur && this.modelBord.vakjes[rij][kolom - 2] === this.kleur && this.modelBord.vakjes[rij][kolom - 3] === this.kleur) {
+            this.gameEnd();
+            }
+        }
+    //horizontaal check (geplaatst op 0[0]00)
+        if(kolom >= 1) {
+            if(this.modelBord.vakjes[rij][kolom - 1] === this.kleur && this.modelBord.vakjes[rij][kolom + 1] === this.kleur && this.modelBord.vakjes[rij][kolom + 2] === this.kleur) {
+            this.gameEnd();
+            }
+        }
+    //horizontaal check (geplaatst op 00[0]0)
+        if(kolom <= 5) {
+            if(this.modelBord.vakjes[rij][kolom + 1] === this.kleur && this.modelBord.vakjes[rij][kolom - 1] === this.kleur && this.modelBord.vakjes[rij][kolom - 2] === this.kleur) {
+            this.gameEnd();
+            }
+        }
+    //horizontaal check (geplaatst op 000[0])
+        if(kolom >= 3) {
+            if(this.modelBord.vakjes[rij][kolom + 1] === this.kleur && this.modelBord.vakjes[rij][kolom + 2] === this.kleur && this.modelBord.vakjes[rij][kolom + 3] === this.kleur) {
+            this.gameEnd();
+            }
         }
     }
-        console.log("kleur van waar het wordt geplaatst: "+this.modelBord.vakjes[rij][kolom]);
-}
 
     gameEnd(){
         console.log("gameEnd denkt: " + this.beurtNum);
