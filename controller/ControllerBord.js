@@ -3,6 +3,7 @@ import {ViewBord} from "../view/ViewBord.js";
 
 export class ControllerBord {
     constructor() {
+        this.kleur;
         this.active = false;
         this.eersteBeurt=false;
         this.beurtNum = 0;
@@ -60,16 +61,16 @@ export class ControllerBord {
 
     checkWinnaar(kolom, beurtNum, rij) {
         //verticaal onder check 
-        let kleur;
+        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum);
         if(beurtNum === 0) {
-            kleur = "blauw";
+            this.kleur = "blauw";
         }
         else {
-            kleur = "rood";
+            this.kleur = "rood";
         }
-        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum);
+        
             if(rij <= 2) {
-                if(this.modelBord.vakjes[rij + 1][kolom] === kleur && this.modelBord.vakjes[rij + 2][kolom] === kleur && this.modelBord.vakjes[rij + 3][kolom] === kleur) {
+                if(this.modelBord.vakjes[rij + 1][kolom] === this.kleur && this.modelBord.vakjes[rij + 2][kolom] === this.kleur && this.modelBord.vakjes[rij + 3][kolom] === this.kleur) {
                 this.gameEnd();
         }
     }
