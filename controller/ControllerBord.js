@@ -60,24 +60,20 @@ export class ControllerBord {
 
     checkWinnaar(kolom, beurtNum, rij) {
         //verticaal onder check 
-        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum);
+        let kleur;
         if(beurtNum === 0) {
-            //blauw check 
-            if(rij <= 2) {
-                if(this.modelBord.vakjes[rij + 1][kolom] === "blauw" && this.modelBord.vakjes[rij + 2][kolom] === "blauw" && this.modelBord.vakjes[rij + 3][kolom] === "blauw") {
-                this.gameEnd();
+            kleur = "blauw";
         }
-    }
-} 
-      else {
-            //rood check
+        else {
+            kleur = "rood";
+        }
+        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum);
             if(rij <= 2) {
-                if(this.modelBord.vakjes[rij + 1][kolom] === "rood" && this.modelBord.vakjes[rij + 2][kolom] === "rood" && this.modelBord.vakjes[rij + 3][kolom] === "rood") {
+                if(this.modelBord.vakjes[rij + 1][kolom] === kleur && this.modelBord.vakjes[rij + 2][kolom] === kleur && this.modelBord.vakjes[rij + 3][kolom] === kleur) {
                 this.gameEnd();
         }
     }
         console.log("kleur van waar het wordt geplaatst: "+this.modelBord.vakjes[rij][kolom]);
-    }
 }
 
     gameEnd(){
