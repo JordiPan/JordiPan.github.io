@@ -14,7 +14,6 @@ export class ControllerBord {
 
     plaatsFiche = (kolom) =>
     {
-        console.log("plaatsfiche denkt: " + this.active)
         if(this.active) {
             for(let rij=5;rij>=0;rij--)
             {
@@ -22,19 +21,17 @@ export class ControllerBord {
                 {
                     if(this.beurtNum === 0) {
                         this.modelBord.vakjes[rij][kolom]="blauw";
+                        this.checkWinnaar(kolom, this.beurtNum, rij);
                     }
                     else {
                         this.modelBord.vakjes[rij][kolom]="rood"; 
+                        this.checkWinnaar(kolom, this.beurtNum, rij);
                     }
                     this.viewBord.actueelBeurt();
                     this.viewBord.beurtViewUpdate(this.beurtNum);
-                    this.checkWinnaar(kolom, this.beurtNum, rij);
                     return;
                 }
             }
-        }
-        else {
-            alert("typ eerst de namen in!")
         }
     }
 
@@ -63,12 +60,34 @@ export class ControllerBord {
 
     checkWinnaar(kolom, beurtNum, rij) {
         //verticaal onder check 
-        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum );
-        console.log(this.modelBord.vakjes[rij][kolom]);
+        console.log("KOLOM: "+kolom + " RIJ: " + rij + ' BeurtNummer: ' + beurtNum);
+        if(beurtNum === 0) {
+            //blauw check 
+            if(rij <= 2) {
+                if(this.modelBord.vakjes[rij + 1][kolom] === "blauw" && this.modelBord.vakjes[rij + 2][kolom] === "blauw" && this.modelBord.vakjes[rij + 3][kolom] === "blauw") {
+                this.gameEnd();
+        }
     }
-
+} 
+      else {
+            //rood check
+            if(rij <= 2) {
+                if(this.modelBord.vakjes[rij + 1][kolom] === "rood" && this.modelBord.vakjes[rij + 2][kolom] === "rood" && this.modelBord.vakjes[rij + 3][kolom] === "rood") {
+                this.gameEnd();
+        }
+    }
+        console.log("kleur van waar het wordt geplaatst: "+this.modelBord.vakjes[rij][kolom]);
+    }
+}
 
     gameEnd(){
-        console.log("game end dude");
+        console.log("gameEnd denkt: " + this.beurtNum);
+        if(this.beurtNum === 0) {
+            console.log("game end blauw wint");
+        }
+        else {
+            console.log("game end rood wint");
+        }
+        this.active = false;
     }
 }

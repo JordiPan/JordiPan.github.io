@@ -45,7 +45,6 @@ export class ViewBord {
     }
 
     actueelBeurt() {
-        console.log(this.controllerBord.beurtNum);
         if (this.controllerBord.eersteBeurt) {
             this.controllerBord.beurtNum = Math.floor(Math.random() * 2);
             this.controllerBord.eersteBeurt = false;
