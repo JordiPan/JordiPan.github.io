@@ -90,7 +90,7 @@ export class ViewBord {
         this.controllerBord.active = false;
         const vakjesHTML = document.querySelectorAll('.container > div');
         vakjesHTML.forEach(element => {
-            element.style.backgroundColor = "white";
+            element.style.backgroundColor = "rgba(255, 255, 255, 0)";
             this.message.innerHTML = "reset...";
         })
 
