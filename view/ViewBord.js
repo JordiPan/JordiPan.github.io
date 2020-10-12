@@ -54,6 +54,7 @@ export class ViewBord {
     }
 
     beurtView(player1, player2) {
+              this.actueelBeurt();
             if (this.controllerBord.beurtNum === 0) {
                 this.beurt.innerHTML = "Beurt: " + player1;
                 this.beurt.style.color = "blue";
@@ -76,6 +77,7 @@ export class ViewBord {
                 this.controllerBord.beurtNum = 0;
             }
         }
+        console.log(this.controllerBord.beurtNum);
         return this.controllerBord.beurtNum;
     }
 
@@ -155,8 +157,6 @@ export class ViewBord {
         }
     }
     speelWeer = () => {
-        this.player1Name = document.getElementById("pName1").value;
-        this.player2Name = document.getElementById("pName2").value;
         const vakjesHTML = document.querySelectorAll('.container > div');
         vakjesHTML.forEach(element => {
             element.style.backgroundColor = "rgba(255, 255, 255, 0)";
@@ -169,6 +169,6 @@ export class ViewBord {
         }
         this.controllerBord.active = true;
         this.message.classList.toggle("hidden");
-        this.beurtView(this.player1Name, this.player2Name);
+        this.beurtViewUpdate(this.controllerBord.beurtNum);
     }
 }
