@@ -34,7 +34,6 @@ export class ViewBord {
         })
     }
 
-
     startGame = () => {
         this.player1Name = document.getElementById("pName1").value;
         this.player2Name = document.getElementById("pName2").value;

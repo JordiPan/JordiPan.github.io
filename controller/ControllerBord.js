@@ -9,6 +9,16 @@ export class ControllerBord {
         this.beurtNum = 0;
         this.modelBord = new ModelBord();
         this.viewBord = new ViewBord(this, this.modelBord);
+        this.maakDivs();
+    }
+    // Maakt automatisch 42 <div> vakjes
+    maakDivs() {
+        this.container = document.getElementById("cont");
+        for(let i = 0; i < 42; i++) {
+            this.backside = document.createElement("div");
+            this.backside.className = 'items';
+            this.container.appendChild(this.backside);
+        }
     }
 
     // for-loop begint beneden en gaat naar boven, zodat het lijkt op zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
