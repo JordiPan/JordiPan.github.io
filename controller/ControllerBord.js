@@ -13,10 +13,10 @@ export class ControllerBord {
     }
     // Maakt automatisch 42 <div> vakjes
     maakDivs() {
-        this.container = document.getElementById("cont");
+        this.container = document.getElementById("board");
         for(let i = 0; i < 42; i++) {
             this.backside = document.createElement("div");
-            this.backside.className = 'items';
+            this.backside.className = 'item';
             this.container.appendChild(this.backside);
         }
     }

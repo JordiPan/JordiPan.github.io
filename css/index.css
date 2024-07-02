@@ -1,0 +1,123 @@
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   -ms-user-select: none;
+   -moz-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+   color: white;
+}
+body {
+   background-image: url("../img/EJzyxsCCQOeRa71a83tX_background-2.jpeg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+
+#title {
+   padding-bottom: 0.5rem;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+#board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+h1 {
+   text-align: center;
+   font-size: 3em;
+}
+.restart-container {
+   text-align: center;
+   margin-bottom: 1rem;
+}
+#restart {
+   width: 10%;
+} 
+#beurt {
+   text-align: center;
+   color: white;
+   font-size: 3em;
+   
+}
+.hidden {
+   display: none;
+}
+#board {
+   display: flex;
+   flex-flow: wrap;
+   justify-content: center;
+   background-color: rgba(0, 67, 253, 0.5);
+   width: 80rem;
+}
+#flex-board {
+   display: flex;
+   justify-content: center;
+}
+.item {
+   flex: 1 0 calc(100% / 8);
+   padding: 4rem;
+   margin: 0.7rem;
+   border-radius: 69%;
+   border: black 3px solid;
+   background-color: rgba(255, 255, 255, 0);
+   position: relative;
+}
+.margin-container {
+   margin-left: 2rem;
+   margin-right: 2rem;
+}
+#start-window {
+   width: 50rem;
+   height: 30rem;
+   padding: 0.5em;
+   padding-left: 1.8em;
+   padding-right: 1.8em;
+   border: black 3px solid;
+}
+.form-container {
+
+}
+.flex-stats {
+   display: flex;
+   justify-content: center;
+}
+.statistics {
+   margin-top: 20%;
+}
+.stat-shadow {
+   padding: 2rem;
+   border-radius: 10%;
+   background-color: darkslategray;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+}
+.player-name, .player-wins {
+   display: block;
+}
+
+#result-window {
+   text-align: center;
+   padding: 0.5em;
+   padding-left: 1.8em;
+   padding-right: 1.8em;
+   border: black 3px solid;
+   clear: both;
+}
+input {
+   color: black;
+}
+/* 
+voor slecht dark mode 
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   -ms-user-select: none;
+   -moz-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+   font-style: italic;
+   background-color: black;
+   color: white;
+}
+*/

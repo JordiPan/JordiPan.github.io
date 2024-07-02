@@ -15,18 +15,18 @@ export class ViewBord {
 
         this.form = document.getElementById("form");
 
-        this.message = document.querySelector("#messageWindow");
+        this.message = document.querySelector("#result-window");
 
-        const startBtn = document.getElementById("startButton");
+        const startBtn = document.getElementById("start-button");
         startBtn.addEventListener('click', this.startGame);
 
         const speelWeerBtn = document.getElementById("speelWeer");
         speelWeerBtn.addEventListener('click', this.speelWeer)
-        let reset = document.querySelector("#resetButton")
+        let reset = document.querySelector("#restart")
         reset.addEventListener('click', () => {
             this.restart();
         })
-        let el = document.querySelector(".container");
+        let el = document.querySelector("#board");
 
 // Het gaat naar function handleClick als er geklikt wordt in de container.
         el.addEventListener('click' , event => {
