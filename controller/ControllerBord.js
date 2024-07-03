@@ -3,30 +3,24 @@ import {ViewBord} from "../view/ViewBord.js";
 
 export class ControllerBord {
     constructor() {
-        this.kleur;
-        this.active = false;
-        this.eersteBeurt=false;
-        this.beurtNum = 0;
-        this.modelBord = new ModelBord();
-        this.viewBord = new ViewBord(this, this.modelBord);
-        this.init()
+       
+        this.model = new ModelBord();
+        this.view = new ViewBord();
+        //op dit moment geen idee over bind this
+        this.view.bindMakeBoard(this.handleMakeBoard.bind(this))
+        this.view.bindReset(this.handleReset.bind(this))
     }
 
-    init() {
-        const start = document.getElementById("start-window");
-        start.addEventListener('submit', (event) => this.maakDivs(event));
-    }
-    // Maakt automatisch 42 <div> vakjes
-    maakDivs(event) {
-        event.preventDefault();
-        this.container = document.getElementById("board");
-        for(let i = 0; i < 42; i++) {
-            this.backside = document.createElement("div");
-            this.backside.className = 'item';
-            this.container.appendChild(this.backside);
-        }
+    handleMakeBoard(event) {
+        this.model.makeModelBoard();
+        this.view.makeBoard(event);
+        this.view.hideStartWindow();
     }
 
+    handleReset() {
+        this.model.resetWins();
+        this.view.resetBoard();
+    }
     // for-loop begint beneden en gaat naar boven, zodat het lijkt op zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
 
     plaatsFiche = (kolom) =>

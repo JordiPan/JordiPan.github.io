@@ -1,31 +1,20 @@
-import {ModelBord} from "../model/ModelBord.js";
-
 export class ViewBord {
-    constructor(c, m) {
-        this.controllerBord = c;
-        this.modelBord = m;
-
-        this.teller1 = 0;
-        this.teller2 = 0;
-
+    constructor() {
+        // this.controllerBord = c;
+        // this.modelBord = m;
         this.beurt = document.getElementById("beurt");
-
         this.winst1 = document.getElementById("winst1");
         this.winst2 = document.getElementById("winst2");
-
-        this.form = document.getElementById("form");
-
         this.message = document.querySelector("#result-window");
-
-        const startBtn = document.getElementById("start-button");
-        startBtn.addEventListener('click', this.startGame);
-
+        this.container = document.getElementById("board");
+        this.playingField = document.querySelector(".margin-container");
+        this.scoreName1 = document.getElementById("speler1");
+        this.scoreName2 = document.getElementById("speler2");
+        this.vakjesHTML = document.querySelectorAll('#board > div');
         const speelWeerBtn = document.getElementById("speelWeer");
+        this.start = document.getElementById("start-window");
         speelWeerBtn.addEventListener('click', this.speelWeer)
-        let reset = document.querySelector("#restart")
-        reset.addEventListener('click', () => {
-            this.restart();
-        })
+        this.reset = document.getElementById("restart")
         let el = document.querySelector("#board");
 
 // Het gaat naar function handleClick als er geklikt wordt in de container.
@@ -33,7 +22,37 @@ export class ViewBord {
             this.handleClick(event);
         })
     }
-
+    bindMakeBoard(handler) {
+        this.start.addEventListener('submit', handler);
+    }
+    bindReset(handler) {
+        this.reset.addEventListener('click', handler);
+    }
+    // Maakt automatisch 42 <div> vakjes
+    makeBoard(event) {
+        event.preventDefault();
+        for(let i = 0; i < 42; i++) {
+            this.backside = document.createElement("div");
+            this.backside.className = 'item';
+            this.container.appendChild(this.backside);
+        }
+    }
+    hideStartWindow() {
+        this.start.classList.add("hidden");
+        this.playingField.classList.remove("hidden");
+    }
+    resetBoard() {
+        
+        this.vakjesHTML.forEach(element => {
+            element.style.backgroundColor = "rgba(255, 255, 255, 0)";
+        })
+        this.winst1.innerHTML = "Winsten: 0";
+        this.winst2.innerHTML = "Winsten: 0";
+        
+        this.beurt.innerHTML = "Beurt: ???";
+        this.playingField.classList.add("hidden");
+        this.start.classList.remove("hidden");
+    }
     startGame = () => {
         this.player1Name = document.getElementById("speler-naam-1").value;
         this.player2Name = document.getElementById("speler-naam-2").value;
@@ -94,38 +113,6 @@ export class ViewBord {
             this.beurt.style.color = "red";
         }
     }
-    }
-
-    restart = () => {
-        this.controllerBord.active = false;
-        const vakjesHTML = document.querySelectorAll('.container > div');
-        vakjesHTML.forEach(element => {
-            element.style.backgroundColor = "rgba(255, 255, 255, 0)";
-        })
-
-        for (let rij = 0; rij < 6; rij++) {
-            for (let kolom = 0; kolom < 7; kolom++) {
-                this.modelBord.vakjes[rij][kolom] = "leeg";
-            }
-        }
-        
-        this.teller1 = 0;
-        this.teller2 = 0;
-
-        this.winst1.innerHTML = "Winsten: 0";
-        this.winst2.innerHTML = "Winsten: 0";
-        
-        this.message.classList.add("hidden")
-        this.form.classList.remove("hidden");
-
-        let scoreName1 = document.getElementById("speler1");
-        let scoreName2 = document.getElementById("speler2");
-
-        scoreName1.innerHTML = "Speler1";
-        scoreName2.innerHTML = "Speler2";
-
-        this.beurt.innerHTML = "Beurt: ???";
-        this.beurt.style.color = "black";
     }
 
     handleClick = (event) =>
