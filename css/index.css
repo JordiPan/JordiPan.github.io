@@ -6,17 +6,19 @@
    -moz-user-select: none;
    -webkit-user-select: none;
    user-select: none;
-   color: white;
+   color: black;
 }
 body {
-   background-image: url("../img/EJzyxsCCQOeRa71a83tX_background-2.jpeg");
+   /* background-image: url("../img/EJzyxsCCQOeRa71a83tX_background-2.jpeg");
    background-repeat: no-repeat;
-   background-size: cover;
+   background-size: cover; */
+   background-color: #c3d7f7 !important;
 }
 
 #title {
    padding-bottom: 0.5rem;
    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+   background-color: #e6eefa;
 }
 #board {
     display: flex;
@@ -36,7 +38,7 @@ h1 {
 } 
 #beurt {
    text-align: center;
-   color: white;
+   color: black;
    font-size: 3em;
    
 }
@@ -66,17 +68,12 @@ h1 {
 .margin-container {
    margin-left: 2rem;
    margin-right: 2rem;
-}
-#start-window {
-   width: 50rem;
-   height: 30rem;
-   padding: 0.5em;
-   padding-left: 1.8em;
-   padding-right: 1.8em;
-   border: black 3px solid;
-}
-.form-container {
 
+}
+
+.form-container {
+   display: flex;
+   justify-content: center;
 }
 .flex-stats {
    display: flex;
@@ -88,13 +85,20 @@ h1 {
 .stat-shadow {
    padding: 2rem;
    border-radius: 10%;
-   background-color: darkslategray;
    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+   background-color: white;
 }
 .player-name, .player-wins {
    display: block;
 }
-
+#start-window {
+   width: 50rem;
+   height: 30rem;
+   padding: 2rem;
+   margin: 3rem;
+   border-radius: 1rem;
+   box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.5);
+}
 #result-window {
    text-align: center;
    padding: 0.5em;

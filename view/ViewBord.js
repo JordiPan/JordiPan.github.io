@@ -35,8 +35,8 @@ export class ViewBord {
     }
 
     startGame = () => {
-        this.player1Name = document.getElementById("pName1").value;
-        this.player2Name = document.getElementById("pName2").value;
+        this.player1Name = document.getElementById("speler-naam-1").value;
+        this.player2Name = document.getElementById("speler-naam-2").value;
         if (this.player1Name !== "" && this.player2Name !== "") {
             this.controllerBord.active = true;
             this.controllerBord.eersteBeurt = true;

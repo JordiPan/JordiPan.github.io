@@ -9,10 +9,16 @@ export class ControllerBord {
         this.beurtNum = 0;
         this.modelBord = new ModelBord();
         this.viewBord = new ViewBord(this, this.modelBord);
-        this.maakDivs();
+        this.init()
+    }
+
+    init() {
+        const start = document.getElementById("start-window");
+        start.addEventListener('submit', (event) => this.maakDivs(event));
     }
     // Maakt automatisch 42 <div> vakjes
-    maakDivs() {
+    maakDivs(event) {
+        event.preventDefault();
         this.container = document.getElementById("board");
         for(let i = 0; i < 42; i++) {
             this.backside = document.createElement("div");
