@@ -7,15 +7,18 @@ export class ControllerBord {
         this.model = new ModelBord();
         this.view = new ViewBord();
         //op dit moment geen idee over bind this
-        this.view.bindMakeBoard(this.handleMakeBoard.bind(this))
+        this.view.bindMakeBoard(this.handleStart.bind(this))
         this.view.bindReset(this.handleReset.bind(this))
     }
 
-    handleMakeBoard(event) {
+    handleStart(event) {
         this.model.makeModelBoard();
         this.view.makeBoard(event);
         this.view.hideStartWindow();
-        this.view.setNames();
+        this.model.setNames(this.view.getNames());
+        this.view.setNames(this.model.getNames());
+        this.model.decideFirst();
+        this.view.setFirstTurn(this.model.getTurn());
     }
 
     handleReset() {

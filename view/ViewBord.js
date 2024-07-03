@@ -2,11 +2,11 @@ export class ViewBord {
     constructor() {
         // this.controllerBord = c;
         // this.modelBord = m;
-        this.beurt = document.getElementById("beurt");
-        this.winst1 = document.getElementById("winst1");
-        this.winst2 = document.getElementById("winst2");
+        this.turn = document.getElementById("turn");
+        this.winsScore1 = document.getElementById("win1");
+        this.winsScore2 = document.getElementById("win2");
         this.message = document.querySelector("#result-window");
-        this.container = document.getElementById("board");
+        this.board = document.getElementById("board");
         this.playingField = document.querySelector(".margin-container");
         this.scoreName1 = document.getElementById("player-name-one");
         this.scoreName2 = document.getElementById("player-name-two");
@@ -34,7 +34,7 @@ export class ViewBord {
         for(let i = 0; i < 42; i++) {
             this.backside = document.createElement("div");
             this.backside.className = 'item';
-            this.container.appendChild(this.backside);
+            this.board.appendChild(this.backside);
         }
     }
     hideStartWindow() {
@@ -42,37 +42,34 @@ export class ViewBord {
         this.playingField.classList.remove("hidden");
     }
     resetBoard() {
-        this.vakjesHTML.forEach(element => {
-            element.style.backgroundColor = "rgba(255, 255, 255, 0)";
-        })
-        this.winst1.innerHTML = "Winsten: 0";
-        this.winst2.innerHTML = "Winsten: 0";
+        this.winsScore1.textContent = 0;
+        this.winsScore2.textContent = 0;
         
-        this.beurt.innerHTML = "Beurt: ???";
+        this.board.textContent = '';
         this.playingField.classList.add("hidden");
         this.start.classList.remove("hidden");
     }
-    setNames() {
-        this.scoreName1.innerHTML = document.getElementById("speler-naam-1").value;
-        this.scoreName2.innerHTML = document.getElementById("speler-naam-2").value;
+    getNames() {
+        return [document.getElementById("speler-naam-1").value, document.getElementById("speler-naam-2").value]
     }
-    startGame = () => {
-        
-        if (this.player1Name !== "" && this.player2Name !== "") {
-            this.controllerBord.active = true;
-            this.controllerBord.eersteBeurt = true;
-            let scoreName1 = document.getElementById("speler1");
-            let scoreName2 = document.getElementById("speler2");
-
-            scoreName1.innerHTML = this.player1Name;
-            scoreName2.innerHTML = this.player2Name;
-
-            this.form = document.getElementById("form");
-            this.form.classList.add("hidden");
-            this.beurtView(this.player1Name, this.player2Name);
+    setNames(players) {
+        this.scoreName1.textContent = players[0];
+        this.scoreName2.textContent = players[1];
+    }
+    
+    setFirstTurn(turn) {
+        console.log(turn)
+        switch (turn) {
+            case 'blue':
+                this.turn.textContent = player1;
+                break;
+            case 'red':
+                this.turn.textContent = player2;
+                break;
+            default:
+                this.turn.textContent = turn;
         }
     }
-
     beurtView(player1, player2) {
               this.actueelBeurt();
             if (this.controllerBord.beurtNum === 0) {
