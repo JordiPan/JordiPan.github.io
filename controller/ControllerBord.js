@@ -15,6 +15,7 @@ export class ControllerBord {
         this.model.makeModelBoard();
         this.view.makeBoard(event);
         this.view.hideStartWindow();
+        this.view.setNames();
     }
 
     handleReset() {

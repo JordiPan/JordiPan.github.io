@@ -8,8 +8,8 @@ export class ViewBord {
         this.message = document.querySelector("#result-window");
         this.container = document.getElementById("board");
         this.playingField = document.querySelector(".margin-container");
-        this.scoreName1 = document.getElementById("speler1");
-        this.scoreName2 = document.getElementById("speler2");
+        this.scoreName1 = document.getElementById("player-name-one");
+        this.scoreName2 = document.getElementById("player-name-two");
         this.vakjesHTML = document.querySelectorAll('#board > div');
         const speelWeerBtn = document.getElementById("speelWeer");
         this.start = document.getElementById("start-window");
@@ -42,7 +42,6 @@ export class ViewBord {
         this.playingField.classList.remove("hidden");
     }
     resetBoard() {
-        
         this.vakjesHTML.forEach(element => {
             element.style.backgroundColor = "rgba(255, 255, 255, 0)";
         })
@@ -53,9 +52,12 @@ export class ViewBord {
         this.playingField.classList.add("hidden");
         this.start.classList.remove("hidden");
     }
+    setNames() {
+        this.scoreName1.innerHTML = document.getElementById("speler-naam-1").value;
+        this.scoreName2.innerHTML = document.getElementById("speler-naam-2").value;
+    }
     startGame = () => {
-        this.player1Name = document.getElementById("speler-naam-1").value;
-        this.player2Name = document.getElementById("speler-naam-2").value;
+        
         if (this.player1Name !== "" && this.player2Name !== "") {
             this.controllerBord.active = true;
             this.controllerBord.eersteBeurt = true;

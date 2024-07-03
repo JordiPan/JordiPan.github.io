@@ -18,12 +18,6 @@ export class ModelBord {
                     this.vakjes[rij][kolom]="leeg";
     }
     resetWins = () => {
-        for (let rij = 0; rij < 6; rij++) {
-            for (let kolom = 0; kolom < 7; kolom++) {
-                this.vakjes[rij][kolom] = "leeg";
-            }
-        }
-        
         this.teller1 = 0;
         this.teller2 = 0;
         
