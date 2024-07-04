@@ -63,65 +63,54 @@ export class ViewBord {
     this.scoreName1.textContent = players[0];
     this.scoreName2.textContent = players[1];
   }
+  updateTurn(turn) {
+    console.log(turn)
+    this.turn.textContent = turn;
 
-  setFirstTurn(turn) {
-    console.log(turn);
-    switch (turn) {
-      case "blue":
-        this.turn.textContent = player1;
-        break;
-      case "red":
-        this.turn.textContent = player2;
-        break;
-      default:
-        this.turn.textContent = turn;
-    }
   }
-  beurtView(player1, player2) {
-    this.actueelBeurt();
-    if (this.controllerBord.beurtNum === 0) {
-      this.beurt.innerHTML = "Beurt: " + player1;
-      this.beurt.style.color = "blue";
-    } else {
-      this.beurt.innerHTML = "Beurt: " + player2;
-      this.beurt.style.color = "red";
-    }
-  }
+//   beurtView(player1, player2) {
+//     this.actueelBeurt();
+//     if (this.controllerBord.beurtNum === 0) {
+//       this.beurt.innerHTML = "Beurt: " + player1;
+//       this.beurt.style.color = "blue";
+//     } else {
+//       this.beurt.innerHTML = "Beurt: " + player2;
+//       this.beurt.style.color = "red";
+//     }
+//   }
 
-  actueelBeurt() {
-    if (this.controllerBord.eersteBeurt) {
-      this.controllerBord.beurtNum = Math.floor(Math.random() * 2);
-      this.controllerBord.eersteBeurt = false;
-    } else {
-      if (this.controllerBord.beurtNum === 0) {
-        this.controllerBord.beurtNum = 1;
-      } else {
-        this.controllerBord.beurtNum = 0;
-      }
-    }
-    console.log(this.controllerBord.beurtNum);
-    return this.controllerBord.beurtNum;
-  }
+//   actueelBeurt() {
+//     if (this.controllerBord.eersteBeurt) {
+//       this.controllerBord.beurtNum = Math.floor(Math.random() * 2);
+//       this.controllerBord.eersteBeurt = false;
+//     } else {
+//       if (this.controllerBord.beurtNum === 0) {
+//         this.controllerBord.beurtNum = 1;
+//       } else {
+//         this.controllerBord.beurtNum = 0;
+//       }
+//     }
+//     console.log(this.controllerBord.beurtNum);
+//     return this.controllerBord.beurtNum;
+//   }
 
-  beurtViewUpdate(beurtNum) {
-    let player1 = document.getElementById("pName1").value;
-    let player2 = document.getElementById("pName2").value;
-    this.beurt = document.getElementById("beurt");
+//   beurtViewUpdate(beurtNum) {
+//     let player1 = document.getElementById("pName1").value;
+//     let player2 = document.getElementById("pName2").value;
+//     this.beurt = document.getElementById("beurt");
 
-    if (this.controllerBord.active) {
-      if (beurtNum === 0) {
-        this.beurt.innerHTML = "Beurt: " + player1;
-        this.beurt.style.color = "blue";
-      } else {
-        this.beurt.innerHTML = "Beurt: " + player2;
-        this.beurt.style.color = "red";
-      }
-    }
-  }
+//     if (this.controllerBord.active) {
+//       if (beurtNum === 0) {
+//         this.beurt.innerHTML = "Beurt: " + player1;
+//         this.beurt.style.color = "blue";
+//       } else {
+//         this.beurt.innerHTML = "Beurt: " + player2;
+//         this.beurt.style.color = "red";
+//       }
+//     }
+//   }
   placeChip(id, color) {
-    if (id != null) {
-      document.getElementById(id).style.backgroundColor = color;
-    }
+    document.getElementById(id).style.backgroundColor = color;
   }
   handleClick = (event) => {
     this.teller = 0;

@@ -19,7 +19,7 @@ export class ControllerBord {
         this.model.setNames(this.view.getNames());
         this.view.setNames(this.model.getNames());
         this.model.decideFirst();
-        this.view.setFirstTurn(this.model.getTurn());
+        this.view.updateTurn(this.model.getTurn());
     }
 
     handleReset() {
@@ -28,9 +28,10 @@ export class ControllerBord {
     }
     // for-loop begint beneden en gaat naar boven, zodat het lijkt op zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
     handlePlacing(event) {
-        console.log("HELP")
         let idForView = this.model.placeModelChip(event);
         this.view.placeChip(idForView, this.model.getColor());
+        this.model.switchTurn();
+        this.view.updateTurn(this.model.getTurn());
     }
     plaatsFiche = (kolom) =>
     {

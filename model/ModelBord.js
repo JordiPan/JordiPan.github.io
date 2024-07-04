@@ -1,7 +1,7 @@
 export class ModelBord {
   constructor() {
     this.turnColor;
-    this.turnName = "???";
+    this.currentTurnName = "???";
     this.name1;
     this.name2;
     this.counter1 = 0;
@@ -24,10 +24,10 @@ export class ModelBord {
     //1 of 2 randomizer
     this.decider = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
     if (this.decider == 1) {
-      this.turnName = this.name1;
+      this.currentTurnName = this.name1;
       this.turnColor = 'blue';
     } else {
-      this.turnName = this.name2;
+      this.currentTurnName = this.name2;
       this.turnColor = 'red';
     }
   }
@@ -44,19 +44,26 @@ export class ModelBord {
       if (this.vakjes[rij][kolom] === "-") {
         let idForView = (rij*7)+(kolom); 
         this.vakjes[rij][kolom] = this.turnColor;  
-        // this.checkWinnaar(kolom, rij, this.beurtNum);
-        // this.viewBord.actueelBeurt();
-        // this.viewBord.beurtViewUpdate(this.beurtNum);
         return idForView;
       }
     }
   }
   getTurn() {
-    return this.turnName;
+    return this.currentTurnName;
   }
+
   getColor() {
     console.log(this.turnColor)
     return this.turnColor;
   }
-  switchTurn() {}
+  switchTurn() {
+    if (this.currentTurnName == this.name1) {
+        this.currentTurnName = this.name2;
+        this.turnColor = 'red'
+    }
+    else {
+        this.currentTurnName = this.name1
+        this.turnColor = 'blue'
+    }
+  }
 }
