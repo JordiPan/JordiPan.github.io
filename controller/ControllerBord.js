@@ -9,6 +9,7 @@ export class ControllerBord {
         //op dit moment geen idee over bind this
         this.view.bindMakeBoard(this.handleStart.bind(this))
         this.view.bindReset(this.handleReset.bind(this))
+        this.view.bindPlaceChip(this.handlePlacing.bind(this))
     }
 
     handleStart(event) {
@@ -26,7 +27,11 @@ export class ControllerBord {
         this.view.resetBoard();
     }
     // for-loop begint beneden en gaat naar boven, zodat het lijkt op zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
-
+    handlePlacing(event) {
+        console.log("HELP")
+        let idForView = this.model.placeModelChip(event);
+        this.view.placeChip(idForView, this.model.getColor());
+    }
     plaatsFiche = (kolom) =>
     {
         if(this.active) {
