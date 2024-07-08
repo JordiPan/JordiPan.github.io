@@ -2,19 +2,20 @@ export class ModelBord {
   constructor() {
     this.turnColor;
     this.currentTurnName = "???";
+    this.placement;
     this.name1;
     this.name2;
     this.counter1 = 0;
     this.counter2 = 0;
-    this.vakjes = new Array(6);
+    this.spaces = new Array(6);
   }
   makeModelBoard() {
     for (let i = 0; i < 6; i++) {
-      this.vakjes[i] = new Array(7);
+      this.spaces[i] = new Array(7);
     }
-    // Het zet in alle vakken van de model "leeg"
-    for (let rij = 0; rij < 6; rij++)
-      for (let kolom = 0; kolom < 7; kolom++) this.vakjes[rij][kolom] = "-";
+    // Het zet in alle vakken van de model "-"
+    for (let row = 0; row < 6; row++)
+      for (let column = 0; column < 7; column++) this.spaces[rij][kolom] = "-";
   }
   resetWins = () => {
     this.counter1 = 0;
@@ -40,13 +41,19 @@ export class ModelBord {
   }
   placeModelChip(event) {
     let kolom = event.target.id % 7;
+
     for (let rij = 5; rij >= 0; rij--) {
       if (this.vakjes[rij][kolom] === "-") {
-        let idForView = (rij*7)+(kolom); 
+        this.placement = (rij*7)+(kolom); 
         this.vakjes[rij][kolom] = this.turnColor;  
-        return idForView;
+        return true;
       }
     }
+    return false;
+  }
+
+  getPlacement() {
+    return this.placement;
   }
   getTurn() {
     return this.currentTurnName;

@@ -112,18 +112,18 @@ export class ViewBord {
   placeChip(id, color) {
     document.getElementById(id).style.backgroundColor = color;
   }
-  handleClick = (event) => {
-    this.teller = 0;
-    const vakjesHTML = document.querySelectorAll(".container > div");
-    vakjesHTML.forEach((element) => {
-      if (element === event.target) {
-        event.target.id;
-        this.controllerBord.plaatsFiche(this.teller % 7);
-        this.controllerBord.toonModel();
-      }
-      this.teller++;
-    });
-  };
+  // handleClick = (event) => {
+  //   this.teller = 0;
+  //   const vakjesHTML = document.querySelectorAll(".container > div");
+  //   vakjesHTML.forEach((element) => {
+  //     if (element === event.target) {
+  //       event.target.id;
+  //       this.controllerBord.plaatsFiche(this.teller % 7);
+  //       this.controllerBord.toonModel();
+  //     }
+  //     this.teller++;
+  //   });
+  // };
   gameEnd(beurtNum) {
     this.controllerBord.active = false;
     this.message.classList.toggle("hidden");
