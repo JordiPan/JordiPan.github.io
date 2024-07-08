@@ -66,7 +66,6 @@ export class ViewBord {
   updateTurn(turn) {
     console.log(turn)
     this.turn.textContent = turn;
-
   }
 //   beurtView(player1, player2) {
 //     this.actueelBeurt();

@@ -29,11 +29,16 @@ export class ControllerBord {
     }
     // for-loop begint beneden en gaat naar boven, zodat het lijkt op zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
     handlePlacing(event) {
-        let placementConfirmed = this.model.placeModelChip(event);
-        if(!placementConfirmed) {
+        let placement = this.model.placeModelChip(event);
+        if(!placement) {
             return;
         }
         this.view.placeChip(this.model.getPlacement(), this.model.getColor());
+        let winner = this.model.checkWinner(placement);
+        if(winner) {
+            console.log("WINNER:  "+winner)
+            return;
+        }
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurn());
     }

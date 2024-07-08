@@ -1,4 +1,14 @@
+
 export class ModelBord {
+  static directions = [
+    { row: 0, col: 1 },  // Horizontal
+    { row: 1, col: 0 },  // Vertical
+    { row: 1, col: 1 },  // Diagonal (bottom-right)
+    { row: 1, col: -1 }  // Diagonal (bottom-left)
+  ];
+  static rows = 6;
+  static cols = 7;
+
   constructor() {
     this.turnColor;
     this.currentTurnName = "???";
@@ -7,15 +17,15 @@ export class ModelBord {
     this.name2;
     this.counter1 = 0;
     this.counter2 = 0;
-    this.spaces = new Array(6);
+    this.board = new Array(ModelBord.rows);
   }
   makeModelBoard() {
-    for (let i = 0; i < 6; i++) {
-      this.spaces[i] = new Array(7);
+    for (let i = 0; i < this.board.length; i++) {
+      this.board[i] = new Array(ModelBord.cols);
     }
     // Het zet in alle vakken van de model "-"
     for (let row = 0; row < 6; row++)
-      for (let column = 0; column < 7; column++) this.spaces[rij][kolom] = "-";
+      for (let col = 0; col < 7; col++) this.board[row][col] = "-";
   }
   resetWins = () => {
     this.counter1 = 0;
@@ -40,18 +50,48 @@ export class ModelBord {
     return [this.name1, this.name2];
   }
   placeModelChip(event) {
-    let kolom = event.target.id % 7;
+    let col = event.target.id % 7;
 
-    for (let rij = 5; rij >= 0; rij--) {
-      if (this.vakjes[rij][kolom] === "-") {
-        this.placement = (rij*7)+(kolom); 
-        this.vakjes[rij][kolom] = this.turnColor;  
-        return true;
+    for (let row = 5; row >= 0; row--) {
+      if (this.board[row][col] === "-") {
+        this.placement = (row*7)+(col); 
+        this.board[row][col] = this.turnColor;  
+        return [row, col];
       }
     }
     return false;
   }
 
+  checkWinner(placement) {
+    let lastCol = placement[1];
+    let lastRow = placement[0];
+
+    for (let { row: dirRow, col: dirCol } of ModelBord.directions) {
+      const forwardCount = this.counter(lastRow, lastCol, dirRow, dirCol);
+      const backwardCount = this.counter(lastRow, lastCol, -dirRow, -dirCol);
+      //het telt de geplaatste fische 2 keer, daarom - 1
+      const count = forwardCount + backwardCount - 1;
+
+      if (count >= 4) return this.currentTurnName;
+  }
+
+  return null;
+  }
+
+  counter(row, col, dirRow, dirCol) {
+    let count = 0;
+    //checkt of het buiten bord zit en of juiste kleur is
+    while (
+        row >= 0 && row < ModelBord.rows &&
+        col >= 0 && col < ModelBord.cols &&
+        this.board[row][col] === this.turnColor
+    ) {
+        count++;
+        row += dirRow;
+        col += dirCol;
+    }
+    return count;
+  }
   getPlacement() {
     return this.placement;
   }
