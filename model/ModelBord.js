@@ -100,7 +100,6 @@ export class ModelBord {
   }
 
   getColor() {
-    console.log(this.turnColor)
     return this.turnColor;
   }
   switchTurn() {
