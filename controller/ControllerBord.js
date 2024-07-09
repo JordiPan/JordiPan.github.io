@@ -8,7 +8,7 @@ export class ControllerBord {
         this.view = new ViewBord();
         //op dit moment geen idee over bind this
         this.view.bindMakeBoard(this.handleStart.bind(this))
-        this.view.bindReset(this.handleReset.bind(this))
+        this.view.bindStop(this.handleStop.bind(this))
         this.view.bindPlaceChip(this.handlePlacing.bind(this))
     }
 
@@ -23,7 +23,7 @@ export class ControllerBord {
         this.view.hideStartWindow();
     }
 
-    handleReset() {
+    handleStop() {
         this.model.resetWins();
         this.view.resetBoard();
     }
@@ -36,7 +36,9 @@ export class ControllerBord {
         this.view.placeChip(this.model.getPlacement(), this.model.getColor());
         let winner = this.model.checkWinner(placement);
         if(winner) {
-            console.log("WINNER:  "+winner)
+            let stats = this.model.updateWins(winner);
+            this.view.updateWins(stats);
+            this.view.endGame(winner);
             return;
         }
         this.model.switchTurn();

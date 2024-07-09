@@ -7,31 +7,34 @@
         <link rel="stylesheet" href="./css/bootstrap.min.css">
     </head>
     <body>
-        <h1 id="title">4 op een rij</h1>
         <div class="margin-container hidden">
             <div class="row">
                 <div class="col-md-2 flex-stats">
                     <div class="statistics player-one-stats">
                         <div class="stat-shadow">
-                            <h2 id="player-name-one" class="player-name">Speler1</h2>
-                            <h2 class="player-wins">Winsten: <span id="win1">0</span></h2>
+                            <h2 id="player-name-one"
+                                class="player-name">Speler1</h2>
+                            <h2 class="player-wins">Winsten: <span
+                                    id="win1">0</span></h2>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <p id="turn-text">Beurt: <span id="turn">???</span></p>
                     <div class="restart-container">
-                        <div class="btn btn-danger" id="restart">Herstart</div>
+                        <div class="btn btn-danger" id="stop">Stop spel</div>
                     </div>
                     <div id="flex-board">
-                        <div class id="board"></div>
+                        <div class="inactive" id="board"></div>
                     </div>
                 </div>
                 <div class="col-md-2 flex-stats">
                     <div class="statistics player-two-stats">
                         <div class="stat-shadow">
-                            <h2 id="player-name-two" class="player-name">Speler2</h2>
-                            <h2 class="player-wins">Winsten: <span id="win2">0</span></h2>
+                            <h2 id="player-name-two"
+                                class="player-name">Speler2</h2>
+                            <h2 class="player-wins">Winsten: <span
+                                    id="win2">0</span></h2>
                         </div>
                     </div>
                 </div>
@@ -41,21 +44,30 @@
             <form id="start-window">
                 <p>Wie speelt?</p>
                 <div class="mb-3">
-                    <label for="speler-naam-1" class="name-1 form-label">Speler 1:</label>
-                    <input type="text" class="form-control" id="speler-naam-1" placeholder="John"
+                    <label for="speler-naam-1" class="name-1 form-label">Speler
+                        1:</label>
+                    <input type="text" class="form-control" id="speler-naam-1"
+                        placeholder="John"
                         maxlength="15" required>
                 </div>
-                <label for="speler-naam-2" class="name-2 form-label">Speler 2:</label>
-                <input type="text" class="form-control" id="speler-naam-2" placeholder="Titor"
+                <label for="speler-naam-2" class="name-2 form-label">Speler
+                    2:</label>
+                <input type="text" class="form-control" id="speler-naam-2"
+                    placeholder="Titor"
                     maxlength="15" required>
                 <br>
-                <button class="btn btn-success" id="start-button">Start spel!</button>
+                <button class="btn btn-success" id="start-button">Start
+                    spel!</button>
             </form>
         </div>
-        
+
+        <!-- <h1 id="title">4 op een rij</h1> -->
+
         <div id="result-window" class="hidden">
             <h3>Wilt u een rematch?</h3>
-            <div id="speelWeer"> Ja, nog een keer!</div>
+            <p id="winner"></p>
+            <button class="btn btn-info" id="play-again"> Ja, nog een
+                keer!</div>
         </div>
         <script type="module" src="start.js"></script>
         <script type="module" src="css/bootstrap.min.js"></script>

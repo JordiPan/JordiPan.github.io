@@ -113,4 +113,18 @@ export class ModelBord {
         this.turnColor = 'blue'
     }
   }
+  updateWins(winner) {
+    if(winner == this.name1) {
+      this.counter1 += 1;
+      return [this.counter1, 'win1'];
+    }
+    this.counter2 += 1;
+      return [this.counter2, 'win2'];
+  }
+  // getWins1() {
+  //   return this.counter1;
+  // }
+  // getWins2() {
+  //   return this.counter2;
+  // }
 }
