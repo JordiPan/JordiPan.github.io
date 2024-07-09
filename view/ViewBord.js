@@ -11,7 +11,8 @@ export class ViewBord {
     this.scoreName1 = document.getElementById("player-name-one");
     this.scoreName2 = document.getElementById("player-name-two");
     this.spaces = document.getElementsByClassName("item");
-    // const speelWeerBtn = document.getElementById("speelWeer");
+    this.winner = document.getElementById("winner");
+    this.rematch = document.getElementById("rematch");
     this.start = document.getElementById("start-window");
     // speelWeerBtn.addEventListener("click", this.speelWeer);
     this.stop = document.getElementById("stop");
@@ -31,9 +32,13 @@ export class ViewBord {
     });
     // this.board.addEventListener('click', handler);
   }
+  bindRematch(handler) {
+    this.rematch.addEventListener("click", handler);
+  }
   // Maakt automatisch 42 <div> vakjes
   makeBoard(event) {
     event.preventDefault();
+    this.board.textContent = "";
     for (let i = 0; i < 42; i++) {
       this.hole = document.createElement("div");
       this.hole.className = "item";
@@ -50,9 +55,9 @@ export class ViewBord {
     this.winsScore1.textContent = 0;
     this.winsScore2.textContent = 0;
 
-    this.board.textContent = "";
     this.playingField.classList.toggle("hidden");
     this.start.classList.toggle("hidden");
+    this.board.classList.toggle("inactive");
   }
   getNames() {
     return [
@@ -126,6 +131,7 @@ export class ViewBord {
   //   });
   // };
   endGame(winner) {
+    this.winner.textContent = winner + " heeft gewonnen!"
     this.end.classList.toggle("hidden");
     this.board.classList.toggle("inactive");
   }
@@ -145,6 +151,9 @@ export class ViewBord {
       this.beurt.innerHTML = "Speler 2 heeft gewonnen!";
       this.winst2.innerHTML = "Winsten: " + this.teller2;
     }
+  }
+  hideResultsWindow() {
+    this.end.classList.toggle("hidden");
   }
   speelWeer = () => {
     const vakjesHTML = document.querySelectorAll(".container > div");

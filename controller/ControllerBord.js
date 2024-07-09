@@ -10,6 +10,7 @@ export class ControllerBord {
         this.view.bindMakeBoard(this.handleStart.bind(this))
         this.view.bindStop(this.handleStop.bind(this))
         this.view.bindPlaceChip(this.handlePlacing.bind(this))
+        this.view.bindRematch(this.handleRematch.bind(this))
     }
 
     handleStart(event) {
@@ -43,6 +44,15 @@ export class ControllerBord {
         }
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurn());
+    }
+    handleRematch(event) {
+        
+        this.model.makeModelBoard();
+        this.model.decideFirst(event);
+
+        this.view.makeBoard(event);
+        this.view.updateTurn(this.model.getTurn());
+        this.view.hideResultsWindow();
     }
     // plaatsFiche = (kolom) =>
     // {
