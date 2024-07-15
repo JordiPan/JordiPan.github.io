@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
         <title>4 op een rij 🔴🔵</title>
         <link rel="stylesheet" href="./css/index.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -9,17 +10,18 @@
     <body>
         <div class="margin-container hidden">
             <div class="row">
-                <div class="col-md-2 flex-stats">
+                <div class="col-md-2 flex-stats" id="flex-stats-1">
                     <div class="statistics player-one-stats">
                         <div class="stat-shadow">
-                            <h2 id="player-name-one"
-                                class="player-name">Speler1</h2>
-                            <h2 class="player-wins">Winsten: <span
-                                    id="win1">0</span></h2>
+                            <p id="player-name-one"
+                                class="player-name">Speler1</p>
+                                <hr>
+                            <p class="player-wins">Winsten: <span
+                                    id="win1">0</span></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" id="flex-game">
                     <p id="turn-text">Beurt: <span id="turn">???</span></p>
                     <div class="restart-container">
                         <div class="btn btn-danger" id="stop">Stop spel</div>
@@ -28,13 +30,14 @@
                         <div class="inactive" id="board"></div>
                     </div>
                 </div>
-                <div class="col-md-2 flex-stats">
+                <div class="col-md-2 flex-stats" id="flex-stats-2">
                     <div class="statistics player-two-stats">
                         <div class="stat-shadow">
-                            <h2 id="player-name-two"
-                                class="player-name">Speler2</h2>
-                            <h2 class="player-wins">Winsten: <span
-                                    id="win2">0</span></h2>
+                            <p id="player-name-two"
+                                class="player-name">Speler2</p>
+                                <hr>
+                            <p class="player-wins">Winsten: <span
+                                    id="win2">0</span></p>
                         </div>
                     </div>
                 </div>

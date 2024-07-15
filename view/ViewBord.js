@@ -70,6 +70,7 @@ export class ViewBord {
     this.turn.textContent = turn;
   }
   placeChip(id, color) {
+    console.log(id)
     document.getElementById(id).style.backgroundColor = color;
   }
   endGame(winner) {
