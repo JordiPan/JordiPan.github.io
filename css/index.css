@@ -30,7 +30,10 @@ body {
    width: fit-content;
    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
    justify-content: center;
-    align-content: center;
+   flex: 1;
+   height: 80vh;
+   padding: 0.5rem;
+    /* align-content: center; */
 }
 .inactive {
    pointer-events: none;
@@ -67,6 +70,7 @@ h1 {
    border: black 3px solid;
    background-color: rgba(255, 255, 255, 0);
    position: relative;
+   
 }
 
 .form-container {
@@ -118,9 +122,12 @@ h1 {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+   #board {
+      height: 40vh;
+   }
    .item {
-      width: 2.2rem;
-      height: 2.2rem;
+      /* width: 2.2rem;
+      height: 2.2rem; */
       padding: 0;
       margin: 0.2rem;
       border: black 2px solid;
@@ -148,7 +155,7 @@ h1 {
    }
    .stat-shadow {
       padding: 1em;
-      min-width: 12rem;
+      /* min-width: 12rem; */
    }
    #flex-game {
       order: 3;
@@ -156,6 +163,7 @@ h1 {
    }
    .statistics {
       margin: 0;
+      flex: 1;
    }
    .player-one-stats {
       margin-bottom: 1rem;
@@ -163,10 +171,13 @@ h1 {
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+   #board {
+      height: 60vh;
+   }
    .item {
-      width: 4.2rem;
-      height: 4.2rem;
+      /* width: 4.2rem;
+      height: 4.2rem; */
       padding: 0;
       margin: 0.2rem;
       border: black 2px solid;
@@ -202,23 +213,23 @@ h1 {
    }
    .statistics {
       margin-top: 1rem;
+      flex: 1;
    }
    .player-one-stats {
       margin-bottom: 1rem;
    }
    .stat-shadow {
       padding: 1em;
-      min-width: 18rem;
+      /* min-width: 18rem; */
    }
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
    .item {
-      width: 4.2rem;
-      height: 4.2rem;
+      /* width: 5.2rem;
+      height: 5.2rem; */
       padding: 0;
       margin: 0.2rem;
-      border: black 2px solid;
    }
    .margin-container {
       margin-left: 0.5rem;
@@ -233,31 +244,21 @@ h1 {
    #turn-text {
       font-size: 2em;
    }
-   #flex-stats-1 {
-      order: 1;
-      flex: 1 1 50%;
-   }
-   #flex-stats-2 {
-      order: 2;
-      flex: 1 1 50%;
-   }
+
    .stat-shadow {
       padding: 1em;
-      min-width: 12rem;
-   }
-   #flex-game {
-      order: 3;
-      flex: 1 1 100%;
+      min-width: 1rem;
    }
    .statistics {
       margin-top: 1rem;
+      flex: 1;
    }
    .player-one-stats {
       margin-bottom: 1rem;
    }
    .stat-shadow {
       padding: 1em;
-      min-width: 18rem;
+      /* min-width: 18rem; */
    }
 }
 
