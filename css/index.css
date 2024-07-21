@@ -9,8 +9,8 @@
    color: black;
 }
 .margin-container {
-   margin-left: 2rem;
-   margin-right: 2rem;
+   margin-left: 1rem;
+   margin-right: 1rem;
 }
 body {
    /* background-image: url("../img/EJzyxsCCQOeRa71a83tX_background-2.jpeg");*/
@@ -132,10 +132,7 @@ h1 {
       margin: 0.2rem;
       border: black 2px solid;
    }
-   .margin-container {
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-   }
+   
    #result-window {
       display: flex;
       flex-direction: column;
@@ -182,10 +179,6 @@ h1 {
       margin: 0.2rem;
       border: black 2px solid;
    }
-   .margin-container {
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-   }
    #result-window {
       display: flex;
       flex-direction: column;
@@ -230,10 +223,6 @@ h1 {
       height: 5.2rem; */
       padding: 0;
       margin: 0.2rem;
-   }
-   .margin-container {
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
    }
    #result-window {
       display: flex;
