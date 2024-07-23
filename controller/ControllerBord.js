@@ -13,22 +13,24 @@ export class ControllerBord {
         this.view.bindRematch(this.handleRematch.bind(this))
     }
 
-    handleStart(event) {
+    async handleStart(event) {
         this.model.makeModelBoard();
         this.model.setNames(this.view.getNames());
         this.model.decideFirst();
         
         this.view.makeBoard(event);
         this.view.setNames(this.model.getNames());
-        this.view.updateTurn(this.model.getTurn());
         this.view.hideStartWindow();
+        await this.view.funny(this.model.getNames(), this.model.getTurn());
+        // this.view.updateTurn(this.model.getTurn());
+        
     }
 
     handleStop() {
         this.model.resetWins();
         this.view.resetBoard();
     }
-    // for-loop begint beneden en gaat naar boven, zodat het lijkt op zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
+    
     handlePlacing(event) {
         let placement = this.model.placeModelChip(event);
         if(!placement) {
@@ -45,13 +47,13 @@ export class ControllerBord {
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurn());
     }
-    handleRematch(event) {
-        
+    async handleRematch(event) {
         this.model.makeModelBoard();
         this.model.decideFirst(event);
 
         this.view.makeBoard(event);
-        this.view.updateTurn(this.model.getTurn());
         this.view.hideResultsWindow();
+        await this.view.funny(this.model.getNames(), this.model.getTurn());
+        // this.view.updateTurn(this.model.getTurn());
     }
 }   

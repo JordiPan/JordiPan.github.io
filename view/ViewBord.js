@@ -13,6 +13,8 @@ export class ViewBord {
     this.rematch = document.getElementById("rematch");
     this.start = document.getElementById("start-window");
     this.stop = document.getElementById("stop");
+    this.statBlock1 = document.getElementById("shadow-one");
+    this.statBlock2 = document.getElementById("shadow-two");
   }
   bindMakeBoard(handler) {
     this.start.addEventListener("submit", handler);
@@ -42,7 +44,6 @@ export class ViewBord {
       this.hole.setAttribute("id", i);
       this.board.appendChild(this.hole);
     }
-    this.board.classList.toggle("inactive");
   }
   hideStartWindow() {
     this.start.classList.toggle("hidden");
@@ -54,6 +55,9 @@ export class ViewBord {
 
     this.playingField.classList.toggle("hidden");
     this.start.classList.toggle("hidden");
+    this.statBlock1.classList.remove("player-one-turn");
+    this.statBlock2.classList.remove("player-two-turn");
+    this.stop.classList.toggle("inactive");
     this.board.classList.toggle("inactive");
   }
   getNames() {
@@ -68,15 +72,56 @@ export class ViewBord {
   }
   updateTurn(turn) {
     this.turn.textContent = turn;
+    this.statBlock1.classList.toggle("player-one-turn");
+    this.statBlock2.classList.toggle("player-two-turn");
+  }
+  async funny(players, turn) {
+    let interval = 10;
+    let count = 0;
+    //voeg dit toe zodat het de goede schaduw meegeeft
+    this.statBlock2.classList.toggle("player-two-turn");
+    return new Promise((resolve) => {
+      const switcher = () => {
+          if (count < 15) {
+              if (count % 2 === 0) {
+                  this.turn.textContent = players[0];
+              } else {
+                  this.turn.textContent = players[1];
+              }
+              this.statBlock1.classList.toggle("player-one-turn");
+              this.statBlock2.classList.toggle("player-two-turn");
+              count++;
+              interval += 20;
+              setTimeout(switcher, interval);
+          } 
+          else {
+            //geef de ECHTE turn mee
+            if(players[0] === turn) {
+              this.turn.textContent = players[0];
+              this.statBlock1.classList.add("player-one-turn");
+              this.statBlock2.classList.remove("player-two-turn");
+            }
+            else {
+              this.turn.textContent = players[1];
+              this.statBlock1.classList.remove("player-one-turn");
+              this.statBlock2.classList.add("player-two-turn");
+            }
+            this.stop.classList.toggle("inactive");
+            this.board.classList.toggle("inactive");
+            resolve(); 
+          }
+      };
+      setTimeout(switcher, interval);
+  });
   }
   placeChip(id, color) {
-    console.log(id)
     document.getElementById(id).style.backgroundColor = color;
   }
   endGame(winner) {
     this.winner.textContent = winner + " heeft gewonnen!"
     this.end.classList.toggle("hidden");
     this.board.classList.toggle("inactive");
+    this.stop.classList.toggle("inactive");
   }
   updateWins(stats) {
     document.getElementById(stats[1]).textContent = stats[0]

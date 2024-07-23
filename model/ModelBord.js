@@ -1,10 +1,10 @@
 
 export class ModelBord {
   static directions = [
-    { row: 0, col: 1 },  // Horizontal
-    { row: 1, col: 0 },  // Vertical
-    { row: 1, col: 1 },  // Diagonal (bottom-right)
-    { row: 1, col: -1 }  // Diagonal (bottom-left)
+    { row: 0, col: 1 },  // Horizontaal
+    { row: 1, col: 0 },  // Verticaal
+    { row: 1, col: 1 },  // Diagonaal (rechts)
+    { row: 1, col: -1 }  // Diagonaal (links)
   ];
   static rows = 6;
   static cols = 7;
@@ -41,6 +41,7 @@ export class ModelBord {
       this.currentTurnName = this.name2;
       this.turnColor = 'red';
     }
+    console.log(this.currentTurnName)
   }
   setNames(players) {
     this.name1 = players[0];
@@ -49,6 +50,7 @@ export class ModelBord {
   getNames() {
     return [this.name1, this.name2];
   }
+  // for-loop begint beneden en gaat naar boven, zodat het zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
   placeModelChip(event) {
     let col = event.target.id % 7;
 
