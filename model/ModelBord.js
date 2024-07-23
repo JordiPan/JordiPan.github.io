@@ -41,7 +41,6 @@ export class ModelBord {
       this.currentTurnName = this.name2;
       this.turnColor = 'red';
     }
-    console.log(this.currentTurnName)
   }
   setNames(players) {
     this.name1 = players[0];
