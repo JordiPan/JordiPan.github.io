@@ -14,6 +14,7 @@ export class ControllerBord {
     }
 
     async handleStart(event) {
+        this.view.toggleTitle();
         this.model.makeModelBoard();
         this.model.setNames(this.view.getNames());
         this.model.decideFirst();
@@ -29,6 +30,7 @@ export class ControllerBord {
     handleStop() {
         this.model.resetWins();
         this.view.resetBoard();
+        this.view.toggleTitle();
     }
     
     handlePlacing(event) {

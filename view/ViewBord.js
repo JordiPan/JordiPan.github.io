@@ -1,5 +1,6 @@
 export class ViewBord {
   constructor() {
+    this.title = document.getElementById("title");
     this.turn = document.getElementById("turn");
     this.winsScore1 = document.getElementById("win1");
     this.winsScore2 = document.getElementById("win2");
@@ -128,5 +129,8 @@ export class ViewBord {
   }
   hideResultsWindow() {
     this.end.classList.toggle("hidden");
+  }
+  toggleTitle() {
+    this.title.classList.toggle("hidden");
   }
 }
