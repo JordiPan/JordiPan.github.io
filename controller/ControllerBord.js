@@ -24,7 +24,6 @@ export class ControllerBord {
         this.view.hideStartWindow();
         await this.view.funny(this.model.getNames(), this.model.getTurn());
         // this.view.updateTurn(this.model.getTurn());
-        
     }
 
     handleStop() {
