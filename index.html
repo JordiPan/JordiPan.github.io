@@ -6,9 +6,46 @@
         <title>4 op een rij 🔴🔵</title>
         <link rel="stylesheet" href="./css/index.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
         <h1 id="title">4 op een rij</h1>
+        
+        <div class="form-container">
+            <form id="start-window">
+                <div class="mb-3">
+                    <label for="gamemode" class="form-label">Selecteer modus</label>
+                    <select type="text" class="form-select" id="gamemode"
+                        name="gamemode" required>
+                        <option selected value="">Kies een optie!!</option>
+                        <option value="local">Lokaal</option>
+                        <option value="ai">AI</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 player1-field" id="player1-field">
+                    <label for="speler-naam-1" class="name-1 form-label">Speler
+                        1:</label>
+                    <input type="text" class="form-control" id="player1-name"
+                        placeholder="John"
+                        maxlength="15" required disabled>
+                </div>
+
+                <div class="mb-3 player2-field" id="player2-field">
+                    <label for="speler-naam-2" class="name-2 form-label">Speler
+                        2:</label>
+                    <input type="text" class="form-control" id="player2-name"
+                        placeholder="Titor"
+                        maxlength="15" required disabled>
+                </div>
+
+                <button class="btn btn-success" id="start-button">Start
+                    spel!</button>
+            </form>
+        </div>
+
         <div class="margin-container hidden">
             <div class="row">
                 <div class="col-md-2 flex-stats" id="flex-stats-1">
@@ -44,25 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-container">
-            <form id="start-window">
-                <div class="mb-3">
-                    <label for="speler-naam-1" class="name-1 form-label">Speler
-                        1:</label>
-                    <input type="text" class="form-control" id="speler-naam-1"
-                        placeholder="John"
-                        maxlength="15" required>
-                </div>
-                <label for="speler-naam-2" class="name-2 form-label">Speler
-                    2:</label>
-                <input type="text" class="form-control" id="speler-naam-2"
-                    placeholder="Titor"
-                    maxlength="15" required>
-                <br>
-                <button class="btn btn-success" id="start-button">Start
-                    spel!</button>
-            </form>
-        </div>
+        
 
         <div id="result-window" class="hidden">
             <h3>Wilt u een rematch?</h3>
@@ -71,6 +90,7 @@
                 keer!</div>
         </div>
         <script type="module" src="start.js"></script>
+        <script type="module" src="startmenu.js"></script>
         <script type="module" src="css/bootstrap.min.js"></script>
     </body>
 </html>

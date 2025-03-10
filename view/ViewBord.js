@@ -16,6 +16,8 @@ export class ViewBord {
     this.stop = document.getElementById("stop");
     this.statBlock1 = document.getElementById("shadow-one");
     this.statBlock2 = document.getElementById("shadow-two");
+    this.formName1 = document.getElementById("player1-name");
+    this.formName2 = document.getElementById("player2-name");
   }
   bindMakeBoard(handler) {
     this.start.addEventListener("submit", handler);
@@ -63,8 +65,8 @@ export class ViewBord {
   }
   getNames() {
     return [
-      document.getElementById("speler-naam-1").value,
-      document.getElementById("speler-naam-2").value,
+      this.formName1.value,
+      this.formName2.value,
     ];
   }
   setNames(players) {
