@@ -18,6 +18,7 @@ export class ViewBord {
     this.statBlock2 = document.getElementById("shadow-two");
     this.formName1 = document.getElementById("player1-name");
     this.formName2 = document.getElementById("player2-name");
+    this.gamemode = document.getElementById("gamemode");
   }
   bindMakeBoard(handler) {
     this.start.addEventListener("submit", handler);
@@ -26,10 +27,10 @@ export class ViewBord {
     this.stop.addEventListener("click", handler);
   }
   bindPlaceChip(handler) {
-    //reageert niet als er op bord randen wordt geklikt 
+    //reageert niet als er op bord randen wordt geklikt
     this.board.addEventListener("click", (event) => {
       if (event.target && event.target.classList.contains("item")) {
-        handler(event);
+        handler(event.target.id);
       }
     });
     // this.board.addEventListener('click', handler);
@@ -64,10 +65,10 @@ export class ViewBord {
     this.board.classList.toggle("inactive");
   }
   getNames() {
-    return [
-      this.formName1.value,
-      this.formName2.value,
-    ];
+    return [this.formName1.value, this.formName2.value];
+  }
+  getGamemode() { 
+    return this.gamemode.value;
   }
   setNames(players) {
     this.scoreName1.textContent = players[0];
@@ -78,56 +79,61 @@ export class ViewBord {
     this.statBlock1.classList.toggle("player-one-turn");
     this.statBlock2.classList.toggle("player-two-turn");
   }
-  async funny(players, turn) {
+  async decideFirst(players, turn) {
+    console.log("VIEW echte turn: "+turn);
     let interval = 10;
     let count = 0;
-    //voeg dit toe zodat het de goede schaduw meegeeft
+    //ik voeg dit toe zodat het de goede schaduw meegeeft
     this.statBlock2.classList.toggle("player-two-turn");
     return new Promise((resolve) => {
       const switcher = () => {
-          if (count < 15) {
-              if (count % 2 === 0) {
-                  this.turn.textContent = players[0];
-              } else {
-                  this.turn.textContent = players[1];
-              }
-              this.statBlock1.classList.toggle("player-one-turn");
-              this.statBlock2.classList.toggle("player-two-turn");
-              count++;
-              interval += 20;
-              setTimeout(switcher, interval);
-          } 
-          else {
-            //geef de ECHTE turn mee
-            if(players[0] === turn) {
-              this.turn.textContent = players[0];
-              this.statBlock1.classList.add("player-one-turn");
-              this.statBlock2.classList.remove("player-two-turn");
-            }
-            else {
-              this.turn.textContent = players[1];
-              this.statBlock1.classList.remove("player-one-turn");
-              this.statBlock2.classList.add("player-two-turn");
-            }
-            this.stop.classList.toggle("inactive");
-            this.board.classList.toggle("inactive");
-            resolve(); 
+        if (count < 15) {
+          if (count % 2 === 0) {
+            this.turn.textContent = players[0];
+          } else {
+            this.turn.textContent = players[1];
           }
+          this.statBlock1.classList.toggle("player-one-turn");
+          this.statBlock2.classList.toggle("player-two-turn");
+          count++;
+          interval += 20;
+          setTimeout(switcher, interval);
+        } else {
+          //geef de ECHTE turn mee
+          if (players[0] === turn) {
+            this.turn.textContent = players[0];
+            this.statBlock1.classList.add("player-one-turn");
+            this.statBlock2.classList.remove("player-two-turn");
+          } else {
+            this.turn.textContent = players[1];
+            this.statBlock1.classList.remove("player-one-turn");
+            this.statBlock2.classList.add("player-two-turn");
+          }
+          this.stop.classList.toggle("inactive");
+          this.board.classList.toggle("inactive");
+          resolve();
+        }
       };
       setTimeout(switcher, interval);
-  });
+    });
   }
+
   placeChip(id, color) {
     document.getElementById(id).style.backgroundColor = color;
   }
   endGame(winner) {
-    this.winner.textContent = winner + " heeft gewonnen!"
+    if (winner === "draw") {
+      this.winner.textContent = "Niemand heeft gewonnen...";
+    }
+    else {
+      this.winner.textContent = winner + " heeft gewonnen!";
+    }
     this.end.classList.toggle("hidden");
     this.board.classList.toggle("inactive");
     this.stop.classList.toggle("inactive");
   }
   updateWins(stats) {
-    document.getElementById(stats[1]).textContent = stats[0]
+    document.getElementById(stats[1]).textContent = stats[0];
   }
   hideResultsWindow() {
     this.end.classList.toggle("hidden");

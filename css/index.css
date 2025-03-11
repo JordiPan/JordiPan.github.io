@@ -110,7 +110,6 @@ h1 {
 }
 #start-window {
    text-align: center;
-   width: 30%;
    padding: 2rem;
    margin: 3rem;
    border-radius: 1rem;
@@ -132,6 +131,9 @@ h1 {
 }
 /* small screens */
 @media only screen and (max-width: 600px) {
+   #start-window {
+      width: 100%;
+   }
    #board {
       height: 40vh;
    }
@@ -178,6 +180,9 @@ h1 {
 }
 /* medium screens */
 @media only screen and (min-width: 600px) and (max-width: 992px) {
+   #start-window {
+      width: 100%;
+   }
    #board {
       height: 60vh;
    }
@@ -227,6 +232,9 @@ h1 {
 }
 /* big screens */
 @media only screen and (min-width: 992px) {
+   #start-window {
+      width: 30%;
+   }
    .item {
       /* width: 5.2rem;
       height: 5.2rem; */

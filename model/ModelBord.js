@@ -10,6 +10,7 @@ export class ModelBord {
   static cols = 7;
 
   constructor() {
+    this.gamemode;
     this.turnColor;
     this.currentTurnName = "???";
     this.placement;
@@ -17,6 +18,7 @@ export class ModelBord {
     this.name2;
     this.counter1 = 0;
     this.counter2 = 0;
+    this.turnCount = 0;
     this.board = new Array(ModelBord.rows);
   }
   makeModelBoard() {
@@ -26,6 +28,15 @@ export class ModelBord {
     // Het zet in alle vakken van de model "-"
     for (let row = 0; row < 6; row++)
       for (let col = 0; col < 7; col++) this.board[row][col] = "-";
+  }
+  setgameMode(mode) {
+    this.gamemode = mode;
+  }
+  getGameMode() {
+    return this.gamemode;
+  }
+  resetTurnCount() {
+    this.turnCount = 0;
   }
   resetWins = () => {
     this.counter1 = 0;
@@ -44,14 +55,20 @@ export class ModelBord {
   }
   setNames(players) {
     this.name1 = players[0];
-    this.name2 = players[1];
+
+    if (players[1] == '') {
+      this.name2 = 'AI';
+    }
+    else {
+      this.name2 = players[1];
+    }
   }
   getNames() {
     return [this.name1, this.name2];
   }
   // for-loop begint beneden en gaat naar boven, zodat het zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
-  placeModelChip(event) {
-    let col = event.target.id % 7;
+  placeModelChip(placement) {
+    let col = placement % 7;
 
     for (let row = 5; row >= 0; row--) {
       if (this.board[row][col] === "-") {
@@ -74,9 +91,12 @@ export class ModelBord {
       const count = forwardCount + backwardCount - 1;
 
       if (count >= 4) return this.currentTurnName;
-  }
-
-  return null;
+    }
+    this.turnCount++;
+    if (this.turnCount == 42) {
+      return 'draw';
+    }
+    return null;
   }
 
   counter(row, col, dirRow, dirCol) {
@@ -121,10 +141,4 @@ export class ModelBord {
     this.counter2 += 1;
       return [this.counter2, 'win2'];
   }
-  // getWins1() {
-  //   return this.counter1;
-  // }
-  // getWins2() {
-  //   return this.counter2;
-  // }
 }

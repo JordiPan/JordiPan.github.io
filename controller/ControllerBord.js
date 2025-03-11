@@ -1,6 +1,5 @@
 import {ModelBord} from "../model/ModelBord.js";
 import {ViewBord} from "../view/ViewBord.js";
-
 export class ControllerBord {
     constructor() {
        
@@ -16,45 +15,72 @@ export class ControllerBord {
     async handleStart(event) {
         this.view.toggleTitle();
         this.model.makeModelBoard();
+        this.model.setgameMode(this.view.getGamemode());
         this.model.setNames(this.view.getNames());
         this.model.decideFirst();
         
         this.view.makeBoard(event);
         this.view.setNames(this.model.getNames());
         this.view.hideStartWindow();
-        await this.view.funny(this.model.getNames(), this.model.getTurn());
+        await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
+        this.pivotToAI();
         // this.view.updateTurn(this.model.getTurn());
     }
 
     handleStop() {
+        this.model.resetTurnCount();
         this.model.resetWins();
         this.view.resetBoard();
         this.view.toggleTitle();
     }
     
-    handlePlacing(event) {
-        let placement = this.model.placeModelChip(event);
+    handlePlacing(placementLocation) {
+        let placement = this.model.placeModelChip(placementLocation);
+
+        //kolom is vol (misschien shake animatie toevoegen)
         if(!placement) {
             return;
         }
+        
         this.view.placeChip(this.model.getPlacement(), this.model.getColor());
         let winner = this.model.checkWinner(placement);
+
+        if(winner == 'draw') {
+            this.view.endGame(winner);
+            return;
+        }
+        
         if(winner) {
             let stats = this.model.updateWins(winner);
             this.view.updateWins(stats);
             this.view.endGame(winner);
             return;
         }
-        this.model.switchTurn();
-        this.view.updateTurn(this.model.getTurn());
+        this.changeTurns();
     }
     async handleRematch(event) {
+        this.model.resetTurnCount();
         this.model.makeModelBoard();
-        this.model.decideFirst(event);
+        this.model.decideFirst();
 
         this.view.makeBoard(event);
         this.view.hideResultsWindow();
-        await this.view.funny(this.model.getNames(), this.model.getTurn());
+        await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
+        this.pivotToAI();
         // this.view.updateTurn(this.model.getTurn());
+    }
+    changeTurns() {
+        this.model.switchTurn();
+        this.view.updateTurn(this.model.getTurn());
+        this.pivotToAI();
+    }
+    
+    async pivotToAI() {
+        //niet ai's beurt of gamemode is niet ai
+        if(this.model.getGameMode() != 'ai' || this.model.getColor() != 'red') {
+            return;
+        }
+        //in AI klasse met ECHTE logica doe ik wel de settimeout enzo
+        this.handlePlacing(0);
     }
 }   

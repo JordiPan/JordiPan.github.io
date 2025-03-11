@@ -1,4 +1,4 @@
-//small start menu javascript that doesn't really fit in the mvc for the game itself
+// past niet echt in mvc model 
 let select = document.getElementById("gamemode");
 let player1Field = document.getElementById("player1-name");
 let player2Field = document.getElementById("player2-name");
@@ -18,4 +18,3 @@ select.addEventListener("change", () => {
         player2Field.disabled = true;
     }
 });
-
