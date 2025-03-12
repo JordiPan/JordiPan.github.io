@@ -13,6 +13,7 @@ export class ModelBord {
   constructor() {
     this.AiModel = new AiModel();
     this.gamemode;
+    this.difficulty = 'easy';
     this.turnColor;
     this.currentTurnName = "???";
     this.placement;
@@ -40,8 +41,8 @@ export class ModelBord {
       this.board[i] = new Array(ModelBord.cols);
     }
     // Het zet in alle vakken van de model "-"
-    for (let row = 0; row < 6; row++)
-      for (let col = 0; col < 7; col++) this.board[row][col] = "-";
+    for (let row = 0; row < ModelBord.rows; row++)
+      for (let col = 0; col < ModelBord.cols; col++) this.board[row][col] = "-";
   }
   setgameMode(mode) {
     this.gamemode = mode;
@@ -88,7 +89,7 @@ export class ModelBord {
   placeModelChip(col) {
     for (let row = 5; row >= 0; row--) {
       if (this.board[row][col] === "-") {
-        this.placement = (row*7)+(col); 
+        this.placement = (row*ModelBord.cols)+(col); 
         this.board[row][col] = this.turnColor;  
         return [row, col];
       }
@@ -163,6 +164,6 @@ export class ModelBord {
   }
 
   getAiMove() {
-    return this.AiModel.decide(this.board);
+    return this.AiModel.decide(this.board, this.difficulty, ModelBord.rows, ModelBord.cols);
   }
 }

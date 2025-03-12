@@ -20,6 +20,9 @@ export class ViewBord {
     this.formName2 = document.getElementById("player2-name");
     this.gamemode = document.getElementById("gamemode");
   }
+  // prevent(event) {
+  //   event.preventDefault();
+  // }
   bindMakeBoard(handler) {
     this.start.addEventListener("submit", handler);
   }

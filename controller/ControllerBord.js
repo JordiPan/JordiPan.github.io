@@ -22,18 +22,14 @@ export class ControllerBord {
         this.model.setgameMode(this.view.getGamemode());
         this.model.setNames(this.view.getNames());
         this.model.decideFirst();
-        
+
         this.view.toggleTitle();
         this.view.setNames(this.model.getNames());
         this.view.makeBoard(event);
         this.view.hideStartWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
-        
-        if(this.model.isAiTurn()) {
-            let aiColumn = this.model.getAiMove();
-            this.handlePlacing(aiColumn);
-        }
-        
+
+        this.checkForAiMove();
         // this.view.updateTurn(this.model.getTurn());
     }
 
@@ -80,19 +76,19 @@ export class ControllerBord {
         this.view.hideResultsWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
         
-        if(this.model.isAiTurn()) {
-            let aiColumn = this.model.getAiMove();
-            this.handlePlacing(aiColumn);
-        }
+        this.checkForAiMove();
         // this.view.updateTurn(this.model.getTurn());
     }
     changeTurns() {
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurn());
         
+        this.checkForAiMove();
+    }
+    checkForAiMove() {
         if(this.model.isAiTurn()) {
-            let aiColumn = this.model.getAiMove();
-            this.handlePlacing(aiColumn);
+            this.handlePlacing(this.model.getAiMove());
+            
         }
     }
 }   
