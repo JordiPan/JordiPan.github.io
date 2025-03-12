@@ -1,6 +1,7 @@
 export class AiModel {
     constructor() {
         this.validColumns = [];
+        this.thinkingTime = 500;
     }
     //moet nog checken of de kolom vol is
     decide(board, difficulty, rowCount, colCount) {
@@ -18,12 +19,16 @@ export class AiModel {
     }
 
     easyAi(board) {
-        this.updateValidCols(board);
-        console.log(board)
-        console.log("valid: "+this.validColumns);
-        let chosenColumn = this.validColumns[Math.floor(Math.random() * this.validColumns.length)];
-        console.log("chosen: "+chosenColumn);
-        return chosenColumn;
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.updateValidCols(board);
+                // console.log(board)
+                // console.log("valid: "+this.validColumns);
+                let chosenColumn = this.validColumns[Math.floor(Math.random() * this.validColumns.length)];
+                // console.log("chosen: "+chosenColumn);
+                resolve(chosenColumn);
+            }, this.thinkingTime);
+        });
     }
 
     mediumAi(board) {

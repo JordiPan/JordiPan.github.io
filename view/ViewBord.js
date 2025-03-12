@@ -133,8 +133,7 @@ export class ViewBord {
       this.winner.textContent = winner + " heeft gewonnen!";
     }
     this.end.classList.toggle("hidden");
-    this.board.classList.toggle("inactive");
-    this.stop.classList.toggle("inactive");
+    this.toggleInteractivity();
   }
   updateWins(stats) {
     document.getElementById(stats[1]).textContent = stats[0];
@@ -149,4 +148,8 @@ export class ViewBord {
     this.formName1.value = "";
     this.formName2.value = "";
   } 
+  toggleInteractivity() {
+    this.board.classList.toggle("inactive");
+    this.stop.classList.toggle("inactive");
+  }
 }

@@ -29,7 +29,7 @@ export class ControllerBord {
         this.view.hideStartWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
 
-        this.checkForAiMove();
+        await this.checkForAiMove();
         // this.view.updateTurn(this.model.getTurn());
     }
 
@@ -85,10 +85,13 @@ export class ControllerBord {
         
         this.checkForAiMove();
     }
-    checkForAiMove() {
+    async checkForAiMove() {
         if(this.model.isAiTurn()) {
-            this.handlePlacing(this.model.getAiMove());
-            
+            this.view.toggleInteractivity();
+            let aiMove = await this.model.getAiMove();
+            this.view.toggleInteractivity();
+            console.log("we're done: "+aiMove);
+            this.handlePlacing(aiMove);
         }
     }
 }   

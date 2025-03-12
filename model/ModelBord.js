@@ -162,7 +162,7 @@ export class ModelBord {
   isAiTurn() {
     return this.getGameMode() == 'ai' && this.getColor() == 'red';
   }
-
+  
   getAiMove() {
     return this.AiModel.decide(this.board, this.difficulty, ModelBord.rows, ModelBord.cols);
   }
