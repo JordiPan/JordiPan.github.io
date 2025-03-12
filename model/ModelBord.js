@@ -18,10 +18,22 @@ export class ModelBord {
     this.placement;
     this.name1;
     this.name2;
+    this.aiName = 'AI';
     this.counter1 = 0;
     this.counter2 = 0;
     this.turnCount = 0;
     this.board = new Array(ModelBord.rows);
+  }
+
+  checkDuplicateNames(names) {
+    if (names[0] == names[1]) {
+      return true;
+    }
+    else if (names[0] == this.aiName) {
+      return true;
+
+    }
+    return false;
   }
   makeModelBoard() {
     for (let i = 0; i < this.board.length; i++) {
@@ -63,7 +75,7 @@ export class ModelBord {
     this.name1 = players[0];
 
     if (players[1] == '') {
-      this.name2 = 'AI';
+      this.name2 = this.aiName;
     }
     else {
       this.name2 = players[1];
@@ -150,8 +162,7 @@ export class ModelBord {
     return this.getGameMode() == 'ai' && this.getColor() == 'red';
   }
 
-  makeAiMove() {
-    let chosenColumn = this.AiModel.decide(this.board);
-    return this.placeModelChip(chosenColumn);
+  getAiMove() {
+    return this.AiModel.decide(this.board);
   }
 }

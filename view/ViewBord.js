@@ -39,6 +39,7 @@ export class ViewBord {
   bindRematch(handler) {
     this.rematch.addEventListener("click", handler);
   }
+  
   // Maakt automatisch 42 <div> vakjes
   makeBoard(event) {
     event.preventDefault();

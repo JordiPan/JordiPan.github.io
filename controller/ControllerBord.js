@@ -13,6 +13,11 @@ export class ControllerBord {
     }
 
     async handleStart(event) {
+        if (this.model.checkDuplicateNames(this.view.getNames())) {
+            alert('Namen mogen niet hetzelfde zijn/AI mag niet dezelfde naam hebben als speler');
+            return;
+        }
+
         this.model.makeModelBoard();
         this.model.setgameMode(this.view.getGamemode());
         this.model.setNames(this.view.getNames());
@@ -25,7 +30,8 @@ export class ControllerBord {
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
         
         if(this.model.isAiTurn()) {
-            this.model.makeAiMove();
+            let aiColumn = this.model.getAiMove();
+            this.handlePlacing(aiColumn);
         }
         
         // this.view.updateTurn(this.model.getTurn());
@@ -75,7 +81,8 @@ export class ControllerBord {
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
         
         if(this.model.isAiTurn()) {
-            this.model.makeAiMove();
+            let aiColumn = this.model.getAiMove();
+            this.handlePlacing(aiColumn);
         }
         // this.view.updateTurn(this.model.getTurn());
     }
@@ -84,7 +91,8 @@ export class ControllerBord {
         this.view.updateTurn(this.model.getTurn());
         
         if(this.model.isAiTurn()) {
-            this.model.makeAiMove();
+            let aiColumn = this.model.getAiMove();
+            this.handlePlacing(aiColumn);
         }
     }
 }   
