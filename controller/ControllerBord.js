@@ -13,24 +13,31 @@ export class ControllerBord {
     }
 
     async handleStart(event) {
-        this.view.toggleTitle();
         this.model.makeModelBoard();
         this.model.setgameMode(this.view.getGamemode());
         this.model.setNames(this.view.getNames());
         this.model.decideFirst();
         
-        this.view.makeBoard(event);
+        this.view.toggleTitle();
         this.view.setNames(this.model.getNames());
+        this.view.makeBoard(event);
         this.view.hideStartWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
-        this.pivotToAI();
+        
+        if(this.model.isAiTurn()) {
+            this.model.makeAiMove();
+        }
+        
         // this.view.updateTurn(this.model.getTurn());
     }
 
     handleStop() {
         this.model.resetTurnCount();
         this.model.resetWins();
-        this.view.resetBoard();
+        this.model.resetNames();
+
+        this.view.resetNames();
+        this.view.hidePlayingField();
         this.view.toggleTitle();
     }
     
@@ -66,21 +73,18 @@ export class ControllerBord {
         this.view.makeBoard(event);
         this.view.hideResultsWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurn());
-        this.pivotToAI();
+        
+        if(this.model.isAiTurn()) {
+            this.model.makeAiMove();
+        }
         // this.view.updateTurn(this.model.getTurn());
     }
     changeTurns() {
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurn());
-        this.pivotToAI();
-    }
-    
-    async pivotToAI() {
-        //niet ai's beurt of gamemode is niet ai
-        if(this.model.getGameMode() != 'ai' || this.model.getColor() != 'red') {
-            return;
+        
+        if(this.model.isAiTurn()) {
+            this.model.makeAiMove();
         }
-        //in AI klasse met ECHTE logica doe ik wel de settimeout enzo
-        this.handlePlacing(0);
     }
 }   

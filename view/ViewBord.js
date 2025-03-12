@@ -30,7 +30,8 @@ export class ViewBord {
     //reageert niet als er op bord randen wordt geklikt
     this.board.addEventListener("click", (event) => {
       if (event.target && event.target.classList.contains("item")) {
-        handler(event.target.id);
+        //geeft kolom mee ipv volgorde nummer van div
+        handler(event.target.id % 7);
       }
     });
     // this.board.addEventListener('click', handler);
@@ -53,7 +54,7 @@ export class ViewBord {
     this.start.classList.toggle("hidden");
     this.playingField.classList.toggle("hidden");
   }
-  resetBoard() {
+  hidePlayingField() {
     this.winsScore1.textContent = 0;
     this.winsScore2.textContent = 0;
 
@@ -80,7 +81,6 @@ export class ViewBord {
     this.statBlock2.classList.toggle("player-two-turn");
   }
   async decideFirst(players, turn) {
-    console.log("VIEW echte turn: "+turn);
     let interval = 10;
     let count = 0;
     //ik voeg dit toe zodat het de goede schaduw meegeeft
@@ -141,4 +141,8 @@ export class ViewBord {
   toggleTitle() {
     this.title.classList.toggle("hidden");
   }
+  resetNames() {
+    this.formName1.value = "";
+    this.formName2.value = "";
+  } 
 }

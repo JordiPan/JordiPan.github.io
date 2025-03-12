@@ -1,4 +1,5 @@
 
+import { AiModel } from "./AiModel.js";
 export class ModelBord {
   static directions = [
     { row: 0, col: 1 },  // Horizontaal
@@ -10,6 +11,7 @@ export class ModelBord {
   static cols = 7;
 
   constructor() {
+    this.AiModel = new AiModel();
     this.gamemode;
     this.turnColor;
     this.currentTurnName = "???";
@@ -37,6 +39,10 @@ export class ModelBord {
   }
   resetTurnCount() {
     this.turnCount = 0;
+  }
+  resetNames() {
+    this.name1 = '';
+    this.name2 = '';
   }
   resetWins = () => {
     this.counter1 = 0;
@@ -67,9 +73,7 @@ export class ModelBord {
     return [this.name1, this.name2];
   }
   // for-loop begint beneden en gaat naar boven, zodat het zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
-  placeModelChip(placement) {
-    let col = placement % 7;
-
+  placeModelChip(col) {
     for (let row = 5; row >= 0; row--) {
       if (this.board[row][col] === "-") {
         this.placement = (row*7)+(col); 
@@ -140,5 +144,14 @@ export class ModelBord {
     }
     this.counter2 += 1;
       return [this.counter2, 'win2'];
+  }
+
+  isAiTurn() {
+    return this.getGameMode() == 'ai' && this.getColor() == 'red';
+  }
+
+  makeAiMove() {
+    let chosenColumn = this.AiModel.decide(this.board);
+    return this.placeModelChip(chosenColumn);
   }
 }
