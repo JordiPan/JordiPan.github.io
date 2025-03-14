@@ -56,7 +56,6 @@ export class ControllerBord {
         if(!placement) {
             return;
         }
-        console.log(this.model.getPlacement() % 7);
         this.view.placeChip(this.model.getPlacement(), this.model.getColor());
         
         let gamestate = this.model.checkWinner(placement);
