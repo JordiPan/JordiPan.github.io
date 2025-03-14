@@ -13,7 +13,7 @@ export class ModelBord {
   constructor() {
     this.AiModel = new AiModel();
     this.gamemode;
-    this.difficulty = 'easy';
+    this.difficulty = 'medium';
     this.turnColor;
     this.currentTurnName = "???";
     this.placement;

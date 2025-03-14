@@ -90,7 +90,6 @@ export class ControllerBord {
             this.view.toggleInteractivity();
             let aiMove = await this.model.getAiMove();
             this.view.toggleInteractivity();
-            console.log("we're done: "+aiMove);
             this.handlePlacing(aiMove);
         }
     }
