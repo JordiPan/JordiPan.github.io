@@ -15,7 +15,8 @@
         
         <div class="form-container">
             <form id="start-window">
-                <div class="mb-3">
+                <div class="row mb-3">
+                    <div class="col-md-6">
                     <label for="gamemode" class="form-label">Selecteer modus</label>
                     <select type="text" class="form-select" id="gamemode"
                         name="gamemode" required>
@@ -24,6 +25,16 @@
                         <option value="ai">AI</option>
                     </select>
                 </div>
+                <div class="col-md-6">
+                    <label for="difficulty" class="form-label">Moeilijkheid (AI)</label>
+                    <select type="text" class="form-select" id="difficulty"
+                        name="gamemode" disabled>
+                        <option selected value="easy">Makkelijk</option>
+                        <option value="medium">Minder makkelijk</option>
+                    </select>
+                </div>
+                </div>
+                
 
                 <div class="mb-3 player1-field" id="player1-field">
                     <label for="speler-naam-1" class="name-1 form-label">Speler
@@ -40,6 +51,8 @@
                         placeholder="Titor"
                         maxlength="15" required disabled>
                 </div>
+
+                
 
                 <button class="btn btn-success" id="start-button">Start
                     spel!</button>

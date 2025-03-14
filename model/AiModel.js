@@ -1,21 +1,27 @@
 export class AiModel {
+    //misschien enum van maken
     static directions = [
         { row: 0, col: 1 },  // Horizontaal
         { row: 1, col: 0 },  // Verticaal
         { row: 1, col: 1 },  // Diagonaal (rechts)
         { row: 1, col: -1 }  // Diagonaal (links)
       ];
+
     constructor() {
+        this.difficulty;
         this.board;
         this.validColumns = [];
         this.validPositions = [];
         this.thinkingTime = 500;
     }
+    setDifficulty(diff) {
+        this.difficulty = diff;
+    }
     //moet nog checken of de kolom vol is
-    decide(board, difficulty, rowCount, colCount) {
+    decide(board) {
         this.board = board;
         
-        switch(difficulty) {
+        switch(this.difficulty) {
             case 'easy':
                 return this.easyAi();
             case 'medium':

@@ -19,6 +19,7 @@ export class ViewBord {
     this.formName1 = document.getElementById("player1-name");
     this.formName2 = document.getElementById("player2-name");
     this.gamemode = document.getElementById("gamemode");
+    this.difficulty = document.getElementById("difficulty");
   }
   // prevent(event) {
   //   event.preventDefault();
@@ -71,6 +72,9 @@ export class ViewBord {
   }
   getNames() {
     return [this.formName1.value, this.formName2.value];
+  }
+  getDifficulty() {
+    return this.difficulty.value;
   }
   getGamemode() { 
     return this.gamemode.value;
@@ -126,7 +130,7 @@ export class ViewBord {
     document.getElementById(id).style.backgroundColor = color;
   }
   endGame(winner) {
-    if (winner === "draw") {
+    if (winner === null) {
       this.winner.textContent = "Niemand heeft gewonnen...";
     }
     else {

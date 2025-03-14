@@ -13,7 +13,6 @@ export class ModelBord {
   constructor() {
     this.AiModel = new AiModel();
     this.gamemode;
-    this.difficulty = 'medium';
     this.turnColor;
     this.currentTurnName = "???";
     this.placement;
@@ -46,6 +45,9 @@ export class ModelBord {
   }
   setgameMode(mode) {
     this.gamemode = mode;
+  }
+  setDifficulty(diff) {
+    this.AiModel.setDifficulty(diff);
   }
   getGameMode() {
     return this.gamemode;
@@ -97,6 +99,7 @@ export class ModelBord {
     return false;
   }
 
+  //0 is geen winnaar, 1 is gelijkspel, 2 is winnaar
   checkWinner(placement) {
     let lastCol = placement[1];
     let lastRow = placement[0];
@@ -107,13 +110,13 @@ export class ModelBord {
       //het telt de geplaatste fische 2 keer, daarom - 1
       const count = forwardCount + backwardCount - 1;
 
-      if (count >= 4) return this.currentTurnName;
+      if (count >= 4) return 2;
     }
     this.turnCount++;
     if (this.turnCount == 42) {
-      return 'draw';
+      return 1;
     }
-    return null;
+    return 0;
   }
 
   counter(row, col, dirRow, dirCol) {
@@ -133,7 +136,7 @@ export class ModelBord {
   getPlacement() {
     return this.placement;
   }
-  getTurn() {
+  getTurnName() {
     return this.currentTurnName;
   }
 
@@ -164,6 +167,6 @@ export class ModelBord {
   }
   
   getAiMove() {
-    return this.AiModel.decide(this.board, this.difficulty, ModelBord.rows, ModelBord.cols);
+    return this.AiModel.decide(this.board);
   }
 }
