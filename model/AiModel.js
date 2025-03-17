@@ -79,7 +79,7 @@ export class AiModel {
             }
         }
     }
-
+    //het is anders dan de checkwin van de player, omdat de ai nog niet geplaatst heeft
     checkWinPlacements(color) {
         this.validPositions = [];
         this.getValidPositions();
