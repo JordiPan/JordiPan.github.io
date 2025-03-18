@@ -1,5 +1,5 @@
-import {ControllerBord} from "./controller/ControllerBord.js";
+import {Controller} from "./client-side/controller/Controller.js";
 
 window.addEventListener("load", function(){
-    new ControllerBord();
+    new Controller();
 }, false);
