@@ -25,16 +25,16 @@ export class Model {
     this.board = new Array(Model.rows);
   }
 
-  checkDuplicateNames(names) {
-    if (names[0] == names[1]) {
-      return true;
-    }
-    else if (names[0] == this.aiName) {
-      return true;
+  // checkDuplicateNames(names) {
+  //   if (names[0] == names[1]) {
+  //     return true;
+  //   }
+  //   else if (names[0] == this.aiName) {
+  //     return true;
 
-    }
-    return false;
-  }
+  //   }
+  //   return false;
+  // }
   makeModelBoard() {
     for (let i = 0; i < this.board.length; i++) {
       this.board[i] = new Array(Model.cols);
@@ -144,7 +144,7 @@ export class Model {
     return this.turnColor;
   }
   switchTurn() {
-    if (this.currentTurnName == this.name1) {
+    if (this.turnColor == 'blue') {
         this.currentTurnName = this.name2;
         this.turnColor = 'red'
     }
@@ -153,8 +153,9 @@ export class Model {
         this.turnColor = 'blue'
     }
   }
-  updateWins(winner) {
-    if(winner == this.name1) {
+  updateWins(winnerColor) {
+    //win1 en win2 zijn de id's van de scores. niet handig maar het werkt
+    if(winnerColor == 'blue') {
       this.counter1 += 1;
       return [this.counter1, 'win1'];
     }

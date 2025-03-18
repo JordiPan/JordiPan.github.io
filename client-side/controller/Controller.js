@@ -1,11 +1,12 @@
 import {Model} from "../model/Model.js";
 import {View} from "../view/View.js";
+
+//TODO: de bord met scores en beurten kan waarschijnlijk liever gegenereerd in de script ipv html
 export class Controller {
     constructor() {
        
         this.model = new Model();
         this.view = new View();
-        //op dit moment geen idee over bind this
         this.view.bindMakeBoard(this.handleStart.bind(this))
         this.view.bindStop(this.handleStop.bind(this))
         this.view.bindPlaceChip(this.handlePlacing.bind(this))
@@ -14,11 +15,10 @@ export class Controller {
 
     async handleStart(event) {
         // event.preventDefault();
-        if (this.model.checkDuplicateNames(this.view.getNames())) {
-            alert('Namen mogen niet hetzelfde zijn/AI mag niet dezelfde naam hebben als speler');
-            return;
-        }
-        event.preventDefault();
+        // if (this.model.checkDuplicateNames(this.view.getNames())) {
+        //     alert('Namen mogen niet hetzelfde zijn/AI mag niet dezelfde naam hebben als speler');
+        //     return;
+        // }
         this.model.makeModelBoard();
         this.model.setgameMode(this.view.getGamemode());
 
@@ -53,7 +53,7 @@ export class Controller {
     handlePlacing(placementLocation) {
         let placement = this.model.placeModelChip(placementLocation);
 
-        //kolom is vol (misschien shake animatie toevoegen)
+        //TODO: kolom is vol (misschien shake animatie toevoegen)
         if(!placement) {
             return;
         }
@@ -67,10 +67,10 @@ export class Controller {
         }
         
         if(gamestate === 2) {
-            let winnerName = this.model.getTurnName();
-            let stats = this.model.updateWins(winnerName);
+            let winnerColor = this.model.getColor();
+            let stats = this.model.updateWins(winnerColor);
             this.view.updateWins(stats);
-            this.view.endGame(winnerName);
+            this.view.endGame(this.model.getTurnName());
             return;
         }
         this.changeTurns();
