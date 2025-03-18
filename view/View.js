@@ -88,7 +88,7 @@ export class View {
     this.statBlock1.classList.toggle("player-one-turn");
     this.statBlock2.classList.toggle("player-two-turn");
   }
-  async decideFirst(players, turn) {
+  async decideFirst(players, turnColor) {
     let interval = 10;
     let count = 0;
     //ik voeg dit toe zodat het de goede schaduw meegeeft
@@ -108,7 +108,7 @@ export class View {
           setTimeout(switcher, interval);
         } else {
           //geef de ECHTE turn mee
-          if (players[0] === turn) {
+          if (turnColor === "blue") {
             this.turn.textContent = players[0];
             this.statBlock1.classList.add("player-one-turn");
             this.statBlock2.classList.remove("player-two-turn");
