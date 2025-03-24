@@ -3,8 +3,9 @@ import {View} from "../view/View.js";
 
 //TODO: de bord met scores en beurten kan waarschijnlijk liever gegenereerd in de script ipv html
 export class Controller {
+
     constructor() {
-       
+        // this.client = new Client(serverUrl);
         this.model = new Model();
         this.view = new View();
         this.view.bindMakeBoard(this.handleStart.bind(this))
