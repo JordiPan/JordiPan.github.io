@@ -28,6 +28,10 @@ async function onlineTest() {
     await client.initialize();
     // client.send("Hello from the client!");
     client.showSocketId();
+    client.setUsername("Player");
+    //await niet nodig uiteindelijk
+    client.createRoom();
+    client.getRooms();
 }
 
 onlineTest();
