@@ -1,3 +1,4 @@
+/* TODO: verdeel al dit css in meerdere files voor duidelijkheid */
 * {
    box-sizing: border-box;
    margin: 0;
@@ -108,7 +109,7 @@ h1 {
 .player-name, .player-wins {
    margin: 0;
 }
-#start-window {
+.form-window {
    text-align: center;
    padding: 2rem;
    margin: 3rem;
@@ -129,9 +130,21 @@ h1 {
    opacity: 0.9;
    /* box-shadow: 1px 2px 10px rgba(255, 255, 255, 0.5); */
 }
+
+#rooms-list {
+   overflow-y: scroll;
+   max-height: 15rem;
+   border: 1px solid black;
+   margin: 0.5rem;
+}
+.room {
+   padding: 0.5rem;
+   margin: 1rem;
+   border: 1px solid black;
+}
 /* small screens */
 @media only screen and (max-width: 600px) {
-   #start-window {
+   .form-window {
       width: 100%;
    }
    #board {
@@ -180,7 +193,7 @@ h1 {
 }
 /* medium screens */
 @media only screen and (min-width: 600px) and (max-width: 992px) {
-   #start-window {
+   .form-window {
       width: 100%;
    }
    #board {
@@ -232,7 +245,7 @@ h1 {
 }
 /* big screens */
 @media only screen and (min-width: 992px) {
-   #start-window {
+   .form-window {
       width: 30%;
    }
    .item {

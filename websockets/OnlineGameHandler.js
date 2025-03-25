@@ -1,12 +1,18 @@
 export class OnlineGameHandler {
     constructor(serverUrl) {
-        this.socket = io(serverUrl);
+        this.socket = io(serverUrl, {
+                reconnectionAttempts: 2,
+                reconnectionDelay: 2000,
+                timeout: 5000,
+            });
+
         this.socketId = null;
         this.username = null;
+        this.roomId = null;
         this.room = null;
     }
     initialize() {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             this.socket.on("connect", () => {
                 console.log("Connected to WebSocket server!");
             });
@@ -18,7 +24,16 @@ export class OnlineGameHandler {
                 this.socketId = id;
                 resolve();
             });
-        })
+
+            this.socket.on("connect_error", (err) => {
+                console.warn("⚠️ Uhh, ignore error up above :)", err.message);
+            });
+    
+            // this.socket.on("connect_failed", () => {
+            //     console.error("🚫 Max reconnection attempts reached.");
+            //     reject(new Error("Max retries reached."));
+            // });
+        }) 
     }
     setUsername(username) {
         this.username = username;
@@ -26,6 +41,7 @@ export class OnlineGameHandler {
 
     createRoom() {
         this.socket.emit('createRoom', this.username, (roomId, room) => {
+            this.roomId = roomId;
             this.room = room;
             // room.players.forEach(player => {
                 // console.log("Player: "+player?.username);
