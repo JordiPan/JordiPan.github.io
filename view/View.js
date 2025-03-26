@@ -16,16 +16,22 @@ export class View {
     this.stop = document.getElementById("stop");
     this.statBlock1 = document.getElementById("shadow-one");
     this.statBlock2 = document.getElementById("shadow-two");
-    this.formName1 = document.getElementById("player1-name");
-    this.formName2 = document.getElementById("player2-name");
-    this.gamemode = document.getElementById("gamemode");
-    this.difficulty = document.getElementById("difficulty");
+    this.formName1;
+    this.formName2;
+    this.gamemode;
+    this.difficulty;
   }
   // prevent(event) {
   //   event.preventDefault();
   // }
   bindMakeBoard(handler) {
-    this.start.addEventListener("submit", handler);
+    this.start.addEventListener("submit", (event) => {
+      this.formName1 = document.getElementById("player1-name");
+      this.formName2 = document.getElementById("player2-name");
+      this.gamemode = document.getElementById("gamemode");
+      this.difficulty = document.getElementById("difficulty");
+      handler(event);
+    });
   }
   bindStop(handler) {
     this.stop.addEventListener("click", handler);
