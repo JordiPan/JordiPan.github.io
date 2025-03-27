@@ -135,9 +135,10 @@ h1 {
    margin-bottom: 1rem;
 }
 #rooms-list {
-   overflow-y: scroll;
+   overflow-y: auto;
    max-height: 15rem;
    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+   background-color: #e4eeff;
 }
 .room {
    flex: 1 1 50%;
@@ -189,6 +190,9 @@ h1 {
 }
 .icon {
    pointer-events: none;
+}
+#loading-icon {
+   height: 5rem;
 }
 /* small screens */
 @media only screen and (max-width: 600px) {

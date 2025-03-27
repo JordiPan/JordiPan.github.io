@@ -1,17 +1,47 @@
 import { OnlineGameHandler } from "./websockets/OnlineGameHandler.js";
 // past niet echt in mvc model
-let startWindow = document.getElementById("start-window");
+const startWindow = document.getElementById("start-window");
+const regex = /^[^ ].+[^ ]$/;
+const backendUrl = "http://localhost:3000";
+const client = new OnlineGameHandler();
 
+//TODO: maak buttons unclickable terwijl het wacht voor backend dingen ofzo?
 window.addEventListener("load", function(){
-    changeToOffline();
+    // changeToOffline();
+    changeToOnline();
 }, false);
 
-startWindow.addEventListener("click", (event) => {
-  if (event.target && event.target.id === "back-button") {
-    changeToOffline();
+//switch case mayhaps?
+startWindow.addEventListener("click", async (event) => {
+  if(!event.target) {
+    return;
   }
-  if (event.target && event.target.id === "online-button") {
+  if (event.target.id === "back-button") {
+    client.disconnect();
+    changeToOffline();
+    return;
+  }
+  if (event.target.id === "online-button") {
     changeToOnline();
+    return;
+  }
+  if (event.target.id === "create-button") {
+    createRoom();
+    return;
+  }
+
+  //TODO: terug naar username knop later (basically disconnect)
+  if (event.target.id === "find-button") {
+    const username = document.getElementById("online-username");
+    
+    if(!regex.test(username.value)) {
+      alert("slechte gebruikersnaam");
+      username.value = '';
+      return;
+    }
+    username.disabled = true;
+    const rooms = await connectOnline(username.value);
+    showRooms(rooms);
   }
 })
 
@@ -115,22 +145,22 @@ function changeToOnline() {
   startWindow.innerHTML = `<h2>Online multiplaya!!</h2>
 
 <div class="mb-3 player1-field" id="player1-field">
-  <label for="username" class="form-label">Gebruikersnaam:</label>
+  <label for="online-username" class="form-label">Gebruikersnaam:</label>
   <input
     type="text"
     class="form-control"
-    id="username"
+    id="online-username"
     placeholder="Silence"
     maxlength="15"
-    required
+    pattern="^[^ ].+[^ ]$"
   />
 </div>
 
 <!-- betere design later? -->
 <div id="online-buttons">
-  <button class="btn btn-success" id="find-button">Zoek spellen!</button>
-  <button class="btn btn-info" id="create-button">Maak een kamer!</button>
-  <button class="btn btn-danger" id="back-button">
+  <button class="btn btn-success" id="find-button" type="button">Zoek spellen!</button>
+  <button class="btn btn-info" id="create-button" type="button">Maak een kamer!</button>
+  <button class="btn btn-danger" id="back-button" type="button">
     <img
       src="./img/offline-icon.svg"
       alt="back to offline"
@@ -138,73 +168,68 @@ function changeToOnline() {
     />
   </button>
 </div>
-
-<div id="rooms-list">
-  <div class="room">
-    <div class="row room-row">
-      <div class="col info-col">
-        <p class="room-id">Room: #12A4R#!</p>
-        <p class="creator-name">Creator: Jeff</p>
-        <p class="player-count">1/2</p>
-      </div>
-      <div class="col join-button-col">
-        <button class="join-button">
-          <img
-            src="./img/enter-icon.svg"
-            alt="enter icon"
-            class="enter-icon icon"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="room">
-    <div class="row room-row">
-      <div class="col info-col">
-        <p class="room-id">Room: #12A4R#!</p>
-        <p class="creator-name">Creator: Jeff2</p>
-        <p class="player-count">1/2</p>
-      </div>
-      <div class="col join-button-col">
-        <button class="join-button">
-          <img
-            src="./img/enter-icon.svg"
-            alt="enter icon"
-            class="enter-icon icon"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="room">
-    <div class="row room-row">
-      <div class="col info-col">
-        <p class="room-id">Room: #12A4R#!</p>
-        <p class="creator-name">Creator: Jeff3</p>
-        <p class="player-count">1/2</p>
-      </div>
-      <div class="col join-button-col">
-        <button class="join-button">
-          <img
-            src="./img/enter-icon.svg"
-            alt="enter icon"
-            class="enter-icon icon"
-          />
-        </button>
-      </div>
-    </div>
+<div class="list-container">
+  <div id="rooms-list">
   </div>
 </div>`
 }
-async function onlineTest() {
-    let serverUrl = "http://localhost:3000";
-    let client = new OnlineGameHandler(serverUrl);
-    await client.initialize();
-    // client.send("Hello from the client!");
-    client.showSocketId();
-    client.setUsername("Player");
-    client.createRoom();
-    client.getRooms();
+
+function showRooms(rooms) {
+  const roomsList = document.getElementById("rooms-list");
+  roomsList.innerHTML = ``;
+  console.log("print rooms");
+  if (Object.keys(rooms).length === 0) {
+    roomsList.innerHTML = `Niemand wilt dit spel spelen....`
+  return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  for(const roomId in rooms) {
+    const roomFragment = document.createElement("div");
+    roomFragment.classList.add("room");
+    roomFragment.innerHTML = `
+    <div class="row room-row">
+      <div class="col info-col">
+        <p class="room-id">Room: ${roomId}</p>
+        <p class="creator-name">Creator: ${rooms[roomId]?.players[0]?.username} (${rooms[roomId]?.creatorId})</p>
+        <p class="player-count">${rooms[roomId]?.players?.length}/2</p>
+      </div>
+      <div class="col join-button-col">
+        <button class="join-button">
+          <img
+            src="./img/enter-icon.svg"
+            alt="enter icon"
+            class="enter-icon icon"
+          />
+        </button>
+      </div>
+    </div>`
+    fragment.appendChild(roomFragment);
+  }
+  roomsList.appendChild(fragment);
+}
+// ik kan roomslist niet bij opstart zetten sinds het er misschien niet is op het scherm via offline en online wissel. get element id checkt alleen 1 keer 
+async function connectOnline(username) {
+  const roomsList = document.getElementById("rooms-list");
+  
+  roomsList.innerHTML = `<img
+    src="./img/loading.svg"
+    alt="loading"
+    id="loading-icon"
+    class="icon"
+  />`;
+
+  client.setUsername(username);
+  await client.initialize(backendUrl);
+  client.showSocketId();
+
+  
+
+  const rooms = await client.getRooms();
+  return rooms;
 }
 
-onlineTest();
+async function createRoom() {
+  await client.createRoom();
+}
+

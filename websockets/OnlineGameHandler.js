@@ -1,18 +1,19 @@
 export class OnlineGameHandler {
-    constructor(serverUrl) {
-        this.socket = io(serverUrl, {
-                reconnectionAttempts: 2,
-                reconnectionDelay: 2000,
-                timeout: 5000,
-            });
-
+    constructor() {
+        this.socket = null;
         this.socketId = null;
         this.username = null;
         this.roomId = null;
         this.room = null;
     }
-    initialize() {
+    initialize(serverUrl) {
         return new Promise((resolve, reject) => {
+            this.socket = io(serverUrl, {
+                reconnectionAttempts: 2,
+                reconnectionDelay: 2000,
+                timeout: 5000,
+            });
+
             this.socket.on("connect", () => {
                 console.log("Connected to WebSocket server!");
             });
@@ -40,17 +41,27 @@ export class OnlineGameHandler {
     }
 
     createRoom() {
-        this.socket.emit('createRoom', this.username, (roomId, room) => {
-            this.roomId = roomId;
-            this.room = room;
-            // room.players.forEach(player => {
-                // console.log("Player: "+player?.username);
-            // });
-            console.log("Created room with id: " + JSON.stringify(room));
-        });
+        return new Promise((resolve) => {
+            this.socket.emit('createRoom', this.username, (roomId, room) => {
+                this.roomId = roomId;
+                this.room = room;
+                // room.players.forEach(player => {
+                    // console.log("Player: "+player?.username);
+                // });
+                console.log("Created room with id: " + JSON.stringify(room));
+                resolve();
+            });
+        }) 
     }
+
     disconnect() {
-        this.socket.disconnect();
+        console.log("DISContectINg!!!");
+        this.socket?.disconnect();
+        this.socket = null;
+        this.socketId = null;
+        this.username = null;
+        this.roomId = null;
+        this.room = null;
     }
     send(msg) {
         this.socket.emit('test', msg);
@@ -59,9 +70,17 @@ export class OnlineGameHandler {
         console.log(this.socketId);
     }   
     getRooms() {
-        this.socket.emit('getRooms', (rooms) => {
+        return new Promise((resolve) => { 
+            
+            this.socket.emit('getRooms', (rooms) => {
             console.log("GETROOMS: "+JSON.stringify(rooms));
+            setTimeout(() => {
+                console.log("Timeout executed after 2 seconds!");
+                resolve(rooms);
+              }, 3000);
+           
         });
+        })
     }
     joinRoom(roomId) {
         if (this.room) {
