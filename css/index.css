@@ -191,8 +191,13 @@ h1 {
 .icon {
    pointer-events: none;
 }
-#loading-icon {
+.loading-icon {
    height: 5rem;
+}
+.waiting-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 }
 /* small screens */
 @media only screen and (max-width: 600px) {

@@ -71,11 +71,10 @@ export class OnlineGameHandler {
     }   
     getRooms() {
         return new Promise((resolve) => { 
-            
             this.socket.emit('getRooms', (rooms) => {
             console.log("GETROOMS: "+JSON.stringify(rooms));
             setTimeout(() => {
-                console.log("Timeout executed after 2 seconds!");
+                console.log("Timeout executed!");
                 resolve(rooms);
               }, 3000);
            
@@ -99,5 +98,21 @@ export class OnlineGameHandler {
                 console.log("Failed to join room with id: " + room);
             }
         });
+    }
+    leaveRoom() {
+        return new Promise((resolve) => { 
+            this.socket.emit('leaveRoom', this.roomId, () => {
+                this.roomId = null;
+                console.log('left room...');
+                resolve();
+            });
+        })
+    }
+    getRoomId(){
+        return this.roomId;
+    }
+    getUsername(){
+        console.log(this.username)
+        return this.username;
     }
 }  

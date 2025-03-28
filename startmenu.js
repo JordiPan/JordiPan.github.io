@@ -6,8 +6,9 @@ const backendUrl = "http://localhost:3000";
 const client = new OnlineGameHandler();
 
 //TODO: maak buttons unclickable terwijl het wacht voor backend dingen ofzo?
-window.addEventListener("load", function(){
+window.addEventListener("load", async function(){
     // changeToOffline();
+    await connect();
     changeToOnline();
 }, false);
 
@@ -22,26 +23,32 @@ startWindow.addEventListener("click", async (event) => {
     return;
   }
   if (event.target.id === "online-button") {
+    await connect();
     changeToOnline();
     return;
   }
   if (event.target.id === "create-button") {
-    createRoom();
+    const usernameField = document.getElementById("online-username");
+    if(isValidName(usernameField)) {
+      setOnlineUsername(usernameField.value);
+      createRoom();
+    }
     return;
   }
-
   //TODO: terug naar username knop later (basically disconnect)
   if (event.target.id === "find-button") {
-    const username = document.getElementById("online-username");
-    
-    if(!regex.test(username.value)) {
-      alert("slechte gebruikersnaam");
-      username.value = '';
-      return;
-    }
-    username.disabled = true;
-    const rooms = await connectOnline(username.value);
-    showRooms(rooms);
+    const usernameField = document.getElementById("online-username");
+    if(isValidName(usernameField)) {
+      setOnlineUsername(usernameField.value);
+      const rooms = await getRooms();
+      showRooms(rooms);
+    } 
+  }
+
+  if (event.target.id === "exit-waiting-button") {
+    await client.leaveRoom();
+    changeToOnline();
+    return;
   }
 })
 
@@ -69,6 +76,16 @@ startWindow.addEventListener("change", (event) => {
     }
   }
 })
+
+function isValidName(usernameField) {
+  if(!regex.test(usernameField.value)) {
+    alert("slechte gebruikersnaam");
+    usernameField.value = '';
+    return false;
+  }
+  usernameField.disabled = true;
+  return true;
+}
 
 function changeToOffline() {
   startWindow.innerHTML = `<h2>Offline modus</h2>
@@ -173,7 +190,20 @@ function changeToOnline() {
   </div>
 </div>`
 }
-
+function changeToWaitingRoom() {
+  startWindow.innerHTML = `
+  <div class="waiting-container">
+    <p>Kamer: ${client.getRoomId()}</p>
+    <p>gebruikersnaam: ${client.getUsername()}</p>
+    <p>Wachten voor andere speler...</p>
+    <img
+    src="./img/loading-white.svg"
+    alt="loading"
+    class="icon loading-icon"
+  />
+    <button type="button" id="exit-waiting-button">terug</button>
+  </div>`
+}
 function showRooms(rooms) {
   const roomsList = document.getElementById("rooms-list");
   roomsList.innerHTML = ``;
@@ -209,27 +239,28 @@ function showRooms(rooms) {
   roomsList.appendChild(fragment);
 }
 // ik kan roomslist niet bij opstart zetten sinds het er misschien niet is op het scherm via offline en online wissel. get element id checkt alleen 1 keer 
-async function connectOnline(username) {
+async function getRooms() {
   const roomsList = document.getElementById("rooms-list");
   
   roomsList.innerHTML = `<img
     src="./img/loading.svg"
     alt="loading"
-    id="loading-icon"
-    class="icon"
+    class="icon loading-icon"
   />`;
-
-  client.setUsername(username);
-  await client.initialize(backendUrl);
-  client.showSocketId();
-
-  
 
   const rooms = await client.getRooms();
   return rooms;
 }
 
+async function connect() {
+  await client.initialize(backendUrl);
+  client.showSocketId();
+}
+function setOnlineUsername(username) {
+  client.setUsername(username);
+}
 async function createRoom() {
   await client.createRoom();
+  changeToWaitingRoom();
 }
 
