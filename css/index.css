@@ -138,7 +138,7 @@ h1 {
    overflow-y: auto;
    max-height: 15rem;
    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
-   background-color: #e4eeff;
+   /* background-color: #e4eeff; */
 }
 .room {
    flex: 1 1 50%;

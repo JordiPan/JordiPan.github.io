@@ -9,7 +9,6 @@ const client = new OnlineGameHandler();
 window.addEventListener("load", async function(){
     // changeToOffline();
     await connect();
-    changeToOnline();
 }, false);
 
 //switch case mayhaps?
@@ -24,7 +23,7 @@ startWindow.addEventListener("click", async (event) => {
   }
   if (event.target.id === "online-button") {
     await connect();
-    changeToOnline();
+    // changeToOnline();
     return;
   }
   if (event.target.id === "create-button") {
@@ -204,6 +203,17 @@ function changeToWaitingRoom() {
     <button type="button" id="exit-waiting-button">terug</button>
   </div>`
 }
+
+function changeToError() {
+  startWindow.innerHTML = `<h2>Probleem met server...</h2>
+<button class="btn btn-danger" id="back-button" type="button">
+    <img
+      src="./img/offline-icon.svg"
+      alt="back to offline"
+      class="icon menu-icon"
+    />
+  </button>`;
+}
 function showRooms(rooms) {
   const roomsList = document.getElementById("rooms-list");
   roomsList.innerHTML = ``;
@@ -241,20 +251,32 @@ function showRooms(rooms) {
 // ik kan roomslist niet bij opstart zetten sinds het er misschien niet is op het scherm via offline en online wissel. get element id checkt alleen 1 keer 
 async function getRooms() {
   const roomsList = document.getElementById("rooms-list");
-  
-  roomsList.innerHTML = `<img
-    src="./img/loading.svg"
-    alt="loading"
-    class="icon loading-icon"
-  />`;
+  showLoading(roomsList);
+  // roomsList.innerHTML = `<img
+  //   src="./img/loading.svg"
+  //   alt="loading"
+  //   class="icon loading-icon"
+  // />`;
 
   const rooms = await client.getRooms();
   return rooms;
 }
 
 async function connect() {
-  await client.initialize(backendUrl);
-  client.showSocketId();
+  // startWindow.innerHTML=`<img
+  // src="./img/loading-white.svg"
+  // alt="loading"
+  // class="icon loading-icon"
+  // />`;
+  showLoading(startWindow);
+  const result = await client.initialize(backendUrl);
+
+  if(result) {
+    changeToOnline();
+    return;
+  }
+  changeToError();
+  // client.showSocketId();
 }
 function setOnlineUsername(username) {
   client.setUsername(username);
@@ -264,3 +286,14 @@ async function createRoom() {
   changeToWaitingRoom();
 }
 
+function showLoading(target) {
+  target.innerHTML=`<img
+  src="./img/loading-white.svg"
+  alt="loading"
+  class="icon loading-icon"
+  />`;
+}
+
+// function emptyWindow() {
+//   startWindow.innerHTML=``;
+// }

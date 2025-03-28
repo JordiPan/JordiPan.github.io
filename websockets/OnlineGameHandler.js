@@ -23,17 +23,17 @@ export class OnlineGameHandler {
             // });
             this.socket.on('socketId', (id) => {
                 this.socketId = id;
-                resolve();
+                resolve(true);
             });
 
             this.socket.on("connect_error", (err) => {
                 console.warn("⚠️ Uhh, ignore error up above :)", err.message);
             });
-    
-            // this.socket.on("connect_failed", () => {
-            //     console.error("🚫 Max reconnection attempts reached.");
-            //     reject(new Error("Max retries reached."));
-            // });
+
+            // Reconnection error
+            this.socket.io.on('reconnect_error', (error) => {
+                resolve(false);
+            });
         }) 
     }
     setUsername(username) {
