@@ -7,8 +7,8 @@ const client = new OnlineGameHandler();
 
 //TODO: maak buttons unclickable terwijl het wacht voor backend dingen ofzo?
 window.addEventListener("load", async function(){
-    // changeToOffline();
-    await connect();
+    changeToOffline();
+    // await connect();
 }, false);
 
 //switch case mayhaps?
@@ -217,7 +217,7 @@ function changeToError() {
 function showRooms(rooms) {
   const roomsList = document.getElementById("rooms-list");
   roomsList.innerHTML = ``;
-  console.log("print rooms");
+  // console.log("print rooms");
   if (Object.keys(rooms).length === 0) {
     roomsList.innerHTML = `Niemand wilt dit spel spelen....`
   return;
