@@ -52,29 +52,12 @@ startWindow.addEventListener("click", async (event) => {
       changeToOnline();
       break;
     }
+
+    case "join-button": {
+      console.log("wwwwww");
+    }
     default: {}
   }
-  // if (event.target.id === "back-button") {
-    
-  //   return;
-  // }
-  // if (event.target.id === "online-button") {
-  //   await connect();
-  //   // changeToOnline();
-  //   return;
-  // }
-  // if (event.target.id === "create-button") {
-    
-  //   return;
-  // }
-  // //TODO: terug naar username knop later (basically disconnect)
-  // if (event.target.id === "find-button") {
-  // }
-
-  // if (event.target.id === "exit-waiting-button") {
-    
-  //   return;
-  // }
 })
 
 startWindow.addEventListener("change", (event) => {

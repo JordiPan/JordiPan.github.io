@@ -116,7 +116,7 @@ export class Templates {
   </div>`;
   }
   getErrorWindow() {
-    `<h2>Probleem met server...</h2>
+    return `<h2>Probleem met server...</h2>
 <button class="btn btn-danger" id="back-button" type="button">
     <img
       src="./img/offline-icon.svg"
@@ -137,7 +137,7 @@ export class Templates {
         <p class="player-count">${count}/2</p>
       </div>
       <div class="col join-button-col">
-        <button class="join-button" type="button">
+        <button id="join-button" type="button">
           <img
             src="./img/enter-icon.svg"
             alt="enter icon"

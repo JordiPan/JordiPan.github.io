@@ -5,7 +5,6 @@ import {View} from "../view/View.js";
 export class Controller {
 
     constructor() {
-        // this.client = new Client(serverUrl);
         this.model = new Model();
         this.view = new View();
         this.view.bindMakeBoard(this.handleStart.bind(this))
