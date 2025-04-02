@@ -1,4 +1,5 @@
 export class BaseView {
+  //ik kan functies hier forceren voor extenders. misschien ooit.
   constructor() {
     this.title = document.getElementById("title");
     this.turn = document.getElementById("turn");
@@ -21,5 +22,4 @@ export class BaseView {
     this.gamemode;
     this.difficulty;
   }
-  
 }

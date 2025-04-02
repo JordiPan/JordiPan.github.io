@@ -1,4 +1,3 @@
-//online view en offline view extends view interface ???
 import { BaseView } from "./BaseView.js";
 export class View extends BaseView {
   constructor() {
@@ -7,7 +6,7 @@ export class View extends BaseView {
   // prevent(event) {
   //   event.preventDefault();
   // }
-  bindMakeBoard(handler) {
+  bindInitBoard(handler) {
     this.start.addEventListener("submit", (event) => {
       this.formName1 = document.getElementById("player1-name");
       this.formName2 = document.getElementById("player2-name");
@@ -144,5 +143,8 @@ export class View extends BaseView {
   toggleInteractivity() {
     this.board.classList.toggle("inactive");
     this.stop.classList.toggle("inactive");
+  }
+  resetListeners() {
+    this.start.removeEventListener();
   }
 }

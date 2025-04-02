@@ -7,7 +7,7 @@ export class Controller {
     constructor() {
         this.model = new Model();
         this.view = new View();
-        this.view.bindMakeBoard(this.handleStart.bind(this))
+        this.view.bindInitBoard(this.handleStart.bind(this))
         this.view.bindStop(this.handleStop.bind(this))
         this.view.bindPlaceChip(this.handlePlacing.bind(this))
         this.view.bindRematch(this.handleRematch.bind(this))
@@ -100,5 +100,8 @@ export class Controller {
             this.view.toggleInteractivity();
             this.handlePlacing(aiMove);
         }
+    }
+    resetListeners() {
+        
     }
 }   

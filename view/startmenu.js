@@ -1,5 +1,5 @@
-import { OnlineGameHandler } from "./websockets/OnlineGameHandler.js";
-import { Templates } from "./templates/templates.js";
+import { OnlineGameHandler } from "../websockets/OnlineGameHandler.js";
+import { Templates } from "../templates/templates.js";
 // past niet echt in mvc model
 const startWindow = document.getElementById("start-window");
 const regex = /^[^ ].+[^ ]$/;
