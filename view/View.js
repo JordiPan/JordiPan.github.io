@@ -1,20 +1,35 @@
-import { BaseView } from "./BaseView.js";
-export class View extends BaseView {
+export class View {
   constructor() {
-    super();
+    this.title = document.getElementById("title");
+    this.turn = document.getElementById("turn");
+    this.winsScore1 = document.getElementById("win1");
+    this.winsScore2 = document.getElementById("win2");
+    this.end = document.querySelector("#result-window");
+    this.board = document.getElementById("board");
+    this.playingField = document.querySelector(".margin-container");
+    this.scoreName1 = document.getElementById("player-name-one");
+    this.scoreName2 = document.getElementById("player-name-two");
+    this.spaces = document.getElementsByClassName("item");
+    this.winner = document.getElementById("winner");
+    this.rematch = document.getElementById("rematch");
+    this.start = document.getElementById("start-window");
+    this.stop = document.getElementById("stop");
+    this.statBlock1 = document.getElementById("shadow-one");
+    this.statBlock2 = document.getElementById("shadow-two");
+    this.formName1;
+    this.formName2;
+    this.gamemode;
+    this.difficulty;
   }
-  // prevent(event) {
-  //   event.preventDefault();
-  // }
-  bindInitBoard(handler) {
-    this.start.addEventListener("submit", (event) => {
+  //moet listeners nu pas zetten, omdat het soms niet zeker is of de elementen er zijn
+  setListeners() {
       this.formName1 = document.getElementById("player1-name");
       this.formName2 = document.getElementById("player2-name");
+      //onnodig in online ronde
       this.gamemode = document.getElementById("gamemode");
       this.difficulty = document.getElementById("difficulty");
-      handler(event);
-    });
-  }
+  };
+
   bindStop(handler) {
     this.stop.addEventListener("click", handler);
   }
@@ -33,8 +48,7 @@ export class View extends BaseView {
   }
   
   // Maakt automatisch 42 <div> vakjes
-  makeBoard(event) {
-    event.preventDefault();
+  renderBoard() {
     this.board.textContent = "";
     for (let i = 0; i < 42; i++) {
       this.hole = document.createElement("div");

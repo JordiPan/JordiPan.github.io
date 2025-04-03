@@ -1,15 +1,12 @@
-import { View } from "../view/View";
-//mayhaps interface met dit (niet echt nodig, idk)???
-export class OnlineController {
+import { BaseController } from "./BaseController";
+//Backend server houd the bord bij (basically model)
+export class OnlineController extends BaseController{
     constructor() {
-        this.view = new View();
-        this.view.bindMakeBoard(this.handleStart.bind(this))
-        this.view.bindStop(this.handleStop.bind(this))
-        this.view.bindPlaceChip(this.handlePlacing.bind(this))
-        this.view.bindRematch(this.handleRematch.bind(this))
+        super();
     }
-    handleStart(){}
-    handlePlacing(){}
-    handleRematch(){}
-    handleStop(){}
+    async handleStart(event){}
+    handleStop() {}
+    handlePlacing(placementLocation) {}
+    async handleRematch(event){}
+    changeTurns() {}
 }

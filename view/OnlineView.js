@@ -1,3 +1,1 @@
-export class OnlineView extends View {
-
-}
+//misschien niet nodig

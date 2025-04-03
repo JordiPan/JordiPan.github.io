@@ -1,11 +1,13 @@
 import { OnlineGameHandler } from "../websockets/OnlineGameHandler.js";
 import { Templates } from "../templates/templates.js";
+import { Controller } from "../controller/Controller.js";
 // past niet echt in mvc model
 const startWindow = document.getElementById("start-window");
 const regex = /^[^ ].+[^ ]$/;
 const backendUrl = "http://localhost:3000";
 const client = new OnlineGameHandler();
 const templates = new Templates();
+let activeController;
 
 window.addEventListener("load", async function(){
     changeToOffline();
@@ -56,10 +58,18 @@ startWindow.addEventListener("click", async (event) => {
     case "join-button": {
       console.log("wwwwww");
     }
+
+    case "start-button": {
+
+    }
     default: {}
   }
 })
 
+startWindow.addEventListener("submit", (event) => {
+  event.preventDefault();
+  activeController = new Controller();
+})
 startWindow.addEventListener("change", (event) => {
   if(event.target && event.target.id === "gamemode") {
     const select = event.target;

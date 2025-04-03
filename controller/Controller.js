@@ -1,30 +1,21 @@
 import {Model} from "../model/Model.js";
-import {View} from "../view/View.js";
+import { BaseController } from "./BaseController.js";
 
 //TODO: de bord met scores en beurten kan waarschijnlijk liever gegenereerd in de script ipv html
-export class Controller {
-
+export class Controller extends BaseController{
     constructor() {
+        super();
         this.model = new Model();
-        this.view = new View();
-        this.view.bindInitBoard(this.handleStart.bind(this))
-        this.view.bindStop(this.handleStop.bind(this))
-        this.view.bindPlaceChip(this.handlePlacing.bind(this))
-        this.view.bindRematch(this.handleRematch.bind(this))
+        this.handleStart();
     }
 
-    async handleStart(event) {
-        // event.preventDefault();
-        // if (this.model.checkDuplicateNames(this.view.getNames())) {
-        //     alert('Namen mogen niet hetzelfde zijn/AI mag niet dezelfde naam hebben als speler');
-        //     return;
-        // }
+    async handleStart() {
+        this.view.setListeners();
         this.model.makeModelBoard();
         this.model.setgameMode(this.view.getGamemode());
 
         if(this.model.getGameMode() == 'ai') {
             this.model.setDifficulty(this.view.getDifficulty());
-
         }
 
         this.model.setNames(this.view.getNames());
@@ -32,12 +23,11 @@ export class Controller {
 
         this.view.toggleTitle();
         this.view.setNames(this.model.getNames());
-        this.view.makeBoard(event);
+        this.view.renderBoard();
         this.view.hideStartWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurnName());
 
         await this.checkForAiMove();
-        // this.view.updateTurn(this.model.getTurnName());
     }
 
     handleStop() {
@@ -80,19 +70,21 @@ export class Controller {
         this.model.makeModelBoard();
         this.model.decideFirst();
 
-        this.view.makeBoard(event);
+        this.view.renderBoard(event);
         this.view.hideResultsWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurnName());
         
         this.checkForAiMove();
         // this.view.updateTurn(this.model.getTurnName());
     }
+    //kan niet in base door model
     changeTurns() {
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurnName());
         
         this.checkForAiMove();
     }
+    //TODO: moet waarschijnlijk opgesplitst worden voor duidelijkheid
     async checkForAiMove() {
         if(this.model.isAiTurn()) {
             this.view.toggleInteractivity();
