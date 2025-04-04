@@ -199,6 +199,15 @@ h1 {
    flex-direction: column;
    justify-content: center;
 }
+.player-list {
+   padding: 1rem;
+   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+}
+.player-info {
+   padding: 0.5rem;
+   margin: 1rem;
+   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+}
 /* small screens */
 @media only screen and (max-width: 600px) {
    .form-window {

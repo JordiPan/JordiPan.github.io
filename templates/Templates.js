@@ -1,3 +1,4 @@
+//changeto later vervangen met render
 export class Templates {
   getOfflineWindow() {
     return `<h2>Offline modus</h2>
@@ -101,12 +102,21 @@ export class Templates {
   </div>
 </div>`;
   }
-  getWaitingRoom(roomId, username) {
+  getWaitingRoom(roomId, count, players) {
+    let list = ``;
+    
+    for (let player of players) {
+      let playerDiv = `<div class="player-info" data-player-id="${player.id}"><b>${player.username}</b></div>`
+      list += playerDiv;
+    }
     return `
   <div class="waiting-container">
-    <p>Kamer: ${roomId}</p>
-    <p>gebruikersnaam: ${username}</p>
-    <p>Wachten voor andere speler...</p>
+    <p>Kamer: ${roomId} ${count}/2</p>
+    <!-- <p>Wachten voor andere speler...</p> -->
+    <div class="player-list">
+      <p>Spelers:</p>
+      ${list}
+    </div>
     <img
     src="./img/loading-white.svg"
     alt="loading"
@@ -137,7 +147,7 @@ export class Templates {
         <p class="player-count">${count}/2</p>
       </div>
       <div class="col join-button-col">
-        <button id="join-button" type="button">
+        <button id="join-button" type="button" data-room-id="${roomId}">
           <img
             src="./img/enter-icon.svg"
             alt="enter icon"

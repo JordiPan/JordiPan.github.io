@@ -1,17 +1,22 @@
-import { OnlineGameHandler } from "../websockets/OnlineGameHandler.js";
+import client from "../websockets/OnlineGameHandler.js";
 import { Templates } from "../templates/templates.js";
 import { Controller } from "../controller/Controller.js";
 // past niet echt in mvc model
 const startWindow = document.getElementById("start-window");
 const regex = /^[^ ].+[^ ]$/;
+// TODO: doe in env aan het eind (niet super nodig, maar ja)
 const backendUrl = "http://localhost:3000";
-const client = new OnlineGameHandler();
+// const client = new OnlineGameHandler();
 const templates = new Templates();
 let activeController;
 
 window.addEventListener("load", async function(){
-    changeToOffline();
+  changeToOffline();
 }, false);
+
+client.on("refresh", () => {
+  changeToWaitingRoom();
+})
 
 startWindow.addEventListener("click", async (event) => {
   if(!event.target) {
@@ -56,11 +61,19 @@ startWindow.addEventListener("click", async (event) => {
     }
 
     case "join-button": {
-      console.log("wwwwww");
+      const targetRoom = event.target.dataset.roomId; 
+      const room = await client.joinRoom(targetRoom);
+      if(!room) {
+        console.log("failed to join");
+        changeToOnline();
+        break;
+      }
+      changeToWaitingRoom();
+      break;
     }
 
     case "start-button": {
-
+      break;
     }
     default: {}
   }
@@ -113,10 +126,11 @@ function changeToOnline() {
   startWindow.innerHTML = templates.getOnlineWindow();
 }
 function changeToWaitingRoom() {
+  console.log(JSON.stringify(client.getPlayers()))
   const roomId = client.getRoomId();
-  const username = client.getUsername();
-
-  startWindow.innerHTML = templates.getWaitingRoom(roomId, username);
+  const count = client.getPlayers().length;
+  const players = client.getPlayers();
+  startWindow.innerHTML = templates.getWaitingRoom(roomId, count, players);
 }
 
 function changeToError() {
