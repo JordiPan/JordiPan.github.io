@@ -1,12 +1,13 @@
-import { BaseController } from "./BaseController";
+import { BaseController } from "./BaseController.js";
 //Backend server houd the bord bij (basically model)
 export class OnlineController extends BaseController{
-    constructor() {
-        super();
+    constructor(View) {
+        super(View);
     }
-    async handleStart(event){}
+    async handleStart(event) {}
     handleStop() {}
     handlePlacing(placementLocation) {}
-    async handleRematch(event){}
+    async handleRematch(event) {}
     changeTurns() {}
+    cleanup() {}
 }

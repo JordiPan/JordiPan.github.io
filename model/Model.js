@@ -171,3 +171,4 @@ export class Model {
     return this.AiModel.decide(this.board);
   }
 }
+export default new Model();

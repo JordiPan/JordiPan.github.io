@@ -1,5 +1,5 @@
 //changeto later vervangen met render
-export class Templates {
+class Templates {
   getOfflineWindow() {
     return `<h2>Offline modus</h2>
 <div class="row mb-3">
@@ -104,7 +104,12 @@ export class Templates {
   }
   getWaitingRoom(roomId, count, players) {
     let list = ``;
-    
+    const button = this.getOnlineStartButton();
+    const loading = this.getLoadingIcon();
+    let chosen = loading;
+    if(count >= 2) {
+      chosen = button;
+    }
     for (let player of players) {
       let playerDiv = `<div class="player-info" data-player-id="${player.id}"><b>${player.username}</b></div>`
       list += playerDiv;
@@ -117,11 +122,9 @@ export class Templates {
       <p>Spelers:</p>
       ${list}
     </div>
-    <img
-    src="./img/loading-white.svg"
-    alt="loading"
-    class="icon loading-icon"
-  />
+    <!-- <div class="online-start-container"> -->
+      ${chosen}
+    <!-- </div> -->
     <button type="button" id="exit-waiting-button">terug</button>
   </div>`;
   }
@@ -157,6 +160,7 @@ export class Templates {
       </div>
     </div>`;
   }
+
   getLoadingIcon() {
     return `<img
   src="./img/loading-white.svg"
@@ -164,4 +168,10 @@ export class Templates {
   class="icon loading-icon"
   />`;
   }
+
+  getOnlineStartButton() {
+    return `<button type="button" id="start-online-button">start!!</button>`;
+  }
 }
+
+export default new Templates();

@@ -1,197 +1,219 @@
-import client from "../websockets/OnlineGameHandler.js";
-import { Templates } from "../templates/templates.js";
+import Client from "../websockets/OnlineGameHandler.js";
+import Templates from "../templates/Templates.js";
 import { Controller } from "../controller/Controller.js";
-// past niet echt in mvc model
-const startWindow = document.getElementById("start-window");
-const regex = /^[^ ].+[^ ]$/;
-// TODO: doe in env aan het eind (niet super nodig, maar ja)
-const backendUrl = "http://localhost:3000";
-// const client = new OnlineGameHandler();
-const templates = new Templates();
-let activeController;
-
-window.addEventListener("load", async function(){
-  changeToOffline();
-}, false);
-
-client.on("refresh", () => {
-  changeToWaitingRoom();
-})
-
-startWindow.addEventListener("click", async (event) => {
-  if(!event.target) {
-    return;
+import { OnlineController } from "../controller/OnlineController.js";
+import View from "../view/View.js";
+//waarschijnlijk was het omzetten naar klasse onnodig...
+export class StartMenu {
+  constructor() {
+    this.startWindow = document.getElementById("start-window");
+    this.regex = /^[^ ].+[^ ]$/;
+    // TODO: doe in env aan het eind (niet super nodig, maar ja)
+    this.backendUrl = "http://localhost:3000";
+    // Templates = new Templates();
+    this.activeController;
+    this.init();
   }
+  //event listener dingen kan opgesplitst worden in specifieke functies (doe later...)
+  init(){
+    window.addEventListener("load", () => {
+        this.changeToOffline();
+      },
+      false);
 
-  switch(event.target.id) {
-    case "back-button": {
-      client.disconnect();
-      changeToOffline();
-      break;
-    }
-
-    case "online-button": {
-      await connect();
-      break;
-    }
+    Client.on("refresh", () => {
+      this.changeToWaitingRoom();
+    });
     
-    case "create-button": {
-      const usernameField = document.getElementById("online-username");
-      if(isValidName(usernameField)) {
-        setOnlineUsername(usernameField.value);
-        createRoom();
+    this.startWindow.addEventListener("click", async (event) => {
+      if (!event.target) {
+        return;
       }
-      break;
-    }
+    
+      switch (event.target.id) {
+        case "back-button": {
+          Client.disconnect();
+          this.changeToOffline();
+          break;
+        }
+    
+        case "online-button": {
+          await this.connect();
+          break;
+        }
+    
+        case "create-button": {
+          const usernameField = document.getElementById("online-username");
+          if (this.isValidName(usernameField)) {
+            this.setOnlineUsername(usernameField.value);
+            this.createRoom();
+          }
+          break;
+        }
+    
+        case "find-button": {
+          const usernameField = document.getElementById("online-username");
+          if (this.isValidName(usernameField)) {
+            this.setOnlineUsername(usernameField.value);
+            const rooms = await this.getRooms();
+            this.showRooms(rooms);
+          }
+          break;
+        }
+    
+        case "exit-waiting-button": {
+          await Client.leaveRoom();
+          this.changeToOnline();
+          break;
+        }
+    
+        case "join-button": {
+          const targetRoom = event.target.dataset.roomId;
+          const room = await Client.joinRoom(targetRoom);
+          if (!room) {
+            alert("failed to join");
+            this.changeToOnline();
+            break;
+          }
+          this.changeToWaitingRoom();
+          break;
+        }
+        
+        case "start-online-button": {
+          console.log("wafehjwfg");
+        }
 
-    case "find-button": {
-      const usernameField = document.getElementById("online-username");
-      if(isValidName(usernameField)) {
-        setOnlineUsername(usernameField.value);
-        const rooms = await getRooms();
-        showRooms(rooms);
+        default: {
+        }
       }
-      break;
-    }
-
-    case "exit-waiting-button": {
-      await client.leaveRoom();
-      changeToOnline();
-      break;
-    }
-
-    case "join-button": {
-      const targetRoom = event.target.dataset.roomId; 
-      const room = await client.joinRoom(targetRoom);
-      if(!room) {
-        console.log("failed to join");
-        changeToOnline();
-        break;
+    });
+    //offline start
+    this.startWindow.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if(this.activeController) {
+        this.activeController.cleanup();
       }
-      changeToWaitingRoom();
-      break;
+      this.activeController = new Controller(View);
+    });
+
+    this.startWindow.addEventListener("change", (event) => {
+      if (event.target && event.target.id === "gamemode") {
+        const select = event.target;
+        const difficulty = document.getElementById("difficulty");
+        const player1Field = document.getElementById("player1-name");
+        const player2Field = document.getElementById("player2-name");
+    
+        if (select.value === "local") {
+          difficulty.disabled = true;
+          player1Field.disabled = false;
+          player2Field.disabled = false;
+        } else if (select.value === "ai") {
+          difficulty.disabled = false;
+          player1Field.disabled = false;
+          player2Field.disabled = true;
+        } else {
+          difficulty.disabled = true;
+          player1Field.disabled = true;
+          player2Field.disabled = true;
+        }
+      }
+    });
+  }
+  
+  isValidName(usernameField) {
+    if (!this.regex.test(usernameField.value)) {
+      alert("slechte gebruikersnaam");
+      usernameField.value = "";
+      return false;
     }
-
-    case "start-button": {
-      break;
+    usernameField.disabled = true;
+    return true;
+  }
+  
+  changeToOffline() {
+    this.startWindow.innerHTML = Templates.getOfflineWindow();
+  }
+  
+  changeToOnline() {
+    this.startWindow.innerHTML = Templates.getOnlineWindow();
+  }
+  changeToWaitingRoom() {
+    console.log(JSON.stringify(Client.getPlayers()));
+    const roomId = Client.getRoomId();
+    const count = Client.getPlayers().length;
+    const players = Client.getPlayers();
+    this.startWindow.innerHTML = Templates.getWaitingRoom(roomId, count, players);
+  }
+  
+  changeToError() {
+    this.startWindow.innerHTML = Templates.getErrorWindow();
+  }
+  showRooms(rooms) {
+    const roomsList = document.getElementById("rooms-list");
+    roomsList.innerHTML = ``;
+    // console.log("print rooms");
+    if (Object.keys(rooms).length === 0) {
+      roomsList.innerHTML = Templates.getNoPlayersError();
+      return;
     }
-    default: {}
-  }
-})
-
-startWindow.addEventListener("submit", (event) => {
-  event.preventDefault();
-  activeController = new Controller();
-})
-startWindow.addEventListener("change", (event) => {
-  if(event.target && event.target.id === "gamemode") {
-    const select = event.target;
-    const difficulty = document.getElementById("difficulty");
-    const player1Field = document.getElementById("player1-name");
-    const player2Field = document.getElementById("player2-name");
-
-    if (select.value === "local") {
-      difficulty.disabled = true;
-      player1Field.disabled = false;
-      player2Field.disabled = false;
-    } 
-    else if (select.value === "ai") {
-      difficulty.disabled = false;
-      player1Field.disabled = false;
-      player2Field.disabled = true;
-    } 
-    else {
-      difficulty.disabled = true;
-      player1Field.disabled = true;
-      player2Field.disabled = true;
+  
+    const fragment = document.createDocumentFragment();
+    for (const roomId in rooms) {
+      const roomFragment = document.createElement("div");
+      roomFragment.classList.add("room");
+  
+      const creator = rooms[roomId]?.players[0]?.username;
+      const creatorId = rooms[roomId]?.creatorId;
+      const playerCount = rooms[roomId]?.players?.length;
+  
+      roomFragment.innerHTML = Templates.getRoom(
+        roomId,
+        creator,
+        creatorId,
+        playerCount
+      );
+  
+      fragment.appendChild(roomFragment);
     }
+    roomsList.appendChild(fragment);
   }
-})
-
-function isValidName(usernameField) {
-  if(!regex.test(usernameField.value)) {
-    alert("slechte gebruikersnaam");
-    usernameField.value = '';
-    return false;
+  // ik kan roomslist niet bij opstart zetten sinds het er misschien niet is op het scherm via offline en online wissel. get element id checkt alleen 1 keer
+  async getRooms() {
+    const roomsList = document.getElementById("rooms-list");
+    this.showLoading(roomsList);
+  
+    const rooms = await Client.getRooms();
+    return rooms;
   }
-  usernameField.disabled = true;
-  return true;
-}
-
-function changeToOffline() {
-  startWindow.innerHTML = templates.getOfflineWindow();
-}
-
-function changeToOnline() {
-  startWindow.innerHTML = templates.getOnlineWindow();
-}
-function changeToWaitingRoom() {
-  console.log(JSON.stringify(client.getPlayers()))
-  const roomId = client.getRoomId();
-  const count = client.getPlayers().length;
-  const players = client.getPlayers();
-  startWindow.innerHTML = templates.getWaitingRoom(roomId, count, players);
-}
-
-function changeToError() {
-  startWindow.innerHTML = templates.getErrorWindow();
-}
-function showRooms(rooms) {
-  const roomsList = document.getElementById("rooms-list");
-  roomsList.innerHTML = ``;
-  // console.log("print rooms");
-  if (Object.keys(rooms).length === 0) {
-    roomsList.innerHTML = templates.getNoPlayersError();
-  return;
+  
+  async connect() {
+    this.showLoading(this.startWindow);
+    const result = await Client.initialize(this.backendUrl);
+  
+    if (result) {
+      this.changeToOnline();
+      return;
+    }
+    this.changeToError();
+    // Client.showSocketId();
   }
-
-  const fragment = document.createDocumentFragment();
-  for(const roomId in rooms) {
-    const roomFragment = document.createElement("div");
-    roomFragment.classList.add("room");
-
-    const creator = rooms[roomId]?.players[0]?.username;
-    const creatorId = rooms[roomId]?.creatorId;
-    const playerCount = rooms[roomId]?.players?.length;
-
-    roomFragment.innerHTML = templates.getRoom(roomId, creator, creatorId, playerCount);
-
-    fragment.appendChild(roomFragment);
+  setOnlineUsername(username) {
+    Client.setUsername(username);
   }
-  roomsList.appendChild(fragment);
-}
-// ik kan roomslist niet bij opstart zetten sinds het er misschien niet is op het scherm via offline en online wissel. get element id checkt alleen 1 keer 
-async function getRooms() {
-  const roomsList = document.getElementById("rooms-list");
-  showLoading(roomsList);
-
-  const rooms = await client.getRooms();
-  return rooms;
-}
-
-async function connect() {
-  showLoading(startWindow);
-  const result = await client.initialize(backendUrl);
-
-  if(result) {
-    changeToOnline();
-    return;
+  async createRoom() {
+    await Client.createRoom();
+    this.changeToWaitingRoom();
   }
-  changeToError();
-  // client.showSocketId();
+  
+  showLoading(target) {
+    target.innerHTML = Templates.getLoadingIcon();
+  }
 }
-function setOnlineUsername(username) {
-  client.setUsername(username);
-}
-async function createRoom() {
-  await client.createRoom();
-  changeToWaitingRoom();
-}
+new StartMenu();
 
-function showLoading(target) {
-  target.innerHTML = templates.getLoadingIcon();
-}
 
-// function emptyWindow() {
-//   startWindow.innerHTML=``;
-// }
+
+
+
+
+

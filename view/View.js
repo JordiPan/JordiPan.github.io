@@ -1,4 +1,4 @@
-export class View {
+class View {
   constructor() {
     this.title = document.getElementById("title");
     this.turn = document.getElementById("turn");
@@ -25,7 +25,7 @@ export class View {
   setListeners() {
       this.formName1 = document.getElementById("player1-name");
       this.formName2 = document.getElementById("player2-name");
-      //onnodig in online ronde
+      //nodig in offline ronde
       this.gamemode = document.getElementById("gamemode");
       this.difficulty = document.getElementById("difficulty");
   };
@@ -162,3 +162,4 @@ export class View {
     this.start.removeEventListener();
   }
 }
+export default new View();

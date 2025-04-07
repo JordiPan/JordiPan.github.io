@@ -1,10 +1,9 @@
-import {Model} from "../model/Model.js";
+import { Model } from "../model/Model.js";
 import { BaseController } from "./BaseController.js";
-
 //TODO: de bord met scores en beurten kan waarschijnlijk liever gegenereerd in de script ipv html
-export class Controller extends BaseController{
-    constructor() {
-        super();
+export class Controller extends BaseController {
+    constructor(View) {
+        super(View);
         this.model = new Model();
         this.handleStart();
     }
@@ -75,16 +74,16 @@ export class Controller extends BaseController{
         await this.view.decideFirst(this.model.getNames(), this.model.getTurnName());
         
         this.checkForAiMove();
-        // this.view.updateTurn(this.model.getTurnName());
+        // this.view.updateTurn(model.getTurnName());
     }
-    //kan niet in base door model
+    //kan niet in base door model reference
     changeTurns() {
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurnName());
         
         this.checkForAiMove();
     }
-    //TODO: moet waarschijnlijk opgesplitst worden voor duidelijkheid
+    //TODO: misschien kan de controller liever direct aimodel roepen ipv model die de functies heeft?
     async checkForAiMove() {
         if(this.model.isAiTurn()) {
             this.view.toggleInteractivity();
@@ -93,7 +92,9 @@ export class Controller extends BaseController{
             this.handlePlacing(aiMove);
         }
     }
-    resetListeners() {
-        
+    cleanup() {
+        this.model = null;
+        this.view = null;
     }
 }   
+// export default new Controller();

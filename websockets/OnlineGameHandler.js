@@ -18,6 +18,7 @@ class OnlineGameHandler {
         timeout: 5000,
       });
 
+      //succesvol reconnect poging moet waarschijnlijk de view updaten
       this.socket.on("connect", () => {
         console.log("Connected to WebSocket server!");
       });
