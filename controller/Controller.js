@@ -9,7 +9,7 @@ export class Controller extends BaseController {
     }
 
     async handleStart() {
-        this.view.setListeners();
+        this.view.setElements();
         this.model.makeModelBoard();
         this.model.setgameMode(this.view.getGamemode());
 
@@ -24,7 +24,7 @@ export class Controller extends BaseController {
         this.view.setNames(this.model.getNames());
         this.view.renderBoard();
         this.view.hideStartWindow();
-        await this.view.decideFirst(this.model.getNames(), this.model.getTurnName());
+        await this.view.decideFirst(this.model.getNames(), this.model.getColor());
 
         await this.checkForAiMove();
     }
@@ -40,6 +40,7 @@ export class Controller extends BaseController {
     }
     
     handlePlacing(placementLocation) {
+        console.log("LOGGING placement!!");
         let placement = this.model.placeModelChip(placementLocation);
 
         //TODO: kolom is vol (misschien shake animatie toevoegen)
@@ -71,14 +72,16 @@ export class Controller extends BaseController {
 
         this.view.renderBoard(event);
         this.view.hideResultsWindow();
-        await this.view.decideFirst(this.model.getNames(), this.model.getTurnName());
+        await this.view.decideFirst(this.model.getNames(), this.model.getColor());
         
         this.checkForAiMove();
         // this.view.updateTurn(model.getTurnName());
     }
     //kan niet in base door model reference
     changeTurns() {
+        console.log("prev turn: "+ this.model.getTurnName());
         this.model.switchTurn();
+        console.log("new turn: "+ this.model.getTurnName());
         this.view.updateTurn(this.model.getTurnName());
         
         this.checkForAiMove();
@@ -89,12 +92,23 @@ export class Controller extends BaseController {
             this.view.toggleInteractivity();
             let aiMove = await this.model.getAiMove();
             this.view.toggleInteractivity();
+            console.log("AI MOVING: "+aiMove)
             this.handlePlacing(aiMove);
         }
     }
     cleanup() {
+        this.eventListeners.forEach((handlers, element) => {
+            console.log(handlers)
+            console.log("element: "+element)
+            handlers.forEach(({ event, boundHandler }) => {
+                console.log("Bound handler: "+ boundHandler)
+                console.log("event: "+ event)
+                element.removeEventListener(event, boundHandler);
+            });
+        });
+        
         this.model = null;
-        this.view = null;
+        super.cleanup();
     }
 }   
 // export default new Controller();

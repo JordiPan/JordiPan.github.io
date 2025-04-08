@@ -90,6 +90,7 @@ export class StartMenu {
     //offline start
     this.startWindow.addEventListener("submit", (event) => {
       event.preventDefault();
+      console.log(this.activeController)
       if(this.activeController) {
         this.activeController.cleanup();
       }

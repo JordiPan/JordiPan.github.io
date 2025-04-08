@@ -12,7 +12,7 @@ class View {
     this.spaces = document.getElementsByClassName("item");
     this.winner = document.getElementById("winner");
     this.rematch = document.getElementById("rematch");
-    this.start = document.getElementById("start-window");
+    this.startWindow = document.getElementById("start-window");
     this.stop = document.getElementById("stop");
     this.statBlock1 = document.getElementById("shadow-one");
     this.statBlock2 = document.getElementById("shadow-two");
@@ -21,31 +21,26 @@ class View {
     this.gamemode;
     this.difficulty;
   }
-  //moet listeners nu pas zetten, omdat het soms niet zeker is of de elementen er zijn
-  setListeners() {
+  //moet elements nu pas zetten, omdat het soms niet zeker is of de elementen er zijn
+  setElements() {
       this.formName1 = document.getElementById("player1-name");
       this.formName2 = document.getElementById("player2-name");
-      //nodig in offline ronde
       this.gamemode = document.getElementById("gamemode");
       this.difficulty = document.getElementById("difficulty");
   };
-
-  bindStop(handler) {
-    this.stop.addEventListener("click", handler);
-  }
-  bindPlaceChip(handler) {
-    //reageert niet als er op bord randen wordt geklikt
-    this.board.addEventListener("click", (event) => {
-      if (event.target && event.target.classList.contains("item")) {
-        //geeft kolom mee ipv volgorde nummer van div
-        handler(event.target.id % 7);
-      }
-    });
-    // this.board.addEventListener('click', handler);
-  }
-  bindRematch(handler) {
-    this.rematch.addEventListener("click", handler);
-  }
+  // bindStop(handler) {
+  //   this.stop.addEventListener("click", handler);
+  // }
+  // bindPlaceChip(handler) {
+  //   this.board.addEventListener("click", (event) => {
+  //     if (event.target && event.target.classList.contains("item")) {
+  //       handler(event.target.id % 7);
+  //     }
+  //   });
+  // }
+  // bindRematch(handler) {
+  //   this.rematch.addEventListener("click", handler);
+  // }
   
   // Maakt automatisch 42 <div> vakjes
   renderBoard() {
@@ -58,7 +53,7 @@ class View {
     }
   }
   hideStartWindow() {
-    this.start.classList.toggle("hidden");
+    this.startWindow.classList.toggle("hidden");
     this.playingField.classList.toggle("hidden");
   }
   hidePlayingField() {
@@ -66,7 +61,7 @@ class View {
     this.winsScore2.textContent = 0;
 
     this.playingField.classList.toggle("hidden");
-    this.start.classList.toggle("hidden");
+    this.startWindow.classList.toggle("hidden");
     this.statBlock1.classList.remove("player-one-turn");
     this.statBlock2.classList.remove("player-two-turn");
     this.stop.classList.toggle("inactive");
@@ -85,24 +80,27 @@ class View {
     this.scoreName1.textContent = players[0];
     this.scoreName2.textContent = players[1];
   }
-  updateTurn(turn) {
-    this.turn.textContent = turn;
+  updateTurn(name) {
+    console.log("VIEW turn: "+ name)
+    this.turn.textContent = name;
     this.statBlock1.classList.toggle("player-one-turn");
     this.statBlock2.classList.toggle("player-two-turn");
   }
-  async decideFirst(players, turnColor) {
+  async decideFirst(players, actualTurnColor) {
     let interval = 10;
     let count = 0;
+    console.log("first decider turn: "+ actualTurnColor)
     //ik voeg dit toe zodat het de goede schaduw meegeeft
-    this.statBlock2.classList.toggle("player-two-turn");
+    this.turn.textContent = "Bezig...";
+    this.statBlock1.classList.toggle("player-one-turn");
     return new Promise((resolve) => {
       const switcher = () => {
         if (count < 15) {
-          if (count % 2 === 0) {
-            this.turn.textContent = players[0];
-          } else {
-            this.turn.textContent = players[1];
-          }
+          // if (count % 2 === 0) {
+          //   this.turn.textContent = players[0];
+          // } else {
+          //   this.turn.textContent = players[1];
+          // }
           this.statBlock1.classList.toggle("player-one-turn");
           this.statBlock2.classList.toggle("player-two-turn");
           count++;
@@ -110,7 +108,7 @@ class View {
           setTimeout(switcher, interval);
         } else {
           //geef de ECHTE turn mee
-          if (turnColor === "blue") {
+          if (actualTurnColor === "blue") {
             this.turn.textContent = players[0];
             this.statBlock1.classList.add("player-one-turn");
             this.statBlock2.classList.remove("player-two-turn");
@@ -159,7 +157,7 @@ class View {
     this.stop.classList.toggle("inactive");
   }
   resetListeners() {
-    this.start.removeEventListener();
+    this.startWindow.removeEventListener();
   }
 }
 export default new View();
