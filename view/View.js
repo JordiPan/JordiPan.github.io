@@ -28,20 +28,7 @@ class View {
       this.gamemode = document.getElementById("gamemode");
       this.difficulty = document.getElementById("difficulty");
   };
-  // bindStop(handler) {
-  //   this.stop.addEventListener("click", handler);
-  // }
-  // bindPlaceChip(handler) {
-  //   this.board.addEventListener("click", (event) => {
-  //     if (event.target && event.target.classList.contains("item")) {
-  //       handler(event.target.id % 7);
-  //     }
-  //   });
-  // }
-  // bindRematch(handler) {
-  //   this.rematch.addEventListener("click", handler);
-  // }
-  
+
   // Maakt automatisch 42 <div> vakjes
   renderBoard() {
     this.board.textContent = "";
@@ -81,7 +68,6 @@ class View {
     this.scoreName2.textContent = players[1];
   }
   updateTurn(name) {
-    console.log("VIEW turn: "+ name)
     this.turn.textContent = name;
     this.statBlock1.classList.toggle("player-one-turn");
     this.statBlock2.classList.toggle("player-two-turn");
@@ -89,24 +75,19 @@ class View {
   async decideFirst(players, actualTurnColor) {
     let interval = 10;
     let count = 0;
-    console.log("first decider turn: "+ actualTurnColor)
     //ik voeg dit toe zodat het de goede schaduw meegeeft
     this.turn.textContent = "Bezig...";
-    this.statBlock1.classList.toggle("player-one-turn");
+    this.statBlock2.classList.toggle("player-two-turn");
     return new Promise((resolve) => {
       const switcher = () => {
         if (count < 15) {
-          // if (count % 2 === 0) {
-          //   this.turn.textContent = players[0];
-          // } else {
-          //   this.turn.textContent = players[1];
-          // }
           this.statBlock1.classList.toggle("player-one-turn");
           this.statBlock2.classList.toggle("player-two-turn");
           count++;
           interval += 20;
           setTimeout(switcher, interval);
-        } else {
+        } 
+        else {
           //geef de ECHTE turn mee
           if (actualTurnColor === "blue") {
             this.turn.textContent = players[0];
@@ -117,8 +98,7 @@ class View {
             this.statBlock1.classList.remove("player-one-turn");
             this.statBlock2.classList.add("player-two-turn");
           }
-          this.stop.classList.toggle("inactive");
-          this.board.classList.toggle("inactive");
+          this.toggleInteractivity();
           resolve();
         }
       };

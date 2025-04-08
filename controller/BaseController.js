@@ -9,10 +9,6 @@ export class BaseController {
               this.handlePlacing(event.target.id % 7);
             }
         });
-        console.log(this.eventListeners);
-        // this.view.bindStop(this.handleStop.bind(this))
-        // this.view.bindPlaceChip(this.handlePlacing.bind(this))
-        // this.view.bindRematch(this.handleRematch.bind(this))
     }
     bindEvent(element, event, handler) {
         const boundHandler = handler.bind(this);

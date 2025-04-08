@@ -14,6 +14,9 @@ export class AiModel {
         this.validPositions = [];
         this.thinkingTime = 500;
     }
+    getDifficulty() {
+        return this.difficulty;
+    }
     setDifficulty(diff) {
         this.difficulty = diff;
     }

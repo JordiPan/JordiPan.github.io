@@ -25,16 +25,6 @@ export class Model {
     this.board = new Array(Model.rows);
   }
 
-  // checkDuplicateNames(names) {
-  //   if (names[0] == names[1]) {
-  //     return true;
-  //   }
-  //   else if (names[0] == this.aiName) {
-  //     return true;
-
-  //   }
-  //   return false;
-  // }
   makeModelBoard() {
     for (let i = 0; i < this.board.length; i++) {
       this.board[i] = new Array(Model.cols);
@@ -77,8 +67,8 @@ export class Model {
   setNames(players) {
     this.name1 = players[0];
 
-    if (players[1] == '') {
-      this.name2 = this.aiName;
+    if (players[1] === '') {
+      this.name2 = this.AiModel.getDifficulty()+ "-" + this.aiName;
     }
     else {
       this.name2 = players[1];

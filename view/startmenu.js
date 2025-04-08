@@ -3,19 +3,20 @@ import Templates from "../templates/Templates.js";
 import { Controller } from "../controller/Controller.js";
 import { OnlineController } from "../controller/OnlineController.js";
 import View from "../view/View.js";
-//waarschijnlijk was het omzetten naar klasse onnodig...
+
+//misschien ooit omzetten naar MVC?
 export class StartMenu {
   constructor() {
     this.startWindow = document.getElementById("start-window");
     this.regex = /^[^ ].+[^ ]$/;
+
     // TODO: doe in env aan het eind (niet super nodig, maar ja)
     this.backendUrl = "http://localhost:3000";
-    // Templates = new Templates();
     this.activeController;
     this.init();
   }
   //event listener dingen kan opgesplitst worden in specifieke functies (doe later...)
-  init(){
+  init() {
     window.addEventListener("load", () => {
         this.changeToOffline();
       },
@@ -38,7 +39,11 @@ export class StartMenu {
         }
     
         case "online-button": {
-          await this.connect();
+          const result = await this.connect();
+          if (result) {
+            this.cleanControllers();
+            this.activeController = new OnlineController(View, Client);
+          }
           break;
         }
     
@@ -80,9 +85,9 @@ export class StartMenu {
         }
         
         case "start-online-button": {
-          console.log("wafehjwfg");
+          this.activeController.startOnlineGame();
         }
-
+        //alle andere clicks in start scherm
         default: {
         }
       }
@@ -90,10 +95,7 @@ export class StartMenu {
     //offline start
     this.startWindow.addEventListener("submit", (event) => {
       event.preventDefault();
-      console.log(this.activeController)
-      if(this.activeController) {
-        this.activeController.cleanup();
-      }
+      this.cleanControllers();
       this.activeController = new Controller(View);
     });
 
@@ -193,9 +195,11 @@ export class StartMenu {
   
     if (result) {
       this.changeToOnline();
-      return;
+      return true;
     }
+
     this.changeToError();
+    return false;
     // Client.showSocketId();
   }
   setOnlineUsername(username) {
@@ -208,6 +212,12 @@ export class StartMenu {
   
   showLoading(target) {
     target.innerHTML = Templates.getLoadingIcon();
+  }
+
+  cleanControllers() {
+    if(this.activeController) {
+      this.activeController.cleanup();
+    }
   }
 }
 new StartMenu();

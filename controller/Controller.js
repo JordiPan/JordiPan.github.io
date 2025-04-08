@@ -40,15 +40,14 @@ export class Controller extends BaseController {
     }
     
     handlePlacing(placementLocation) {
-        console.log("LOGGING placement!!");
         let placement = this.model.placeModelChip(placementLocation);
 
         //TODO: kolom is vol (misschien shake animatie toevoegen)
         if(!placement) {
             return;
         }
+
         this.view.placeChip(this.model.getPlacement(), this.model.getColor());
-        
         let gamestate = this.model.checkWinner(placement);
 
         if(gamestate === 1) {
@@ -63,6 +62,7 @@ export class Controller extends BaseController {
             this.view.endGame(this.model.getTurnName());
             return;
         }
+        
         this.changeTurns();
     }
     async handleRematch(event) {
@@ -79,36 +79,25 @@ export class Controller extends BaseController {
     }
     //kan niet in base door model reference
     changeTurns() {
-        console.log("prev turn: "+ this.model.getTurnName());
         this.model.switchTurn();
-        console.log("new turn: "+ this.model.getTurnName());
         this.view.updateTurn(this.model.getTurnName());
         
         this.checkForAiMove();
     }
     //TODO: misschien kan de controller liever direct aimodel roepen ipv model die de functies heeft?
     async checkForAiMove() {
-        if(this.model.isAiTurn()) {
-            this.view.toggleInteractivity();
-            let aiMove = await this.model.getAiMove();
-            this.view.toggleInteractivity();
-            console.log("AI MOVING: "+aiMove)
-            this.handlePlacing(aiMove);
+        if(!this.model.isAiTurn()) {
+            return;
         }
+
+        this.view.toggleInteractivity();
+        let aiMove = await this.model.getAiMove();
+        this.view.toggleInteractivity();
+        this.handlePlacing(aiMove);
+        
     }
     cleanup() {
-        this.eventListeners.forEach((handlers, element) => {
-            console.log(handlers)
-            console.log("element: "+element)
-            handlers.forEach(({ event, boundHandler }) => {
-                console.log("Bound handler: "+ boundHandler)
-                console.log("event: "+ event)
-                element.removeEventListener(event, boundHandler);
-            });
-        });
-        
         this.model = null;
         super.cleanup();
     }
 }   
-// export default new Controller();
