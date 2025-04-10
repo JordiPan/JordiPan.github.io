@@ -128,8 +128,9 @@ class View {
     this.end.classList.toggle("hidden");
     this.toggleInteractivity();
   }
-  updateWins(stats) {
-    document.getElementById(stats[1]).textContent = stats[0];
+  updateWins(counter1, counter2) {
+    this.winsScore1.textContent = counter1;
+    this.winsScore2.textContent = counter2;
   }
   hideResultsWindow() {
     this.end.classList.toggle("hidden");

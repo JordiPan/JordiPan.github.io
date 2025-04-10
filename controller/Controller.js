@@ -57,8 +57,9 @@ export class Controller extends BaseController {
         
         if(gamestate === 2) {
             let winnerColor = this.model.getColor();
-            let stats = this.model.updateWins(winnerColor);
-            this.view.updateWins(stats);
+            this.model.updateWins(winnerColor);
+
+            this.view.updateWins(this.model.getCounter1(), this.model.getCounter2());
             this.view.endGame(this.model.getTurnName());
             return;
         }

@@ -146,10 +146,11 @@ export class Model {
     //win1 en win2 zijn de id's van de scores. niet handig maar het werkt
     if(winnerColor == 'blue') {
       this.counter1 += 1;
-      return [this.counter1, 'win1'];
+      return;
+      // return [this.counter1, 'win1'];
     }
     this.counter2 += 1;
-      return [this.counter2, 'win2'];
+      // return [this.counter2, 'win2'];
   }
 
   isAiTurn() {
@@ -161,6 +162,12 @@ export class Model {
   }
   getBoard() {
     return this.board;
+  }
+  getCounter1() {
+    return this.counter1;
+  }
+  getCounter2() {
+    return this.counter2;
   }
 }
 export default new Model();
