@@ -1,5 +1,6 @@
 class OnlineGameHandler {
   constructor() {
+    //speler info
     this.socket = null;
     this.socketId = null;
     this.username = null;
@@ -9,7 +10,8 @@ class OnlineGameHandler {
 
     this.callbacks = {
         refresh: null,
-        startGame: null
+        startGame: null,
+        updateBoard: null
     }
   }
   initialize(serverUrl) {
@@ -22,7 +24,6 @@ class OnlineGameHandler {
 
       this.socket.on("startGame", (turnColor) => {
         this.assignPlayerColor();
-        console.log("I GOT IT!!!: " + this.playerColor)
         if (this.callbacks.startGame) {
           this.callbacks.startGame(turnColor);
         }
@@ -39,7 +40,13 @@ class OnlineGameHandler {
             this.callbacks.refresh();
         }
       });
-      
+      this.socket.on("updateBoard", (room) => {
+        this.room = room;
+        if (this.callbacks.updateBoard) {
+          this.callbacks.updateBoard();
+      }
+      });
+
       this.socket.on("socketId", (id) => {
         this.socketId = id;
         resolve(true);
@@ -78,15 +85,11 @@ class OnlineGameHandler {
     this.roomId = null;
     this.room = null;
   }
-  // send(msg) {
-  //     this.socket.emit('test', msg);
-  // }
+
   getSocketId() {
     return this.socketId;
   }
-  showSocketId() {
-    console.log(this.socketId);
-  }
+
   getRooms() {
     return new Promise((resolve) => {
       this.socket.emit("getRooms", (rooms) => {
@@ -97,11 +100,13 @@ class OnlineGameHandler {
       });
     });
   }
+
   async joinRoom(roomId) {
-    if (this.room) {
+    if (this.roomId) {
       console.log("cannot exist in multiple rooms!!!");
       return;
     }
+
     return new Promise((resolve) => {
       this.socket.emit("joinRoom", roomId, this.username, (room) => {
         this.setRoomInfo(roomId, room);
@@ -109,6 +114,7 @@ class OnlineGameHandler {
       });
     });
   }
+
   leaveRoom() {
     return new Promise((resolve) => {
       this.socket.emit("leaveRoom", this.roomId, () => {
@@ -118,16 +124,20 @@ class OnlineGameHandler {
       });
     });
   }
+
   getRoomId() {
     return this.roomId;
   }
+
   getUsername() {
     console.log(this.username);
     return this.username;
   }
+
   getPlayers() {
     return this.room?.players;
   }
+
   getNames() {
     let names = [];
     for (let player of this.room?.players) {
@@ -140,6 +150,11 @@ class OnlineGameHandler {
     this.roomId = roomId;
     this.room = room;
   }
+
+  getRoom() {
+    return this.room;
+  }
+
   startGame() {
     this.socket.emit("startGame", this.roomId);
   }
@@ -152,14 +167,23 @@ class OnlineGameHandler {
       this.playerColor = 'red';
     }
   }
+
   getPlayerColor() {
     return this.playerColor;
   }
+  //UHH, als kolom vol is zal het programma nog steeds een emit sturen... fix later?
+  placeChip(placementCol) {
+    return new Promise((resolve) => {
+      this.socket.emit("placeChip", this.roomId, placementCol, (result) => {
+        resolve(result);
+      })
+    });
+  }
+  
   on(event, callback) {
     if (this.callbacks.hasOwnProperty(event)) {
         this.callbacks[event] = callback;
       }
   }
-  
 }
 export default new OnlineGameHandler();

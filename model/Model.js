@@ -16,7 +16,7 @@ export class Model {
     this.gamemode;
     this.turnColor;
     this.currentTurnName = "???";
-    this.placement;
+    // this.placement;
     this.name1;
     this.name2;
     this.counter1 = 0;
@@ -81,8 +81,8 @@ export class Model {
   placeModelChip(col) {
     for (let row = 5; row >= 0; row--) {
       if (this.board[row][col] === "") {
-        this.placement = (row*Model.cols)+(col); 
         this.board[row][col] = this.turnColor;  
+        //placement niet echt nodig??
         return [row, col];
       }
     }
@@ -123,9 +123,9 @@ export class Model {
     }
     return count;
   }
-  getPlacement() {
-    return this.placement;
-  }
+  // getPlacement() {
+  //   return this.placement;
+  // }
   getTurnName() {
     return this.currentTurnName;
   }

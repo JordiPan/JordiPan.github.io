@@ -141,7 +141,6 @@ export class StartMenu {
     this.startWindow.innerHTML = Templates.getOnlineWindow();
   }
   changeToWaitingRoom() {
-    console.log(JSON.stringify(Client.getPlayers()));
     const roomId = Client.getRoomId();
     const count = Client.getPlayers().length;
     const players = Client.getPlayers();
@@ -154,7 +153,6 @@ export class StartMenu {
   showRooms(rooms) {
     const roomsList = document.getElementById("rooms-list");
     roomsList.innerHTML = ``;
-    // console.log("print rooms");
     if (Object.keys(rooms).length === 0) {
       roomsList.innerHTML = Templates.getNoPlayersError();
       return;

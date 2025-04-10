@@ -34,9 +34,9 @@ export class BaseController {
     async handleRematch(event) {
         throw new Error("Must override in subclass");
     }
-    changeTurns() {
-        throw new Error("Must override in subclass");
-    }
+    // changeTurns() {
+    //     throw new Error("Must override in subclass");
+    // }
     
     cleanup() {
         this.eventListeners.forEach((handlers, element) => {
