@@ -8,6 +8,7 @@ export class AiModel {
       ];
 
     constructor() {
+        this.aiName = 'ai';
         this.difficulty;
         this.board;
         this.validColumns = [];
@@ -41,9 +42,7 @@ export class AiModel {
         return new Promise((resolve) => {
             setTimeout(() => {
                 this.updateValidCols();
-                // console.log("valid: "+this.validColumns);
                 let chosenColumn = this.validColumns[Math.floor(Math.random() * this.validColumns.length)];
-                // console.log("chosen: "+chosenColumn);
                 resolve(chosenColumn);
             }, this.thinkingTime);
         });
@@ -77,7 +76,7 @@ export class AiModel {
         this.validColumns = [];
         
         for (let i = 0; i < 7; i++) {
-            if (this.board[0][i] == "-") {
+            if (this.board[0][i] == "") {
                 this.validColumns.push(i);
             }
         }
@@ -120,11 +119,14 @@ export class AiModel {
     getValidPositions() {
         for (let col = 0; col < 7; col++) {
             for(let row = 5; row >= 0; row--) {
-                if (this.board[row][col] == "-") {
+                if (this.board[row][col] == "") {
                     this.validPositions.push({row: row, col: col});
                     break;
                 }
             }
         }
+    }
+    getName() {
+        return this.aiName;
     }
 }

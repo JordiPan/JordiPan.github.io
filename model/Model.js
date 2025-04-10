@@ -18,7 +18,6 @@ export class Model {
     this.placement;
     this.name1;
     this.name2;
-    this.aiName = 'AI';
     this.counter1 = 0;
     this.counter2 = 0;
     this.turnCount = 0;
@@ -29,9 +28,9 @@ export class Model {
     for (let i = 0; i < this.board.length; i++) {
       this.board[i] = new Array(Model.cols);
     }
-    // Het zet in alle vakken van de model "-"
+    // Het zet in alle vakken van de model ""
     for (let row = 0; row < Model.rows; row++)
-      for (let col = 0; col < Model.cols; col++) this.board[row][col] = "-";
+      for (let col = 0; col < Model.cols; col++) this.board[row][col] = "";
   }
   setgameMode(mode) {
     this.gamemode = mode;
@@ -68,7 +67,7 @@ export class Model {
     this.name1 = players[0];
 
     if (players[1] === '') {
-      this.name2 = this.AiModel.getDifficulty()+ "-" + this.aiName;
+      this.name2 = this.AiModel.getDifficulty()+ "-" + this.AiModel.getName();
     }
     else {
       this.name2 = players[1];
@@ -80,7 +79,7 @@ export class Model {
   // for-loop begint beneden en gaat naar boven, zodat het zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
   placeModelChip(col) {
     for (let row = 5; row >= 0; row--) {
-      if (this.board[row][col] === "-") {
+      if (this.board[row][col] === "") {
         this.placement = (row*Model.cols)+(col); 
         this.board[row][col] = this.turnColor;  
         return [row, col];
@@ -157,8 +156,11 @@ export class Model {
     return this.getGameMode() == 'ai' && this.getColor() == 'red';
   }
   
-  getAiMove() {
+  makeAiMove() {
     return this.AiModel.decide(this.board);
+  }
+  getBoard() {
+    return this.board;
   }
 }
 export default new Model();

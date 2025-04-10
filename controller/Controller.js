@@ -38,18 +38,18 @@ export class Controller extends BaseController {
         this.view.hidePlayingField();
         this.view.toggleTitle();
     }
-    
-    handlePlacing(placementLocation) {
-        let placement = this.model.placeModelChip(placementLocation);
+
+    handlePlacing(colPlacement) {
+        let placement = this.model.placeModelChip(colPlacement);
 
         //TODO: kolom is vol (misschien shake animatie toevoegen)
         if(!placement) {
             return;
         }
 
-        this.view.placeChip(this.model.getPlacement(), this.model.getColor());
-        let gamestate = this.model.checkWinner(placement);
+        this.view.placeChip(this.model.getBoard());
 
+        let gamestate = this.model.checkWinner(placement);
         if(gamestate === 1) {
             this.view.endGame(null);
             return;
@@ -75,7 +75,6 @@ export class Controller extends BaseController {
         await this.view.decideFirst(this.model.getNames(), this.model.getColor());
         
         this.checkForAiMove();
-        // this.view.updateTurn(model.getTurnName());
     }
     //kan niet in base door model reference
     changeTurns() {
@@ -91,10 +90,9 @@ export class Controller extends BaseController {
         }
 
         this.view.toggleInteractivity();
-        let aiMove = await this.model.getAiMove();
+        const col = await this.model.makeAiMove();
         this.view.toggleInteractivity();
-        this.handlePlacing(aiMove);
-        
+        this.handlePlacing(col);
     }
     cleanup() {
         this.model = null;

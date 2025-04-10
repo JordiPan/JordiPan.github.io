@@ -25,7 +25,7 @@ export class OnlineController extends BaseController {
 
     }
     handlePlacing(placementLocation) {
-
+        
     }
     async handleRematch(event) {
 

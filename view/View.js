@@ -105,9 +105,18 @@ class View {
       setTimeout(switcher, interval);
     });
   }
-
-  placeChip(id, color) {
-    document.getElementById(id).style.backgroundColor = color;
+  //ongeveer clone bord voor een synced up bord
+  placeChip(board) {
+    let holeId = 0; 
+    for (let row = 0; row < 6; row++) {
+      for (let col = 0; col < 7; col++) {
+        let locationStatus = document.getElementById(holeId).style.backgroundColor;
+        if(locationStatus != board[row][col]) {
+          document.getElementById(holeId).style.backgroundColor = board[row][col];
+        }
+        holeId++;
+      }
+    }
   }
   endGame(winner) {
     if (winner === null) {
