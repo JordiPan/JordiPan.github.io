@@ -10,6 +10,7 @@ export class Model {
   static rows = 6;
   static cols = 7;
 
+  //misschien beter om de spelernaam en turn kleur te linken in object?
   constructor() {
     this.AiModel = new AiModel();
     this.gamemode;
@@ -48,7 +49,7 @@ export class Model {
     this.name1 = '';
     this.name2 = '';
   }
-  resetWins = () => {
+  resetWins () {
     this.counter1 = 0;
     this.counter2 = 0;
   };
@@ -129,7 +130,7 @@ export class Model {
     return this.currentTurnName;
   }
 
-  getColor() {
+  getTurnColor() {
     return this.turnColor;
   }
   switchTurn() {
@@ -143,18 +144,15 @@ export class Model {
     }
   }
   updateWins(winnerColor) {
-    //win1 en win2 zijn de id's van de scores. niet handig maar het werkt
     if(winnerColor == 'blue') {
       this.counter1 += 1;
       return;
-      // return [this.counter1, 'win1'];
     }
     this.counter2 += 1;
-      // return [this.counter2, 'win2'];
   }
 
   isAiTurn() {
-    return this.getGameMode() == 'ai' && this.getColor() == 'red';
+    return this.getGameMode() == 'ai' && this.getTurnColor() == 'red';
   }
   
   makeAiMove() {

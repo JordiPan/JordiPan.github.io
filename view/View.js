@@ -67,10 +67,14 @@ class View {
     this.scoreName1.textContent = players[0];
     this.scoreName2.textContent = players[1];
   }
-  updateTurn(name) {
+  updateTurn(name, turnColor) {
     this.turn.textContent = name;
-    this.statBlock1.classList.toggle("player-one-turn");
-    this.statBlock2.classList.toggle("player-two-turn");
+    if(turnColor === "blue") {
+      this.changeTurnPlayer1();
+    }
+    else {
+      this.changeTurnPlayer2();
+    }
   }
   async decideFirst(players, actualTurnColor) {
     let interval = 10;
@@ -88,16 +92,13 @@ class View {
           setTimeout(switcher, interval);
         } 
         else {
+          let turnName = players[1];
           //geef de ECHTE turn mee
           if (actualTurnColor === "blue") {
-            this.turn.textContent = players[0];
-            this.statBlock1.classList.add("player-one-turn");
-            this.statBlock2.classList.remove("player-two-turn");
-          } else {
-            this.turn.textContent = players[1];
-            this.statBlock1.classList.remove("player-one-turn");
-            this.statBlock2.classList.add("player-two-turn");
+            turnName = players[0]
           }
+          this.updateTurn(turnName, actualTurnColor)
+
           this.toggleInteractivity();
           resolve();
         }
@@ -112,6 +113,7 @@ class View {
       for (let col = 0; col < 7; col++) {
         let locationStatus = document.getElementById(holeId).style.backgroundColor;
         if(locationStatus != board[row][col]) {
+          //ik hoef ids niet te gebruiken, maar heb geen zin om te verbeteren
           document.getElementById(holeId).style.backgroundColor = board[row][col];
         }
         holeId++;
@@ -146,8 +148,13 @@ class View {
     this.board.classList.toggle("inactive");
     this.stop.classList.toggle("inactive");
   }
-  resetListeners() {
-    this.startWindow.removeEventListener();
+  changeTurnPlayer1() {
+    this.statBlock1.classList.add("player-one-turn");
+    this.statBlock2.classList.remove("player-two-turn");
+  }
+  changeTurnPlayer2() {
+    this.statBlock2.classList.add("player-two-turn");
+    this.statBlock1.classList.remove("player-one-turn");        
   }
 }
 export default new View();

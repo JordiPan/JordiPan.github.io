@@ -24,7 +24,7 @@ export class Controller extends BaseController {
         this.view.setNames(this.model.getNames());
         this.view.renderBoard();
         this.view.hideStartWindow();
-        await this.view.decideFirst(this.model.getNames(), this.model.getColor());
+        await this.view.decideFirst(this.model.getNames(), this.model.getTurnColor());
 
         await this.checkForAiMove();
     }
@@ -56,7 +56,7 @@ export class Controller extends BaseController {
         }
         
         if(gamestate === 2) {
-            let winnerColor = this.model.getColor();
+            let winnerColor = this.model.getTurnColor();
             this.model.updateWins(winnerColor);
 
             this.view.updateWins(this.model.getCounter1(), this.model.getCounter2());
@@ -73,14 +73,14 @@ export class Controller extends BaseController {
 
         this.view.renderBoard(event);
         this.view.hideResultsWindow();
-        await this.view.decideFirst(this.model.getNames(), this.model.getColor());
+        await this.view.decideFirst(this.model.getNames(), this.model.getTurnColor());
         
         this.checkForAiMove();
     }
     //kan niet in base door model reference
     changeTurns() {
         this.model.switchTurn();
-        this.view.updateTurn(this.model.getTurnName());
+        this.view.updateTurn(this.model.getTurnName(), this.model.getTurnColor());
         
         this.checkForAiMove();
     }
