@@ -38,9 +38,6 @@ export class OnlineController extends BaseController {
     async handleRematch(event) {
 
     }
-    // changeTurns(name,color) {
-    //     this.view.updateTurn(name)
-    // }
 
     //update view turnname, update board chips, update interactivity, 
     updateBoard() {

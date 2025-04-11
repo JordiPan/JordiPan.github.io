@@ -16,7 +16,6 @@ export class Model {
     this.gamemode;
     this.turnColor;
     this.currentTurnName = "???";
-    // this.placement;
     this.name1;
     this.name2;
     this.counter1 = 0;
@@ -123,9 +122,6 @@ export class Model {
     }
     return count;
   }
-  // getPlacement() {
-  //   return this.placement;
-  // }
   getTurnName() {
     return this.currentTurnName;
   }

@@ -15,7 +15,7 @@ class OnlineGameHandler {
     }
   }
   initialize(serverUrl) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.socket = io(serverUrl, {
         reconnectionAttempts: 2,
         reconnectionDelay: 2000,
