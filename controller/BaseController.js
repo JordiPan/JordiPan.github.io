@@ -31,7 +31,7 @@ export class BaseController {
     handlePlacing(placementLocation) {
         throw new Error("Must override in subclass");
     }
-    async handleRematch(event) {
+    async handleRematch() {
         throw new Error("Must override in subclass");
     }
     

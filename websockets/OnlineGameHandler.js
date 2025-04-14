@@ -11,7 +11,8 @@ class OnlineGameHandler {
     this.callbacks = {
         refresh: null,
         startGame: null,
-        updateBoard: null
+        updateBoard: null,
+        rematch: null
     }
   }
   initialize(serverUrl) {
@@ -26,6 +27,11 @@ class OnlineGameHandler {
         this.assignPlayerColor();
         if (this.callbacks.startGame) {
           this.callbacks.startGame(turnColor);
+        }
+      })
+      this.socket.on("rematch", (turnColor) => {
+        if (this.callbacks.rematch) {
+          this.callbacks.rematch(turnColor);
         }
       })
       //succesvol reconnect poging moet waarschijnlijk de view updaten
@@ -94,9 +100,8 @@ class OnlineGameHandler {
     return new Promise((resolve) => {
       this.socket.emit("getRooms", (rooms) => {
         setTimeout(() => {
-          console.log("Timeout executed!");
           resolve(rooms);
-        }, 3000);
+        }, 1500);
       });
     });
   }
@@ -186,7 +191,9 @@ class OnlineGameHandler {
       })
     });
   }
-  
+  rematch() {
+    this.socket.emit("rematch", this.roomId);
+  }
   on(event, callback) {
     if (this.callbacks.hasOwnProperty(event)) {
         this.callbacks[event] = callback;

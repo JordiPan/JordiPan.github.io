@@ -66,12 +66,12 @@ export class Controller extends BaseController {
         
         this.changeTurns();
     }
-    async handleRematch(event) {
+    async handleRematch() {
         this.model.resetTurnCount();
         this.model.makeModelBoard();
         this.model.decideFirst();
 
-        this.view.renderBoard(event);
+        this.view.renderBoard();
         this.view.hideResultsWindow();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurnColor());
         
