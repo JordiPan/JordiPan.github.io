@@ -38,7 +38,7 @@ export class Controller extends BaseController {
         this.view.hidePlayingField();
         this.view.toggleTitle();
     }
-
+    //kan meer opgesplitst worden placing/winnaar checking/verander beurt
     handlePlacing(colPlacement) {
         let placement = this.model.placeModelChip(colPlacement);
 
@@ -77,7 +77,6 @@ export class Controller extends BaseController {
         
         this.checkForAiMove();
     }
-    //kan niet in base door model reference
     changeTurns() {
         this.model.switchTurn();
         this.view.updateTurn(this.model.getTurnName(), this.model.getTurnColor());

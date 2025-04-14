@@ -7,7 +7,7 @@ export class OnlineController extends BaseController {
         super(View);
         this.client = Client;
         this.client.on("startGame", (turnColor) => {this.handleStart(turnColor)})
-        this.client.on("updateBoard", (room) =>{this.updateBoard()})
+        this.client.on("updateBoard", () =>{this.updateBoard()})
     }
     async handleStart(turnColor) {
         const namesArray = this.client.getNames();
@@ -30,7 +30,8 @@ export class OnlineController extends BaseController {
     async handlePlacing(placementCol) {
         this.view.toggleInteractivity();
         const result = await this.client.placeChip(placementCol);
-        if (!result) {
+        //kolom vol kan gecheckt worden via board van OGH/client
+        if (result === 3) {
             alert("KOLOM IS VOL")
             this.view.toggleInteractivity();
         }
@@ -43,17 +44,32 @@ export class OnlineController extends BaseController {
     updateBoard() {
         const room = this.client.getRoom();
         this.view.placeChip(room.board);
-        console.log(room)
-        this.view.updateTurn(room.turn.name, room.turn.color);
+        console.log(room.gameState)
+        switch(room.gameState) {
+            case 0: {
+                this.view.updateTurn(room.turn.name, room.turn.color);
 
-        if(this.client.getPlayerColor() === room.turn.color) {
-            this.view.toggleInteractivity();
+                if(this.client.getPlayerColor() === room.turn.color) {
+                    this.view.toggleInteractivity();
+                }
+                break;
+            }
+            case 1: {
+                this.view.toggleInteractivity();
+                this.view.endGame();
+                break;
+            }
+            case 2: {
+                const wins = this.client.getWins();
+                console.log(wins);
+                this.view.toggleInteractivity();
+                this.view.endGame(room.turn.name);
+                this.view.updateWins(wins[0], wins[1])
+                break;
+            }
         }
     }
 
-    yourTurn() {
-
-    }
     cleanup() {
         super.cleanup();
         this.client = null;

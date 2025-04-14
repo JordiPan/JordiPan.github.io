@@ -90,8 +90,8 @@ export class Model {
 
   //0 is geen winnaar, 1 is gelijkspel, 2 is winnaar
   checkWinner(placement) {
-    let lastCol = placement[1];
-    let lastRow = placement[0];
+    const lastCol = placement[1];
+    const lastRow = placement[0];
 
     for (let { row: dirRow, col: dirCol } of Model.directions) {
       const forwardCount = this.counter(lastRow, lastCol, dirRow, dirCol);

@@ -145,6 +145,13 @@ class OnlineGameHandler {
     }
     return names;
   }
+  getWins() {
+    let wins = [];
+    for (let player of this.room?.players) {
+      wins.push(player?.wins);
+    }
+    return wins;
+  }
   //VERGEET NIET OM DIT TE UPDATEN
   setRoomInfo(roomId, room) {
     this.roomId = roomId;
