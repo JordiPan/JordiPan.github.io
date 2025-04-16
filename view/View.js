@@ -39,20 +39,22 @@ class View {
       this.board.appendChild(this.hole);
     }
   }
-  hideStartWindow() {
-    this.startWindow.classList.toggle("hidden");
-    this.playingField.classList.toggle("hidden");
+  showPlayingField() {
+    this.startWindow.classList.add("hidden");
+    this.playingField.classList.remove("hidden");
+    this.title.classList.add("hidden");
   }
   hidePlayingField() {
     this.winsScore1.textContent = 0;
     this.winsScore2.textContent = 0;
 
-    this.playingField.classList.toggle("hidden");
-    this.startWindow.classList.toggle("hidden");
+    this.playingField.classList.add("hidden");
+    this.startWindow.classList.remove("hidden");
     this.statBlock1.classList.remove("player-one-turn");
     this.statBlock2.classList.remove("player-two-turn");
-    this.stop.classList.toggle("inactive");
-    this.board.classList.toggle("inactive");
+    this.stop.classList.add("inactive");
+    this.board.classList.add("inactive");
+    this.title.classList.remove("hidden");
   }
   getNames() {
     return [this.formName1.value, this.formName2.value];
@@ -79,7 +81,6 @@ class View {
   async decideFirst(players, actualTurnColor) {
     let interval = 10;
     let count = 0;
-    //ik voeg dit toe zodat het de goede schaduw meegeeft
     this.turn.textContent = "Bezig...";
     this.statBlock2.classList.toggle("player-two-turn");
     return new Promise((resolve) => {
@@ -106,14 +107,13 @@ class View {
       setTimeout(switcher, interval);
     });
   }
-  //ongeveer clone bord voor een synced up bord
+  //cloned de bord
   placeChip(board) {
     let holeId = 0; 
     for (let row = 0; row < 6; row++) {
       for (let col = 0; col < 7; col++) {
         let locationStatus = document.getElementById(holeId).style.backgroundColor;
         if(locationStatus != board[row][col]) {
-          //ik hoef ids niet te gebruiken, maar heb geen zin om te verbeteren
           document.getElementById(holeId).style.backgroundColor = board[row][col];
         }
         holeId++;
@@ -130,15 +130,12 @@ class View {
     this.end.classList.toggle("hidden");
     this.toggleInteractivity();
   }
-  updateWins(counter1, counter2) {
-    this.winsScore1.textContent = counter1;
-    this.winsScore2.textContent = counter2;
+  setWins(wins) {
+    this.winsScore1.textContent = wins[0];
+    this.winsScore2.textContent = wins[1];
   }
   hideResultsWindow() {
     this.end.classList.toggle("hidden");
-  }
-  toggleTitle() {
-    this.title.classList.toggle("hidden");
   }
   resetNames() {
     this.formName1.value = "";

@@ -23,9 +23,10 @@ class OnlineGameHandler {
         timeout: 5000,
       });
 
-      this.socket.on("startGame", (turnColor) => {
-        this.assignPlayerColor();
+      this.socket.on("startGame", (turnColor, board) => {
         if (this.callbacks.startGame) {
+          this.assignPlayerColor();
+          this.room.board = board;
           this.callbacks.startGame(turnColor);
         }
       })
@@ -76,7 +77,7 @@ class OnlineGameHandler {
     return new Promise((resolve) => {
       this.socket.emit("createRoom", this.username, (roomId, room) => {
         this.setRoomInfo(roomId, room);
-        console.log("Created room with id: " + JSON.stringify(room));
+        console.log("Created room with id: " + roomId);
         resolve();
       });
     });
@@ -90,6 +91,7 @@ class OnlineGameHandler {
     this.username = null;
     this.roomId = null;
     this.room = null;
+    this.playerColor = null;
   }
 
   getSocketId() {
@@ -101,7 +103,7 @@ class OnlineGameHandler {
       this.socket.emit("getRooms", (rooms) => {
         setTimeout(() => {
           resolve(rooms);
-        }, 1500);
+        }, 1000);
       });
     });
   }
@@ -135,7 +137,6 @@ class OnlineGameHandler {
   }
 
   getUsername() {
-    console.log(this.username);
     return this.username;
   }
 
@@ -170,6 +171,10 @@ class OnlineGameHandler {
   startGame() {
     this.socket.emit("startGame", this.roomId);
   }
+
+  stopGame() {
+    this.socket.emit("stopGame", this.roomId);
+  }
   // ik doe het zo voor een misschien toekomstige spectator functie... for loop is wasteful
   assignPlayerColor() {
     if (this.room?.players[0].id === this.socketId) {
@@ -185,14 +190,19 @@ class OnlineGameHandler {
   }
   //UHH, als kolom vol is zal het programma nog steeds een emit sturen... fix later?
   placeChip(placementCol) {
-    return new Promise((resolve) => {
-      this.socket.emit("placeChip", this.roomId, placementCol, (result) => {
-        resolve(result);
-      })
-    });
+    this.socket.emit("placeChip", this.roomId, placementCol)
   }
   rematch() {
     this.socket.emit("rematch", this.roomId);
+  }
+
+  checkValidColumn(col) {
+    for(let row = 0; row < 6; row++) {
+      if(this.room.board[row][col] === '') {
+        return true;
+      } 
+    }
+    return false;
   }
   on(event, callback) {
     if (this.callbacks.hasOwnProperty(event)) {

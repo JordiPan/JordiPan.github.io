@@ -4,7 +4,6 @@ import { Controller } from "../controller/Controller.js";
 import { OnlineController } from "../controller/OnlineController.js";
 import View from "../view/View.js";
 
-//misschien ooit omzetten naar MVC?
 export class StartMenu {
   constructor() {
     this.startWindow = document.getElementById("start-window");
@@ -144,7 +143,10 @@ export class StartMenu {
     const roomId = Client.getRoomId();
     const count = Client.getPlayers().length;
     const players = Client.getPlayers();
+
     this.startWindow.innerHTML = Templates.getWaitingRoom(roomId, count, players);
+    //dit stuk wordt alleen gebruikt als een game middenin gestopt wordt 
+    View.hidePlayingField();
   }
   
   changeToError() {

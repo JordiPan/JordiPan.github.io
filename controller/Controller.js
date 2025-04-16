@@ -20,10 +20,9 @@ export class Controller extends BaseController {
         this.model.setNames(this.view.getNames());
         this.model.decideFirst();
 
-        this.view.toggleTitle();
         this.view.setNames(this.model.getNames());
         this.view.renderBoard();
-        this.view.hideStartWindow();
+        this.view.showPlayingField();
         await this.view.decideFirst(this.model.getNames(), this.model.getTurnColor());
 
         await this.checkForAiMove();
@@ -36,7 +35,6 @@ export class Controller extends BaseController {
 
         this.view.resetNames();
         this.view.hidePlayingField();
-        this.view.toggleTitle();
     }
     //kan meer opgesplitst worden placing/winnaar checking/verander beurt
     handlePlacing(colPlacement) {
@@ -59,7 +57,7 @@ export class Controller extends BaseController {
             let winnerColor = this.model.getTurnColor();
             this.model.updateWins(winnerColor);
 
-            this.view.updateWins(this.model.getCounter1(), this.model.getCounter2());
+            this.view.setWins(this.model.getCounter1(), this.model.getCounter2());
             this.view.endGame(this.model.getTurnName());
             return;
         }

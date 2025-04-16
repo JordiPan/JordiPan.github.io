@@ -9,14 +9,16 @@ export class OnlineController extends BaseController {
         this.client.on("startGame", (turnColor) => {this.handleStart(turnColor)})
         this.client.on("updateBoard", () =>{this.updateBoard()})
         this.client.on("rematch", (turnColor) =>{this.rematch(turnColor)})
+        this.client.on("stopGame", () =>{this.stopGame()})
     }
     async handleStart(turnColor) {
-        const namesArray = this.client.getNames();
-        this.view.toggleTitle();
-        this.view.setNames(namesArray);
+        const names = this.client.getNames();
+        const wins = this.client.getWins();
+        this.view.setNames(names);
+        this.view.setWins(wins);
         this.view.renderBoard();
-        this.view.hideStartWindow();
-        await this.view.decideFirst(namesArray, turnColor);
+        this.view.showPlayingField();
+        await this.view.decideFirst(names, turnColor);
 
         this.disableIfNotTurn(turnColor);
     }
@@ -25,38 +27,24 @@ export class OnlineController extends BaseController {
     }
 
     handleStop() {
-
-    }
-
-    async handlePlacing(placementCol) {
-        this.view.toggleInteractivity();
-        const result = await this.client.placeChip(placementCol);
-        //kolom vol kan gecheckt worden via board van OGH/client
-        if (result === 3) {
-            alert("KOLOM IS VOL")
-            this.view.toggleInteractivity();
-        }
+        this.client.stopGame();
     }
 
     async handleRematch() {
         this.client.rematch();
     }
 
-    async rematch(turnColor) {
-        const namesArray = this.client.getNames();
-        this.view.renderBoard();
-        this.view.hideResultsWindow();
-        await this.view.decideFirst(namesArray, turnColor);
-        this.disableIfNotTurn(turnColor);
-    }
-
-    disableIfNotTurn(turnColor) {
-        if(this.client.getPlayerColor() != turnColor) {
+    async handlePlacing(placementCol) {
+        this.view.toggleInteractivity();
+        const valid = this.client.checkValidColumn(placementCol);
+        if (!valid) {
+            alert("KOLOM IS VOL");
             this.view.toggleInteractivity();
+            return;
         }
+        await this.client.placeChip(placementCol);
     }
 
-    //update view turnname, update board chips, update interactivity, 
     updateBoard() {
         const room = this.client.getRoom();
         this.view.placeChip(room.board);
@@ -78,13 +66,26 @@ export class OnlineController extends BaseController {
                 const wins = this.client.getWins();
                 this.view.toggleInteractivity();
                 this.view.endGame(room.turn.name);
-                this.view.updateWins(wins[0], wins[1])
+                this.view.setWins(wins)
                 break;
             }
         }
     }
 
-   
+    async rematch(turnColor) {
+        const namesArray = this.client.getNames();
+        this.view.renderBoard();
+        this.view.hideResultsWindow();
+        await this.view.decideFirst(namesArray, turnColor);
+        this.disableIfNotTurn(turnColor);
+    }
+
+    disableIfNotTurn(turnColor) {
+        if(this.client.getPlayerColor() != turnColor) {
+            this.view.toggleInteractivity();
+        }
+    }
+
     cleanup() {
         super.cleanup();
         this.client = null;
