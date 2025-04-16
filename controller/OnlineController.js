@@ -44,7 +44,11 @@ export class OnlineController extends BaseController {
         }
         await this.client.placeChip(placementCol);
     }
-
+    /* GAMESTATES
+      0=geen winnaar, ga door
+      1=gelijkspel
+      2=winnaar SPOTTED
+    */
     updateBoard() {
         const room = this.client.getRoom();
         this.view.placeChip(room.board);
@@ -59,7 +63,7 @@ export class OnlineController extends BaseController {
             }
             case 1: {
                 this.view.toggleInteractivity();
-                this.view.endGame();
+                this.view.endGame(null);
                 break;
             }
             case 2: {

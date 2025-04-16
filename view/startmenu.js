@@ -22,6 +22,10 @@ export class StartMenu {
       false);
 
     Client.on("refresh", () => {
+      if(!Client.getRoomId()) {
+        this.changeToOnline();
+        return;
+      }
       this.changeToWaitingRoom();
     });
     

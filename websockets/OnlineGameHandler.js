@@ -30,8 +30,9 @@ class OnlineGameHandler {
           this.callbacks.startGame(turnColor);
         }
       })
-      this.socket.on("rematch", (turnColor) => {
+      this.socket.on("rematch", (turnColor, board) => {
         if (this.callbacks.rematch) {
+          this.room.board = board;
           this.callbacks.rematch(turnColor);
         }
       })
@@ -39,12 +40,12 @@ class OnlineGameHandler {
       this.socket.on("connect", () => {
         console.log("Connected to WebSocket server!");
       });
-
+      //op leaving, joining en disconnect 
       this.socket.on("refresh", (room, roomId) => {
-        this.setRoomInfo(roomId, room);
-
+        console.log("REFRESH CALLED")
         if (this.callbacks.refresh) {
-            this.callbacks.refresh();
+          this.setRoomInfo(roomId, room);
+          this.callbacks.refresh();
         }
       });
       this.socket.on("updateBoard", (room) => {
