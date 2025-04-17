@@ -71,7 +71,7 @@ class Templates {
 `;
   }
   getOnlineWindow() {
-    return `<h2>Online multiplaya!!</h2>
+    return `<h2>Online modus</h2>
 
 <div class="mb-3 player1-field" id="player1-field">
   <label for="online-username" class="form-label">Gebruikersnaam:</label>
