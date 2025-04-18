@@ -20,7 +20,7 @@ class OnlineGameHandler {
       this.socket = io(serverUrl, {
         reconnectionAttempts: 2,
         reconnectionDelay: 2000,
-        timeout: 5000,
+        timeout: 5000
       });
 
       this.socket.on("startGame", (turnColor, board) => {

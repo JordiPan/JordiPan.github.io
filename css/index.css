@@ -13,11 +13,11 @@
 html {
    height: 100vh;
 }
-
 .margin-container {
    margin-left: 1rem;
    margin-right: 1rem;
 }
+
 body {
    /* background-image: url("../img/EJzyxsCCQOeRa71a83tX_background-2.jpeg");*/
    background-color: #c3d7f7 !important;
@@ -37,7 +37,7 @@ body {
    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
    justify-content: center;
    flex: 1;
-   height: 85vh;
+   height: 82vh;
    padding: 0.5rem;
     /* align-content: center; */
 }
@@ -45,6 +45,7 @@ body {
    pointer-events: none;
    box-shadow: inset 0 0 0 999em rgba(0,0,0,0.5), 1px 2px 10px rgba(0, 0, 0, 0.5) !important;
 }
+
 h1 {
    text-align: center;
    font-size: 3em;
@@ -111,10 +112,40 @@ h1 {
 }
 .form-window {
    text-align: center;
-   padding: 2rem;
-   margin: 3rem;
+   margin-top: 3rem;
    border-radius: 1rem;
    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+   padding-bottom: 0;
+}
+.content {
+   padding: 2rem;
+}
+.button-collection {
+   display: flex;
+   flex-direction: row;
+}
+.button-collection button:first-child {
+   border-bottom-left-radius: 1rem;
+}
+.button-collection button:last-child {
+   border-bottom-right-radius: 1rem;
+}
+.icon-button {
+   padding: 0.4rem;
+   /* border-radius: 0.5rem; */
+   border: none;
+   background-color: rgba(0, 0, 0, 0.05);
+   transition: background-color 0.5s ease;
+   width: 100%;
+}
+.icon-button:hover {
+   background-color: rgba(0, 0, 0, 0.1);
+}
+.menu-icon {
+   width: 3rem;
+}
+.icon {
+   pointer-events: none;
 }
 #result-window {
    position: fixed !important;
@@ -122,37 +153,36 @@ h1 {
    left: 50%;
    transform: translate(-50%, -50%);
    text-align: center;
-   /* width: 25rem; */
    z-index: 6969;
    padding: 3rem;
    background-color: #c3d7f7 !important;
-   box-shadow: 1px 2px 10px rgba(255, 255, 255, 0.5), 0 0 0 999em rgba(0,0,0,0.8);
-   opacity: 0.9;
-   /* box-shadow: 1px 2px 10px rgba(255, 255, 255, 0.5); */
+   box-shadow: 1px 2px 10px rgba(255, 255, 255, 0.5), 0 0 0 999em rgba(0,0,0,0.4);
+   opacity: 0.95;
 }
 
 #online-buttons {
    margin-bottom: 1rem;
 }
+.room-row {
+   display: flex;
+   flex-direction: row;
+}
 #rooms-list {
+   /* padding: 0.5rem; */
    overflow-y: auto;
    max-height: 15rem;
-   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
-   /* background-color: #e4eeff; */
+   background-color: #c3d7f7;
 }
 .room {
-   flex: 1 1 50%;
-   margin: 1rem;
-   padding-bottom: 1.1rem;
-   border-bottom: 2px solid gray;
+   background-color: #cedef8 !important;
+}
+.room:not(:first-child) {
+   margin-top: 0.5rem;
 }
 .info-col {
-   padding: 0;
    flex: 4 !important;
-   margin: 0.5rem !important;
-   margin-top: 10rem;
+   padding: 0.5rem;
    text-align: left;
-   border-right: 1px solid gray;
 }
 .info-col > p {
    margin: 0;
@@ -162,51 +192,31 @@ h1 {
 }
 .join-button-col {
    margin: 0;
+   padding: 0;
 }
 #join-button {
-   width: 100%;
    height: 100%;
-   border: none;
-   background-color: #198754be;
 }
-#join-button:hover {
-   background-color: #157347be;
+.green-hover:hover {
+   background-color: rgba(33, 196, 120, 0.4) !important;
 }
-.enter-icon {
-   width: 100%;
-   height: 70%;
+.red-hover:hover {
+   background-color: rgba(235, 55, 32, 0.4) !important;
 }
-#online-button {
-   padding: 0.4rem;
-   border-radius: 0.5rem;
-   border: none;
-   background-color: #2226ff;
-}
-#online-button:hover {
-   background-color: #0e12ff;
-}
-.menu-icon {
-   width: 2rem;
-}
-.icon {
-   pointer-events: none;
+.blue-hover:hover {
+   background-color: rgba(28, 171, 236, 0.4) !important;
 }
 .loading-icon {
    height: 5rem;
 }
-.waiting-container {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-}
 .player-list {
+   overflow-y: auto;
+   max-height: 15rem;
    padding: 1rem;
-   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
 }
 .player-info {
+   border-bottom: 1px solid black;
    padding: 0.5rem;
-   margin: 1rem;
-   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* small screens */
@@ -218,8 +228,6 @@ h1 {
       height: 40vh;
    }
    .item {
-      /* width: 2.2rem;
-      height: 2.2rem; */
       padding: 0;
       margin: 0.2rem;
       border: black 2px solid;
@@ -244,7 +252,6 @@ h1 {
    }
    .stat-shadow {
       padding: 1em;
-      /* min-width: 12rem; */
    }
    #flex-game {
       order: 3;

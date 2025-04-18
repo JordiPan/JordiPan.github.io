@@ -1,75 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-        <meta name="HandheldFriendly" content="true" />
-        <title>4 op een rij 🔴🔵</title>
-        <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon_io/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon_io/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon_io/favicon-16x16.png">
-        <!-- <link rel="manifest" href="/site.webmanifest"> -->
-    </head>
-    <body>
-        <h1 id="title">4 op een rij</h1>
-        
-        <div class="form-container">
-            <!-- anchor point -->
-            <form id="start-window" class="form-window">
-            </form>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    />
+    <meta name="HandheldFriendly" content="true" />
+    <title>4 op een rij 🔴🔵</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/favicon_io/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./img/favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./img/favicon_io/favicon-16x16.png"
+    />
+    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+  </head>
+  <body>
+    <h1 id="title">4 op een rij</h1>
 
-        <div class="margin-container hidden">
-            <div class="row">
-                <div class="col-md-2 flex-stats" id="flex-stats-1">
-                    <div class="statistics player-one-stats">
-                        <div class="stat-shadow" id="shadow-one">
-                            <p id="player-name-one"
-                                class="player-name">Speler1</p>
-                                <hr>
-                            <p class="player-wins">Winsten: <span
-                                    id="win1">0</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8" id="flex-game">
-                    <p id="turn-text">Beurt: <span id="turn">???</span></p>
-                    <div class="restart-container">
-                        <div class="btn btn-danger inactive" id="stop">Stop spel</div>
-                    </div>
-                    <div id="flex-board">
-                        <div class="inactive" id="board"></div>
-                    </div>
-                </div>
-                <div class="col-md-2 flex-stats" id="flex-stats-2">
-                    <div class="statistics player-two-stats">
-                        <div class="stat-shadow" id="shadow-two">
-                            <p id="player-name-two"
-                                class="player-name">Speler2</p>
-                                <hr>
-                            <p class="player-wins">Winsten: <span
-                                    id="win2">0</span></p>
-                        </div>
-                    </div>
-                </div>
+    <div class="form-container">
+      <!-- anchor point -->
+      <form id="start-window" class="form-window"></form>
+    </div>
+
+    <div class="margin-container hidden">
+      <div class="row">
+        <div class="col-md-2 flex-stats" id="flex-stats-1">
+          <div class="statistics player-one-stats">
+            <div class="stat-shadow" id="shadow-one">
+              <p id="player-name-one" class="player-name">Speler1</p>
+              <hr />
+              <p class="player-wins">Winsten: <span id="win1">0</span></p>
             </div>
+          </div>
         </div>
-        
+        <div class="col-md-8" id="flex-game">
+          <p id="turn-text">Beurt: <span id="turn">???</span></p>
+          <div class="restart-container">
+            <button class="icon-button inactive red-hover" id="stop" type="button" title="Terug naar offline modus">
+              <img
+                src="./img/black/back-icon.svg"
+                alt="back to offline button"
+                class="icon menu-icon"
+              />
+            </button>
+          </div>
+          <div id="flex-board">
+            <div class="inactive" id="board"></div>
+          </div>
+        </div>
+        <div class="col-md-2 flex-stats" id="flex-stats-2">
+          <div class="statistics player-two-stats">
+            <div class="stat-shadow" id="shadow-two">
+              <p id="player-name-two" class="player-name">Speler2</p>
+              <hr />
+              <p class="player-wins">Winsten: <span id="win2">0</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <div id="result-window" class="hidden">
-            <h3>Wilt u een rematch?</h3>
-            <p id="winner"></p>
-            <button class="btn btn-info" id="rematch"> Ja, nog een
-                keer!</div>
-        </div>
-        <script type="module" src="start.js"></script>
-        <script type="module" src="./view/StartMenu.js"></script>
-        <script type="module" src="websockets/OnlineGameHandler.js"></script>
-        <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
-    </body>
+    <div id="result-window" class="hidden">
+      <h3>Wilt u een rematch?</h3>
+      <p id="winner"></p>
+      <button class="icon-button green-hover" id="rematch">
+        <img
+          src="./img/black/retry-icon.svg"
+          alt="play again"
+          class="menu-icon icon"
+        />
+      </button>
+    </div>
+
+    <script type="module" src="./view/StartMenu.js"></script>
+    <script type="module" src="websockets/OnlineGameHandler.js"></script>
+    <script
+      src="https://cdn.socket.io/4.8.1/socket.io.min.js"
+      integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

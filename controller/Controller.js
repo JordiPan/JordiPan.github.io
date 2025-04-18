@@ -57,7 +57,7 @@ export class Controller extends BaseController {
             let winnerColor = this.model.getTurnColor();
             this.model.updateWins(winnerColor);
 
-            this.view.setWins(this.model.getCounter1(), this.model.getCounter2());
+            this.view.setWins([this.model.getCounter1(), this.model.getCounter2()]);
             this.view.endGame(this.model.getTurnName());
             return;
         }

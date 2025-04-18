@@ -170,13 +170,11 @@ export class StartMenu {
       roomFragment.classList.add("room");
   
       const creator = rooms[roomId]?.players[0]?.username;
-      const creatorId = rooms[roomId]?.creatorId;
       const playerCount = rooms[roomId]?.players?.length;
   
       roomFragment.innerHTML = Templates.getRoom(
         roomId,
         creator,
-        creatorId,
         playerCount
       );
   
