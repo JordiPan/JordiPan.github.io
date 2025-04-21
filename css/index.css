@@ -41,6 +41,7 @@ body {
    border-top-color: rgba(43, 117, 255, 0.4);
 }
 .item {
+   border: 3px solid black;
    flex: 1 0 calc(100% / 8);
    padding: 4rem;
    margin: 0.7rem;
@@ -94,6 +95,7 @@ h1 {
    justify-content: center;
 }
 .flex-stats {
+   margin-top: 0.5rem;
    display: flex;
    justify-content: center;
 }
@@ -259,7 +261,7 @@ footer {
    .item {
       padding: 0;
       margin: 0.2rem;
-      /* border: black 2px solid; */
+      border: black 2px solid;
    }
    
    #result-window {
@@ -302,11 +304,9 @@ footer {
       height: 60vh;
    }
    .item {
-      /* width: 4.2rem;
-      height: 4.2rem; */
       padding: 0;
       margin: 0.2rem;
-      /* border: black 2px solid; */
+      border: black 2px solid;
    }
    #result-window {
       display: flex;
@@ -350,8 +350,6 @@ footer {
       width: 40%;
    }
    .item {
-      /* width: 5.2rem;
-      height: 5.2rem; */
       padding: 0;
       margin: 0.2rem;
    }
