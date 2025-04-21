@@ -17,7 +17,6 @@ html {
    margin-left: 1rem;
    margin-right: 1rem;
 }
-
 body {
    /* background-image: url("../img/EJzyxsCCQOeRa71a83tX_background-2.jpeg");*/
    background-color: #c3d7f7 !important;
@@ -29,8 +28,6 @@ body {
    display: grid;
    grid-template-columns: repeat(7, 1fr);
    width: fit-content;
-   /* box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5); */
-   /* background-color: rgba(0, 0, 0, 0.05); */
    border-radius: 1rem;
    justify-content: center;
    flex: 1;
@@ -41,16 +38,13 @@ body {
    border-right-color: rgba(255, 54, 54, 0.4);
    border-left-color: rgba(43, 117, 255, 0.4);
    border-top-color: rgba(43, 117, 255, 0.4);
-   /* opacity: 0.1; */
 }
 .item {
    flex: 1 0 calc(100% / 8);
    padding: 4rem;
    margin: 0.7rem;
    border-radius: 69%;
-   /* border: black 1px solid; */
    background-color: rgba(255, 255, 255, 0.2);
-   /* box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5); */
    position: relative;
 }
 .placed-red {
@@ -61,14 +55,14 @@ body {
 }
 .inactive {
    pointer-events: none;
-   box-shadow: inset 0 0 0 999em rgba(0,0,0,0.5), 1px 2px 10px rgba(0, 0, 0, 0.5) !important;
+   box-shadow: inset 0 0 0 999em rgba(0,0,0,0.1) !important;
 }
 h1 {
    text-align: center;
    font-size: 3em;
-}
-.restart-container {
-   text-align: center;
+} 
+#stop {
+   border-radius: 1rem;
    margin-bottom: 1rem;
 }
 #restart {
@@ -119,9 +113,14 @@ h1 {
 .form-window {
    text-align: center;
    margin-top: 3rem;
+   border-width: 0.3rem;
    border-radius: 1rem;
-   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
-   padding-bottom: 0;
+   border-style: inset;
+   border-bottom-color: rgba(255, 54, 54, 0.4);
+   border-right-color: rgba(255, 54, 54, 0.4);
+   border-left-color: rgba(43, 117, 255, 0.4);
+   border-top-color: rgba(43, 117, 255, 0.4);
+   padding: 0;
 }
 .content {
    padding: 2rem;
@@ -131,10 +130,10 @@ h1 {
    flex-direction: row;
 }
 .button-collection button:first-child {
-   border-bottom-left-radius: 1rem;
+   border-bottom-left-radius: calc(1rem - 0.3rem);
 }
 .button-collection button:last-child {
-   border-bottom-right-radius: 1rem;
+   border-bottom-right-radius: calc(1rem - 0.3rem);
 }
 .icon-button {
    padding: 0.4rem;
@@ -146,11 +145,16 @@ h1 {
 .icon-button:hover {
    background-color: rgba(0, 0, 0, 0.1);
 }
+.icon-button:hover .icon {
+   opacity: 0.9;
+}
 .menu-icon {
    width: 3rem;
 }
 .icon {
    pointer-events: none;
+   opacity: 0.6;
+   transition: opacity 0.5s ease;
 }
 #retry-icon {
    width: 2.2rem;
@@ -163,8 +167,8 @@ h1 {
    text-align: center;
    z-index: 6969;
    background-color: #c3d7f7 !important;
-   box-shadow: 1px 2px 10px rgba(255, 255, 255, 0.5), 0 0 0 999em rgba(0,0,0,0.5);
-   opacity: 0.8;
+   box-shadow: 1px 2px 10px rgba(255, 255, 255, 0.5), 0 0 0 999em rgba(0,0,0,0.8);
+   opacity: 0.92;
    border-radius: 1rem;
 }
 
@@ -183,6 +187,7 @@ h1 {
 }
 .room {
    background-color: #cedef8 !important;
+   border-radius: 0.5rem;
 }
 .room:not(:first-child) {
    margin-top: 0.5rem;
@@ -204,6 +209,8 @@ h1 {
 }
 #join-button {
    height: 100%;
+   border-top-right-radius: 0.5rem;
+   border-bottom-right-radius: 0.5rem;
 }
 .green-hover:hover {
    background-color: rgba(33, 196, 120, 0.4) !important;
@@ -230,7 +237,7 @@ h1 {
 /* small screens */
 @media only screen and (max-width: 600px) {
    .form-window {
-      width: 100%;
+      width: 90%;
    }
    #board {
       height: 40vh;
@@ -275,7 +282,7 @@ h1 {
 /* medium screens */
 @media only screen and (min-width: 600px) and (max-width: 992px) {
    .form-window {
-      width: 100%;
+      width: 90%;
    }
    #board {
       height: 60vh;
@@ -326,7 +333,7 @@ h1 {
 /* big screens */
 @media only screen and (min-width: 992px) {
    .form-window {
-      width: 30%;
+      width: 40%;
    }
    .item {
       /* width: 5.2rem;

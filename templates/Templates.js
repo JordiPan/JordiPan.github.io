@@ -181,7 +181,7 @@ class Templates {
         <button id="join-button" type="button" data-room-id="${roomId}" class="icon-button green-hover" title="Kamer binnengaan">
           <img
             src="./img/black/enter-icon.svg"
-            alt="enter icon"
+            alt="play offline game"
             class="menu-icon icon"
           />
         </button>
