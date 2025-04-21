@@ -3,6 +3,7 @@ export class BaseController {
         this.view = View;
         this.eventListeners = new Map();
         this.bindEvent(this.view.stop, "click", this.handleStop);
+        this.bindEvent(this.view.cancel, "click", this.handleStop);
         this.bindEvent(this.view.rematch, "click", this.handleRematch);
         this.bindEvent(this.view.board, "click", (event) => {
             if (event.target && event.target.classList.contains("item")) {

@@ -57,7 +57,12 @@
         <div class="col-md-8" id="flex-game">
           <p id="turn-text">Beurt: <span id="turn">???</span></p>
           <div class="restart-container">
-            <button class="icon-button inactive red-hover" id="stop" type="button" title="Terug naar offline modus">
+            <button
+              class="icon-button inactive red-hover"
+              id="stop"
+              type="button"
+              title="Terug naar offline modus"
+            >
               <img
                 src="./img/black/back-icon.svg"
                 alt="back to offline button"
@@ -82,15 +87,27 @@
     </div>
 
     <div id="result-window" class="hidden">
-      <h3>Wilt u een rematch?</h3>
-      <p id="winner"></p>
-      <button class="icon-button green-hover" id="rematch">
-        <img
-          src="./img/black/retry-icon.svg"
-          alt="play again"
-          class="menu-icon icon"
-        />
-      </button>
+      <div class="content">
+        <h3>Wilt u een rematch?</h3>
+        <p id="winner"></p>
+      </div>
+      <div class="button-collection">
+        <button class="icon-button green-hover" id="rematch" title="Speel nog een keer">
+          <img
+            src="./img/black/retry-icon.svg"
+            alt="play again"
+            class="menu-icon icon"
+            id="retry-icon"
+          />
+        </button>
+        <button class="icon-button red-hover" id="cancel" title="Terug">
+          <img
+            src="./img/black/back-icon.svg"
+            alt="go back image"
+            class="icon menu-icon"
+          />
+        </button>
+      </div>
     </div>
 
     <script type="module" src="./view/StartMenu.js"></script>

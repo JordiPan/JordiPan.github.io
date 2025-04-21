@@ -14,6 +14,7 @@ class View {
     this.rematch = document.getElementById("rematch");
     this.startWindow = document.getElementById("start-window");
     this.stop = document.getElementById("stop");
+    this.cancel = document.getElementById("cancel");
     this.statBlock1 = document.getElementById("shadow-one");
     this.statBlock2 = document.getElementById("shadow-two");
     this.formName1;
@@ -45,15 +46,17 @@ class View {
     this.title.classList.add("hidden");
   }
   hidePlayingField() {
+    //onnodig??
     this.winsScore1.textContent = 0;
     this.winsScore2.textContent = 0;
 
     this.playingField.classList.add("hidden");
-    this.startWindow.classList.remove("hidden");
-    this.statBlock1.classList.remove("player-one-turn");
-    this.statBlock2.classList.remove("player-two-turn");
     this.stop.classList.add("inactive");
     this.board.classList.add("inactive");
+    this.end.classList.add("hidden");
+    this.statBlock1.classList.remove("player-one-turn");
+    this.statBlock2.classList.remove("player-two-turn");
+    this.startWindow.classList.remove("hidden");
     this.title.classList.remove("hidden");
   }
   getNames() {
