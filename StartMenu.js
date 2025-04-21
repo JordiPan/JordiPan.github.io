@@ -1,8 +1,8 @@
-import Client from "../websockets/OnlineGameHandler.js";
-import Templates from "../templates/Templates.js";
-import { Controller } from "../controller/Controller.js";
-import { OnlineController } from "../controller/OnlineController.js";
-import View from "./View.js";
+import Client from "./websockets/OnlineGameHandler.js";
+import Templates from "./templates/Templates.js";
+import { Controller } from "./controller/Controller.js";
+import { OnlineController } from "./controller/OnlineController.js";
+import View from "./view/View.js";
 
 export class StartMenu {
   constructor() {
