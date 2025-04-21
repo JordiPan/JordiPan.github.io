@@ -110,15 +110,18 @@ class View {
       setTimeout(switcher, interval);
     });
   }
-  //cloned de bord
+  //clone de model bord
   placeChip(board) {
     let holeId = 0; 
     for (let row = 0; row < 6; row++) {
       for (let col = 0; col < 7; col++) {
-        let locationStatus = document.getElementById(holeId).style.backgroundColor;
-        if(locationStatus != board[row][col]) {
-          document.getElementById(holeId).style.backgroundColor = board[row][col];
-        }
+        // let locationStatus = document.getElementById(holeId).style.backgroundColor;
+        // if(locationStatus != board[row][col]) {
+          
+          // document.getElementById(holeId).style.backgroundColor = board[row][col];
+          let className = "placed-"
+          document.getElementById(holeId).classList.add(className + board[row][col]); 
+        // }
         holeId++;
       }
     }
