@@ -8,8 +8,6 @@ export class StartMenu {
   constructor() {
     this.startWindow = document.getElementById("start-window");
     this.regex = /^[^ ].+[^ ]$/;
-
-    // TODO: doe in env aan het eind (niet super nodig, maar ja)
     this.activeController;
     this.init();
   }

@@ -85,7 +85,7 @@ class OnlineGameHandler {
   }
 
   disconnect() {
-    console.log("DISContectINg!!!");
+    console.log("disconnecting...");
     this.socket?.disconnect();
     this.socket = null;
     this.socketId = null;
@@ -111,7 +111,7 @@ class OnlineGameHandler {
 
   async joinRoom(roomId) {
     if (this.roomId) {
-      console.log("cannot exist in multiple rooms!!!");
+      console.log("cannot exist in multiple rooms");
       return;
     }
 
