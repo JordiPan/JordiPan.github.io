@@ -1,6 +1,7 @@
 class View {
   constructor() {
     this.title = document.getElementById("title");
+    this.footer = document.getElementById("footer");
     this.turn = document.getElementById("turn");
     this.winsScore1 = document.getElementById("win1");
     this.winsScore2 = document.getElementById("win2");
@@ -44,6 +45,7 @@ class View {
     this.startWindow.classList.add("hidden");
     this.playingField.classList.remove("hidden");
     this.title.classList.add("hidden");
+    this.footer.classList.add("hidden");
   }
   hidePlayingField() {
     //onnodig??
@@ -58,6 +60,7 @@ class View {
     this.statBlock2.classList.remove("player-two-turn");
     this.startWindow.classList.remove("hidden");
     this.title.classList.remove("hidden");
+    this.footer.classList.remove("hidden");
   }
   getNames() {
     return [this.formName1.value, this.formName2.value];

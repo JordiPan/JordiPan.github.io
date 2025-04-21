@@ -32,6 +32,7 @@ export class Controller extends BaseController {
         this.model.resetTurnCount();
         this.model.resetPlayers();
         this.view.hidePlayingField();
+        this.view.resetNames();
     }
     //kan meer opgesplitst worden placing/winnaar checking/verander beurt
     handlePlacing(colPlacement) {
