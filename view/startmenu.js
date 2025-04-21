@@ -10,7 +10,6 @@ export class StartMenu {
     this.regex = /^[^ ].+[^ ]$/;
 
     // TODO: doe in env aan het eind (niet super nodig, maar ja)
-    this.backendUrl = "http://localhost:3000";
     this.activeController;
     this.init();
   }
@@ -193,7 +192,7 @@ export class StartMenu {
   
   async connect() {
     this.showLoading(this.startWindow);
-    const result = await Client.initialize(this.backendUrl);
+    const result = await Client.initialize();
   
     if (result) {
       this.changeToOnline();

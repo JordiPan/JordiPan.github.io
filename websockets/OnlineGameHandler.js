@@ -7,7 +7,7 @@ class OnlineGameHandler {
     this.roomId = null;
     this.room = null;
     this.playerColor = null;
-
+    this.backendUrl = "http://localhost:3000";
     this.callbacks = {
         refresh: null,
         startGame: null,
@@ -15,9 +15,9 @@ class OnlineGameHandler {
         rematch: null
     }
   }
-  initialize(serverUrl) {
+  initialize() {
     return new Promise((resolve) => {
-      this.socket = io(serverUrl, {
+      this.socket = io(this.backendUrl, {
         reconnectionAttempts: 2,
         reconnectionDelay: 2000,
         timeout: 5000

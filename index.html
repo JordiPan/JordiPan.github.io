@@ -10,10 +10,18 @@
     <title>4 op een rij 🔴🔵</title>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -56,18 +64,18 @@
         </div>
         <div class="col-md-8" id="flex-game">
           <p id="turn-text">Beurt: <span id="turn">???</span></p>
-            <button
-              class="icon-button inactive red-hover"
-              id="stop"
-              type="button"
-              title="Terug naar offline modus"
-            >
-              <img
-                src="./img/black/back-icon.svg"
-                alt="back to offline button"
-                class="icon menu-icon"
-              />
-            </button>
+          <button
+            class="icon-button inactive red-hover"
+            id="stop"
+            type="button"
+            title="Terug naar offline modus"
+          >
+            <img
+              src="./img/black/back-icon.svg"
+              alt="back to offline button"
+              class="icon menu-icon"
+            />
+          </button>
           <div id="flex-board">
             <div class="inactive" id="board"></div>
           </div>
@@ -90,7 +98,11 @@
         <p id="winner"></p>
       </div>
       <div class="button-collection">
-        <button class="icon-button green-hover" id="rematch" title="Speel nog een keer">
+        <button
+          class="icon-button green-hover"
+          id="rematch"
+          title="Speel nog een keer"
+        >
           <img
             src="./img/black/retry-icon.svg"
             alt="play again"
@@ -108,6 +120,9 @@
       </div>
     </div>
 
+    <footer>
+      <p id="footer-text">@Jordi Pan</p>
+    </footer>
     <script type="module" src="./view/StartMenu.js"></script>
     <script type="module" src="websockets/OnlineGameHandler.js"></script>
     <script
