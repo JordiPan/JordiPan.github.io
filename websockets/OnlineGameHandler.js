@@ -7,7 +7,8 @@ class OnlineGameHandler {
     this.roomId = null;
     this.room = null;
     this.playerColor = null;
-    this.backendUrl = "http://localhost:3000";
+    // this.backendUrl = "http://localhost:3000";
+    this.backendUrl = "https://four-in-a-row-backend.onrender.com";
     this.callbacks = {
         refresh: null,
         startGame: null,
