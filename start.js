@@ -1,4 +1,4 @@
-import { StartMenu } from "./view/StartMenu.js";
+import { StartMenu } from "/view/StartMenu.js";
 window.addEventListener("load", () => {
     new StartMenu();
   },
