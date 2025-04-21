@@ -30,10 +30,7 @@ export class Controller extends BaseController {
 
     handleStop() {
         this.model.resetTurnCount();
-        this.model.resetWins();
-        this.model.resetNames();
-
-        this.view.resetNames();
+        this.model.resetPlayers();
         this.view.hidePlayingField();
     }
     //kan meer opgesplitst worden placing/winnaar checking/verander beurt
@@ -57,7 +54,7 @@ export class Controller extends BaseController {
             let winnerColor = this.model.getTurnColor();
             this.model.updateWins(winnerColor);
 
-            this.view.setWins([this.model.getCounter1(), this.model.getCounter2()]);
+            this.view.setWins(this.model.getWins());
             this.view.endGame(this.model.getTurnName());
             return;
         }

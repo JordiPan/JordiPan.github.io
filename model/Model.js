@@ -14,13 +14,11 @@ export class Model {
   constructor() {
     this.AiModel = new AiModel();
     this.gamemode;
-    this.turnColor;
-    this.currentTurnName = "???";
-    this.name1;
-    this.name2;
-    this.counter1 = 0;
-    this.counter2 = 0;
-    this.turnCount = 0;
+    this.players = [];
+    this.turnInfo = {
+      player: {},
+      count: 0
+    }
     this.board = new Array(Model.rows);
   }
 
@@ -42,45 +40,36 @@ export class Model {
     return this.gamemode;
   }
   resetTurnCount() {
-    this.turnCount = 0;
+    this.turnInfo.count = 0;
   }
-  resetNames() {
-    this.name1 = '';
-    this.name2 = '';
+  resetPlayers() {
+    this.players = [];
   }
-  resetWins () {
-    this.counter1 = 0;
-    this.counter2 = 0;
-  };
   decideFirst() {
     //1 of 2 randomizer
     this.decider = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
     if (this.decider == 1) {
-      this.currentTurnName = this.name1;
-      this.turnColor = 'blue';
+      this.turnInfo.player = this.players[0];
     } else {
-      this.currentTurnName = this.name2;
-      this.turnColor = 'red';
+      this.turnInfo.player = this.players[1];
     }
   }
   setNames(players) {
-    this.name1 = players[0];
-
-    if (players[1] === '') {
-      this.name2 = this.AiModel.getDifficulty()+ "-" + this.AiModel.getName();
-    }
-    else {
-      this.name2 = players[1];
+    for (let i = 0; i < players.length; i++) {
+      if (players[i] === '') {
+        this.players.push(this.makePlayer(this.AiModel.getDifficulty()+ "-" + this.AiModel.getName(), i));
+      }
+      this.players.push(this.makePlayer(players[i], i));
     }
   }
   getNames() {
-    return [this.name1, this.name2];
+    return [this.players[0].username, this.players[1].username];
   }
   // for-loop begint beneden en gaat naar boven, zodat het zwaartekracht simuleert. Als de vakje "leeg" is dan wordt het "vol"
   placeModelChip(col) {
     for (let row = 5; row >= 0; row--) {
       if (this.board[row][col] === "") {
-        this.board[row][col] = this.turnColor;  
+        this.board[row][col] = this.turnInfo.player.color;  
         //placement niet echt nodig??
         return [row, col];
       }
@@ -101,8 +90,8 @@ export class Model {
 
       if (count >= 4) return 2;
     }
-    this.turnCount++;
-    if (this.turnCount == 42) {
+    this.turnInfo.count++;
+    if (this.turnInfo.count == 42) {
       return 1;
     }
     return 0;
@@ -114,7 +103,7 @@ export class Model {
     while (
         row >= 0 && row < Model.rows &&
         col >= 0 && col < Model.cols &&
-        this.board[row][col] === this.turnColor
+        this.board[row][col] === this.turnInfo.player.color
     ) {
         count++;
         row += dirRow;
@@ -123,45 +112,52 @@ export class Model {
     return count;
   }
   getTurnName() {
-    return this.currentTurnName;
+    return this.turnInfo.player.username;
   }
-
   getTurnColor() {
-    return this.turnColor;
+    return this.turnInfo.player.color;
   }
   switchTurn() {
-    if (this.turnColor == 'blue') {
-        this.currentTurnName = this.name2;
-        this.turnColor = 'red'
+    if (this.turnInfo.player.color === this.players[0].color) {
+        this.turnInfo.player = this.players[1];
     }
     else {
-        this.currentTurnName = this.name1
-        this.turnColor = 'blue'
+        this.turnInfo.player = this.players[0];
     }
   }
   updateWins(winnerColor) {
-    if(winnerColor == 'blue') {
-      this.counter1 += 1;
+    if(winnerColor === this.players[0].color) {
+      this.players[0].wins += 1;
       return;
     }
-    this.counter2 += 1;
+    this.players[1].wins += 1;
   }
-
   isAiTurn() {
     return this.getGameMode() == 'ai' && this.getTurnColor() == 'red';
   }
-  
   makeAiMove() {
     return this.AiModel.decide(this.board);
   }
   getBoard() {
     return this.board;
   }
-  getCounter1() {
-    return this.counter1;
+  getWins() {
+    let wins = [];
+    this.players.forEach(player => {
+      wins.push(player.wins)
+    });
+    return wins;
   }
-  getCounter2() {
-    return this.counter2;
+  makePlayer(username, pos) {
+    let color = 'blue';
+    if(pos === 1) {
+      color = 'red';
+    }
+    return {
+      username,
+      wins: 0,
+      color
+    };
   }
 }
 export default new Model();
