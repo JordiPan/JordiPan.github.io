@@ -146,7 +146,7 @@ class Templates {
     <div class="button-collection">
     <button type="button" id="exit-waiting-button" class="icon-button red-hover" title="Terug">
       <img
-        src="./img/black/back-icon.svg"
+        src="./img/black/enter-icon.svg"
         alt="back to online button"
         class="icon menu-icon"
       />
