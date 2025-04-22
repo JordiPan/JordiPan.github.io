@@ -13,7 +13,7 @@ class Templates {
       name="gamemode"
       required
     >
-      <option selected value="">Kies een optie!!</option>
+      <option selected value="">Kies een optie</option>
       <option value="local">Lokaal</option>
       <option value="ai">AI</option>
     </select>
