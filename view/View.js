@@ -13,7 +13,7 @@ class View {
     this.spaces = document.getElementsByClassName("item");
     this.winner = document.getElementById("winner");
     this.rematch = document.getElementById("rematch");
-    this.startWindow = document.getElementById("start-window");
+    this.startWindow = document.getElementById("form-container");
     this.stop = document.getElementById("stop");
     this.cancel = document.getElementById("cancel");
     this.statBlock1 = document.getElementById("shadow-one");
