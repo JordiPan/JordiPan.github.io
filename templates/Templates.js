@@ -62,7 +62,7 @@ class Templates {
 <div class="button-collection">
 <button id="start-button" class="icon-button green-hover" title="Speel">
   <img
-    src="./img/black/enter-icon.svg"
+    src="./img/black/check-icon.svg"
     alt="enter-icon"
     id="enter-icon"
     class="menu-icon icon"
@@ -180,7 +180,7 @@ class Templates {
       <div class="join-button-col">
         <button id="join-button" type="button" data-room-id="${roomId}" class="icon-button green-hover" title="Kamer binnengaan">
           <img
-            src="./img/black/enter-icon.svg"
+            src="./img/black/check-icon.svg"
             alt="play offline game"
             class="menu-icon icon"
           />
@@ -201,7 +201,7 @@ class Templates {
     return `
     <button type="button" id="start-online-button" class="icon-button green-hover" title="Start online spel">
       <img
-        src="./img/black/enter-icon.svg"
+        src="./img/black/check-icon.svg"
         alt="enter icon"
         class="menu-icon icon"
       />
