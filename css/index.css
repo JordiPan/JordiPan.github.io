@@ -151,11 +151,18 @@ h1 {
    background-color: rgba(0, 0, 0, 0.05);
    transition: background-color 0.5s ease;
    width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
 }
 .icon-button:hover {
    background-color: rgba(0, 0, 0, 0.1);
 }
 .icon-button:hover .icon {
+   opacity: 0.9;
+}
+.icon-button:hover p {
    opacity: 0.9;
 }
 .menu-icon {
@@ -166,9 +173,15 @@ h1 {
    opacity: 0.6;
    transition: opacity 0.5s ease;
 }
-#retry-icon {
-   width: 2.2rem;
+p {
+   margin: 0 !important;
+   pointer-events: none;
+   opacity: 0.6;
+   transition: opacity 0.5s ease;
 }
+/* #retry-icon {
+   width: 2.2rem;
+} */
 #result-window {
    position: fixed !important;
    top: 50%;

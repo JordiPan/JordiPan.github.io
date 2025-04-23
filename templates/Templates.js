@@ -67,6 +67,7 @@ class Templates {
     id="enter-icon"
     class="menu-icon icon"
   />
+  <p>Speel</p>
 </button>
 
 <button id="online-button" type="button" class="icon-button blue-hover" title="Ga online">
@@ -76,6 +77,7 @@ class Templates {
     id="online-icon"
     class="menu-icon icon"
   />
+  <p>Online</p>
 </button>
 </div>
 `;
@@ -99,19 +101,13 @@ class Templates {
 </div>
 
 <div class="button-collection">
-<button class="icon-button red-hover" id="back-button" type="button" title="Terug naar offline">
-    <img
-      src="./img/black/offline-icon.svg"
-      alt="back to offline button"
-      class="icon menu-icon"
-    />
-  </button>
   <button class="icon-button green-hover" id="create-button" type="button" title="Maak een kamer">
     <img
       src="./img/black/create-icon.svg"
       alt="create a room button"
       class="icon menu-icon"
     />
+    <p>Maak kamer</p>
   </button>
   <button class="icon-button blue-hover" id="find-button" type="button" title="Zoek spelers">
     <img
@@ -119,6 +115,15 @@ class Templates {
       alt="check for rooms button"
       class="icon menu-icon"
     />
+    <p>Zoek kamer</p>
+  </button>
+  <button class="icon-button red-hover" id="back-button" type="button" title="Terug naar offline">
+    <img
+      src="./img/black/offline-icon.svg"
+      alt="back to offline button"
+      class="icon menu-icon"
+    />
+    <p>Terug</p>
   </button>
 </div>
 `;
@@ -150,6 +155,7 @@ class Templates {
         alt="back to online button"
         class="icon menu-icon"
       />
+      <p>Terug</p>
     </button>
     ${button}
   </div>`;
@@ -163,11 +169,12 @@ class Templates {
       alt="back to offline"
       class="icon menu-icon"
     />
+    <p>Naar offline modus</p>
   </button>
   </div>`;
   }
   getNoPlayersError() {
-    return `Niemand wilt dit spel spelen....`;
+    return `Geen Kamers gevonden...`;
   }
   getRoom(roomId, creator, count) {
     return `
@@ -184,6 +191,7 @@ class Templates {
             alt="play offline game"
             class="menu-icon icon"
           />
+          <p>Ga in</p>
         </button>
       </div>
     </div>`;
@@ -205,6 +213,7 @@ class Templates {
         alt="enter icon"
         class="menu-icon icon"
       />
+      <p>Start</p>
     </button>`;
   }
 }
