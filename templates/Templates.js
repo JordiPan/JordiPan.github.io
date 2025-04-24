@@ -161,7 +161,10 @@ class Templates {
   </div>`;
   }
   getErrorWindow() {
-    return `<div class="content"><h2>Probleem met server...</h2></div>
+    return `<div class="content">
+    <h2>Probleem met server...</h2>
+    <p>(Het duurt ongeveer 1 minuut om de server op te starten)</p>
+    </div>
     <div class="button-collection">
   <button class="icon-button red-hover" id="back-button" type="button" title="Naar offline modus">
     <img
